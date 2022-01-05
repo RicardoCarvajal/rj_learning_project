@@ -1,0 +1,5 @@
+# Hola papa
+type Query {
+  documento(numero: Int!, caja: String!): Documento
+}
+

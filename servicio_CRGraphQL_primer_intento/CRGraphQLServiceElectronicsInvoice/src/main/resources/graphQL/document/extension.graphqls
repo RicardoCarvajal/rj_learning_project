@@ -1,0 +1,14 @@
+# Informacion adicional de la transacción
+
+type Extension {
+  totalItems: Float
+  totalDescu: Float
+  nombEntrega: String
+  docuEntrega: String
+  codEmpleado: String
+  nombRecibe: String
+  docuRecibe: String
+  observaciones: String
+  placaVehiculo: String
+  autoFitoSanitaria: String
+}

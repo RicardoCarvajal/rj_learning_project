@@ -1,0 +1,6 @@
+# Actividad del emisor o giro de actividad economica
+
+type Actividad {
+  codActividad: String
+  descActividad: String
+}

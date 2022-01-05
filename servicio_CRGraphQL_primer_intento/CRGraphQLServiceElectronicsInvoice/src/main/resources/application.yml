@@ -1,0 +1,42 @@
+database:
+   datasource:
+      driver: com.ibm.as400.access.AS400JDBCDriver
+      url: jdbc:as400://servidor400/
+      schema: schema
+      username: username
+      password: password
+
+options:
+   id:
+      namestore: 88
+      epanit: 30 
+      epanrc: 0
+      numberbiller: 0
+      email: 0 
+      phone: 91
+      category: 0
+      typeInstitucion: 0
+      activitiEpa: 0
+      activitiEpaDesc: 0
+      municipalityCode: 0
+      departmentCode: 0
+      directionEpa: 31
+      municipalityCodeStore: 0
+      departmentCodeStore: 0
+      directionStore: 89
+      numberStore: 1
+      
+      
+   
+      
+services:
+   properties:
+      version: 2
+      env: 00
+      money: USD
+      modeltype: 1
+      modeloperation: 1
+      retentionPay: 15 
+      amountExtension: 11428.57
+
+

@@ -1,0 +1,20 @@
+# Emisor del documento electronico, para epa los campos medico, fecSujExcl, cartaVenta siempre iran en null
+
+type Emisor {
+  nit: String
+  nrc: String
+  numFacturador: String
+  nombre: String
+  actividad1: Actividad
+  actividad2: Actividad
+  nombreComercial: String
+  tipoEstablecimiento: Int
+  telefono: String
+  correo: String
+  direccion: Direccion
+  categoria: Int
+  sucursal: Sucursal
+  medico: String
+  fecSujExcl: String
+  cartaVenta: String
+}

@@ -1,0 +1,7 @@
+# El tipo dirección es usado tanto para el emisor como para la sucursal 
+
+type Direccion {
+  departamento: String
+  municipio: String
+  complemento: String
+}

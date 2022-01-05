@@ -1,0 +1,15 @@
+# Documento con todo lo necedario para tramitar la factura electronica, el campo documentoRelacionado siempre sera null 
+
+type Documento {
+  id: String
+  numero: Int	
+  documentoRelacionado: String
+  identificacion: Identificacion!
+  emisor: Emisor!
+  receptor: Receptor!
+  ventaTercero: String
+  cuerpoDocumento: [CuerpoDocumento]
+  resumen: Resumen
+  extension: Extension
+  apendice: String
+}

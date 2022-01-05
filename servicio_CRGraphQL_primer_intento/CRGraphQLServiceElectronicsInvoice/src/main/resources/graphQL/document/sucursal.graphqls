@@ -1,0 +1,9 @@
+# El detalle de la sucursal del emisor
+
+type Sucursal {
+  codigo: String
+  puntoVenta: String
+  nombre: String
+  telefono: String
+  direccion: Direccion
+}

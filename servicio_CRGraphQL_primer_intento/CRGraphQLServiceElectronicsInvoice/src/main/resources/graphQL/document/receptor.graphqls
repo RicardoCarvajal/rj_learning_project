@@ -1,0 +1,15 @@
+# El receptor del cliente, lo cual es el detalle de el cliente que efectua la compra
+
+type Receptor {
+  nit: String
+  nrc: String
+  nombre: String
+  actividad: Actividad
+  nombreComercial: String
+  direccion: Direccion
+  categoria: Int
+  telefono: String
+  correo: String
+  fecSujExcl: String
+  numFacturador: String
+}

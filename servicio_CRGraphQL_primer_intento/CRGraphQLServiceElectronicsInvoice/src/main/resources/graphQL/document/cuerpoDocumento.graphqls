@@ -1,0 +1,19 @@
+#El cuerpo del documento tiene los datos de los articulos de una transacción
+
+type CuerpoDocumento {
+  numItem: Int
+  tipoItem: Int
+  codigo: String
+  descripcion: String
+  cantidad: Float
+  uniMedida: Int
+  precioUni: Float
+  montoDescu: Float
+  ventaNoSuj: Float
+  ventaExenta: Float
+  ventaGravada: Float
+  noGravado: Float
+  tributos: [Int]
+  psv: Int
+  diferencial: Int
+}

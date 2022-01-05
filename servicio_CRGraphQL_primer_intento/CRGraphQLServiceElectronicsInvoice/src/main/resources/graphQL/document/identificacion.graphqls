@@ -1,0 +1,16 @@
+#Identificacion del documento electronico
+
+type Identificacion {
+  version: Int
+  ambiente: String
+  tipoDte: String
+  numeroControl: String
+  codigoGeneracion: String
+  tipoModelo: Int
+  tipoOperacion: Int
+  tipoContingencia: Int
+  motivoContin: String
+  fecEmi: String
+  horEmi: String
+  tipoMoneda: String
+} 

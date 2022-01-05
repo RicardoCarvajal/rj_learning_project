@@ -1,0 +1,26 @@
+# Almacena todo el resumen a nivel de montos totales en la transacción 
+
+type Resumen {
+  totalNoSuj: Float
+  totalExenta: Float
+  totalGravada: Float
+  subTotalVentas: Float
+  descuento: Float
+  porcentajeDescuento: Float
+  totalIva: Float
+  subTotal: Float
+  ivaPerci1: Float
+  ivaRete1: Float
+  fovial: Float
+  cotrans: Float
+  turismo: Float
+  adValorem: Float
+  montoTotalOperacion: Float
+  totalNoGravado: Float
+  totalPagar: Float
+  totalLetras: String
+  saldoFavor: Float
+  condicionOperacion: Float
+  pago: [Pago]
+  numPagoElectronico: String
+}

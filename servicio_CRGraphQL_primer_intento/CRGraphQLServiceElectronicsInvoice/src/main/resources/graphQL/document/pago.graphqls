@@ -1,0 +1,9 @@
+# Detalla cada pago de la transacción
+
+type Pago {
+  codigo: String
+  descripcion: String
+  referencia: String
+  periodo: [Float]
+  plazo: [Float]
+}
