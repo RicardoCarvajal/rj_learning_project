@@ -1,0 +1,11 @@
+#Instalacion de postgresql 
+
+sudo apt install postgresql postgresql-contrib
+
+#Crear BD y usuario en consola
+
+create user platzi with encrypted password 'platzi';
+
+create database platzi;
+
+grant all privileges on database platzi to platzi;
