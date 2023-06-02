@@ -60,6 +60,59 @@ chmod 755 pruebas.txt
 chmod u-x,go=w pruebas.txt
 
 
+# Busqueda
+
+# Buscar desde el directorio donde me encuentro todo los archivos punto txt, para luego reisarlo con less
+
+find ./ -name *.txt | less
+
+# Con la opcion (-type d ) busca lo que son directorios, si colocamos (f) solo buscara archivos
+
+find ./ -type d -name Documentos
+
+# Con la opcion (-size) podemos buscar archivos por tamaño, todos los mayores al valor especificados
+
+find ./ -size 20M
+
+
+# El comando grep
+
+# Buscar todas las lineas que tengan la palabra "the"
+
+grep the movies.csv
+
+# Desactivar el case sensitive
+
+grep -i the movies.csv
+
+# Contar el numero de palabras "the" encontradas
+
+grep -c the movies.csv
+
+# Se puede convinar los dos anteriores
+
+grep -ci the movies.csv
+
+# Excluir las lineas que contengan "towers"
+
+grep -v towers movies.csv
+
+# Comando wc para ver cuantas lineas, palabras y bits tiene un archivo. Se puede tener los valores por separados usando los parametros -l,-w,-c respectivamente
+
+wc movies.csv
+
+wc -l movies.csv
+wc -w movies.csv
+wc -c movies.csv
+
+
+
+
+
+
+
+
+
 
 
 
