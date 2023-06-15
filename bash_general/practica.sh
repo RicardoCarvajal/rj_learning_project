@@ -105,16 +105,49 @@ wc -l movies.csv
 wc -w movies.csv
 wc -c movies.csv
 
+#Comprimir un directorio con todos sus archivos dentro en un .tar.gz
+#c de comprimir
+#v de vervoso para ver que hace cuando comprime
+#f de file
+#luego viene como se llamara el comprimido
+
+tar -cvf compres.tar compres/
 
 
+#Comprimir un directorio con todos sus archivos dentro en un .tar.gz
+#c de comprimir
+#v de vervoso para ver que hace cuando comprime
+#z para .gz
+#f de file
+#luego viene como se llamara el comprimido
+
+tar -cvzf compres.tar.gz compres/
 
 
+#Descomprimiri un directorio con todos sus archivos dentro en un .tar
+#x de descomprimir
 
+tar -xvf compres.tar 
 
+#Descomprimiri un directorio con todos sus archivos dentro en un .tar.gz
+#x de descomprimir
 
+tar -xvzf compres.tar.gz 
 
+#Comprimir un directorio con todos sus archivos dentro en un .zip
+#r para hacerlo recursivo
 
+zip -r compres.zip compres/
 
+#Descomprimir un directorio con todos sus archivos dentro en un .zip
+
+unzip compres.zip 
+
+#Envia proceso a background con &
+cat > mi_nota.txt &
+
+#Recorrer los aparatos de la red
+traceroute www.google.com
 
 
 
