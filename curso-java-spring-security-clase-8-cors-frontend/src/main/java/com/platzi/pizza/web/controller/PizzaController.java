@@ -1,6 +1,7 @@
 package com.platzi.pizza.web.controller;
 
-import com.platzi.pizza.persistence.entity.PizzaEntity;
+import com.platzi.pizza.persitence.entity.OrderEntity;
+import com.platzi.pizza.persitence.entity.PizzaEntity;
 import com.platzi.pizza.service.PizzaService;
 import com.platzi.pizza.service.dto.UpdatePizzaPriceDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,6 @@ public class PizzaController {
     }
 
     @GetMapping("/{idPizza}")
-    //@CrossOrigin("http://localhost:4200") con esta configuracion puedo dar acceso a una peticion con origen crusado, de otra aplicacion web CORS
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza) {
         return ResponseEntity.ok(this.pizzaService.get(idPizza));
     }

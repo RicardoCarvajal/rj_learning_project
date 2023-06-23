@@ -24,7 +24,5 @@ var miFuncion2 = function (a,b) {
 
 miFuncion2(2,3);
 
-
-
    
    
