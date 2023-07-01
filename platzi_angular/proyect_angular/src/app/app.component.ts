@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { People } from './people.model'
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,27 @@ export class AppComponent {
     apellido: "Carvajal",
     edad: 39
   }
+
+  names:string[] = ['Ricardo', 'Angelica', 'Miguel'];
+  newName: string = '';
+
+  peopleArray: People[] = [
+    {
+        firstname: 'Freddy',
+        lastname: 'Vega',
+        age: 35
+    },
+    {
+        firstname: 'Nicolas',
+        lastname: 'Molina',
+        age: 29
+    },
+    {
+        firstname: 'Ángela',
+        lastname: 'Ocando',
+        age: 30
+    }
+  ];
 
   toggleButton() {
     this.isDisable = !this.isDisable;
@@ -39,6 +60,13 @@ export class AppComponent {
     this.persona.nombre = element.value;
   }
 
+  addName(){
+    this.names.push(this.newName);
+  }
+
+  deleteName(index:number){
+    this.names.splice(index,1);
+  }
 
 
 
