@@ -3,16 +3,14 @@ package com.platzi.pizza.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
 	
 	@Bean
@@ -31,12 +29,12 @@ public class SecurityConfig {
 		//Con las dos lineas siguientes no necesitas roles y permites todo
         //		.requestMatchers(HttpMethod.GET,"/api/pizzas**")
         //		.permitAll()
-		.requestMatchers(HttpMethod.GET,"/api/pizzas**")
-		.hasAnyRole("ADMIN","CAJERO")
-		.requestMatchers(HttpMethod.POST,"/api/pizzas**")
-		.hasRole("ADMIN")
+		.requestMatchers(HttpMethod.GET,"/api/pizzas/**").hasAnyRole("ADMIN","CAJERO")
+		.requestMatchers(HttpMethod.POST,"/api/pizzas/**").hasRole("ADMIN")
+		.requestMatchers("/api/customers/**").hasAnyRole("ADMIN","CAJERO")
 		.requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
-		.requestMatchers("/api/orders**").hasRole("ADMIN")//Permite todos los metodos
+		.requestMatchers(HttpMethod.POST,"/api/orders/random").hasAuthority("random_order")//Autorizacion para otros roles de este endpoint especifico
+		.requestMatchers("/api/orders/**").hasRole("ADMIN")//Permite todos los metodos (El orden es muy importante)
 		//Con la linea siguiente deniegas todo
         //		.requestMatchers(HttpMethod.PUT).denyAll()
 		.anyRequest()
@@ -49,6 +47,14 @@ public class SecurityConfig {
 	}
 	
 	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}	
+	
+	
+//Trabajando con usuarios sencillos en memoria	
+/*	
+	@Bean
 	public UserDetailsService memoryUsers() {
 		UserDetails admin = User.builder().username("admin").password(passwordEncoder().encode("admin")).roles("ADMIN").build();
 		
@@ -56,10 +62,7 @@ public class SecurityConfig {
 		
 		return new InMemoryUserDetailsManager(admin, cajero);
 	}
+*/
 	
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-
+	
 }
