@@ -1,7 +1,7 @@
 ## Probando markdown en github
 
 
-```java:
+```java
 
     public void run() {
 
