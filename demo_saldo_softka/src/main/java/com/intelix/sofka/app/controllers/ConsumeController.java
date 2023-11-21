@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.intelix.sofka.app.request.RequestMovement;
 import com.intelix.sofka.app.response.Response;
 import com.intelix.sofka.app.servicios.imp.AccountServiceImp;
-import com.intelix.sofka.app.servicios.imp.DepositCommissionServicesImp;
-import com.intelix.sofka.app.servicios.imp.DepositServicesImp;
+import com.intelix.sofka.app.servicios.imp.ConsumeCommissionServicesImp;
+import com.intelix.sofka.app.servicios.imp.ConsumeServicesImp;
 
 @RestController
-@RequestMapping("/api/deposit")
-public class DepositController {
+@RequestMapping("/api/buys")
+public class ConsumeController {
 
-	private final DepositServicesImp depositServicesImp;
-	private final DepositCommissionServicesImp depositCommissionServicesImp;
+	private final ConsumeServicesImp consumeServicesImp;
+	private final ConsumeCommissionServicesImp consumeCommissionServicesImp;
 	private final AccountServiceImp accountServiceImp;
 
-	public DepositController(DepositServicesImp depositServicesImp,
-			DepositCommissionServicesImp depositCommissionServicesImp, AccountServiceImp accountServiceImp) {
-		this.depositServicesImp = depositServicesImp;
-		this.depositCommissionServicesImp = depositCommissionServicesImp;
+	public ConsumeController(ConsumeServicesImp depositServicesImp,
+			ConsumeCommissionServicesImp depositCommissionServicesImp, AccountServiceImp accountServiceImp) {
+		this.consumeServicesImp = depositServicesImp;
+		this.consumeCommissionServicesImp = depositCommissionServicesImp;
 		this.accountServiceImp = accountServiceImp;
 	}
 
@@ -32,7 +32,7 @@ public class DepositController {
 
 		if (accountServiceImp.findAccountById(movement.getAccount().get_id()).isPresent()) {
 			return ResponseEntity.ok(Response.createResponse().setStatus("200").setMessage("Cuenta actualizada")
-					.setAccount(depositServicesImp.generateDeposit(
+					.setAccount(consumeServicesImp.generateConsume(
 							accountServiceImp.findAccountById(movement.getAccount().get_id()).get(), movement))
 					.build());
 		}
@@ -46,7 +46,7 @@ public class DepositController {
 
 		if (accountServiceImp.findAccountById(movement.getAccount().get_id()).isPresent()) {
 			return ResponseEntity.ok(Response.createResponse().setStatus("200").setMessage("Cuenta actualizada")
-					.setAccount(depositCommissionServicesImp.generateDeposit(
+					.setAccount(consumeCommissionServicesImp.generateConsume(
 							accountServiceImp.findAccountById(movement.getAccount().get_id()).get(), movement))
 					.build());
 		}

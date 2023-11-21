@@ -1,14 +1,13 @@
 package com.intelix.sofka.app.response;
 
-import java.math.BigDecimal;
+import com.intelix.sofka.app.documents.Account;
 
 import lombok.Getter;
 
 @Getter
 public class Response {
 	private String status;
-	private BigDecimal amount;
-	private BigDecimal balance;
+	private Account account;
 	private String message;
 
 	public static Response createResponse() {
@@ -20,13 +19,8 @@ public class Response {
 		return this;
 	}
 
-	public Response setAmount(BigDecimal amount) {
-		this.amount = amount;
-		return this;
-	}
-
-	public Response setBalance(BigDecimal balance) {
-		this.balance = balance;
+	public Response setAccount(Account account) {
+		this.account = account;
 		return this;
 	}
 

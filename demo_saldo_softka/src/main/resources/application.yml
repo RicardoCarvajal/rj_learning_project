@@ -1,0 +1,15 @@
+spring:
+   data:
+      mongodb:
+         host: localhost
+         port: 27017
+         database: sofkaBank
+         username: ${USERMONGO}
+         password: ${PASSMONGO}
+         authentication-database: admin 
+
+logging:
+   level:
+     org.springframework.data.mongodb.core.ReactiveMongoTemplate: DEBUG 
+     
+     
