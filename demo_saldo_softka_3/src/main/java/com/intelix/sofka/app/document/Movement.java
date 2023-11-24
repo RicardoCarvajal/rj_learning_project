@@ -1,7 +1,6 @@
 package com.intelix.sofka.app.document;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,7 +11,7 @@ public class Movement {
 	@Id
 	private String id;
 
-	private UUID idAccount;
+	private String idAccount;
 
 	private BigDecimal amount;
 
@@ -28,7 +27,7 @@ public class Movement {
 		return id;
 	}
 
-	public UUID getIdAccount() {
+	public String getIdAccount() {
 		return idAccount;
 	}
 
@@ -48,7 +47,7 @@ public class Movement {
 		this.id = id;
 	}
 
-	public void setIdAccount(UUID idAccount) {
+	public void setIdAccount(String idAccount) {
 		this.idAccount = idAccount;
 	}
 
@@ -75,7 +74,7 @@ public class Movement {
 		return this;
 	}
 
-	public Movement idAccount(UUID idAccount) {
+	public Movement idAccount(String idAccount) {
 		this.idAccount = idAccount;
 		return this;
 	}

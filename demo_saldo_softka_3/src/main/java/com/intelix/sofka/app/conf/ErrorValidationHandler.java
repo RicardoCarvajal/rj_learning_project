@@ -3,6 +3,7 @@ package com.intelix.sofka.app.conf;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
@@ -46,6 +47,14 @@ public class ErrorValidationHandler {
 
 		return ResponseEntity.badRequest()
 				.body(Response.createResponse().status("400").data(errors).message("Ups!! algo salio mal").build());
+	}
+
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ResponseEntity<Response> handleIntegrityException(DataIntegrityViolationException ex) {
+
+		return ResponseEntity.badRequest().body(
+				Response.createResponse().status("500").data(ex.getMessage()).message("Ups!! algo salio mal").build());
 	}
 
 }

@@ -7,6 +7,13 @@ spring:
          username: ${USERMONGO}
          password: ${PASSMONGO}
          authentication-database: admin 
+   datasource:
+      driver-class: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/sofkabank
+      username: ${USERMYSQL}
+      password: ${PASSMYSQL}
+   jpa:
+      show-sql: true
 
 commission:
    atm:
