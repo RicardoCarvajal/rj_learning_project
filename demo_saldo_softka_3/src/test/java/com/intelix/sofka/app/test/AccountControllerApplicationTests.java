@@ -1,4 +1,4 @@
-package com.intelix.sofka.app;
+package com.intelix.sofka.app.test;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;

@@ -1,4 +1,4 @@
-package com.intelix.sofka.app;
+package com.intelix.sofka.app.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
