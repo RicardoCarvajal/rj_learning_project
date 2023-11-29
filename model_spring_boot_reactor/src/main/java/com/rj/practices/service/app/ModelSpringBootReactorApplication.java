@@ -39,22 +39,19 @@ public class ModelSpringBootReactorApplication implements CommandLineRunner {
 		practiceMergeFluxZipWith(false);
 		practiceMergeFluxZipWithTwo(false);
 		practiceRange(false);
-		practiceInterval(false);
+		practiceInterval(true);
 		practiceDelay(false);
 		practiceIntervalInfinite(false);
 		practiceIntervalInfiniteButWithError(false);
 		practiceCreate(false);
 		practiceBackPressure(false);
-		practiceBackPressuretwo(true);
+		practiceBackPressuretwo(false);
 	}
-	
+
 	private void practiceBackPressuretwo(boolean execute) {
 		if (execute) {
 			System.out.println("#######################Ejemplo16###############");
-			Flux.range(1, 30)
-				.log()
-				.limitRate(20)
-				.subscribe(System.out::println);
+			Flux.range(1, 30).log().limitRate(20).subscribe(System.out::println);
 
 		}
 	}
@@ -68,7 +65,7 @@ public class ModelSpringBootReactorApplication implements CommandLineRunner {
 
 				private Integer limit = 20;
 				private Integer consumer = 0;
-				
+
 				@Override
 				public void onSubscribe(Subscription s) {
 					this.s = s;
@@ -79,8 +76,8 @@ public class ModelSpringBootReactorApplication implements CommandLineRunner {
 				public void onNext(Integer t) {
 					System.out.println(t.toString());
 					consumer++;
-					if(consumer == limit) {
-						consumer=0;
+					if (consumer == limit) {
+						consumer = 0;
 						s.request(limit);
 					}
 				}
@@ -163,9 +160,7 @@ public class ModelSpringBootReactorApplication implements CommandLineRunner {
 		if (execute) {
 			System.out.println("#######################Ejemplo11###############");
 
-			Flux<Integer> rango = Flux.range(1, 12)
-					.delayElements(Duration.ofSeconds(1))
-					.doOnNext(System.out::println);
+			Flux<Integer> rango = Flux.range(1, 12).delayElements(Duration.ofSeconds(1)).doOnNext(System.out::println);
 			/*
 			 * Este metodo no se debe usar ya que en programacion reactiva no podemos hacer
 			 * esto solo es para visualizar el ejemplo del deley
