@@ -1,6 +1,7 @@
 package com.intelix.sofka.app.test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -33,7 +34,11 @@ public class AggregationAccountTest {
 		List<ResposeAccount> result = mongoTemplate.aggregate(aggregation, Account.class, ResposeAccount.class)
 				.getMappedResults();
 
-		assertThat(result).isNotNull();
+		assertThat(result).isNotEmpty();
+
+		result.forEach(a -> {
+			assertTrue(a.getActive());
+		});
 	}
 
 }
