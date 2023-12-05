@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  sofkabankapp:
+    build: .                                                                        
+    image: sofkabankapp:1.0
+    container_name: sofkabankapp
+    ports:
+      - ${D_PORTAPP_C}:${D_PORTAPP_L}
+    depends_on:
+      - mongodb
+      - rabbitmq  
+  
+  mongodb:
+    image: mongo:latest
+    container_name: sofkabankmongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${D_USERMONGO}
+      - MONGO_INITDB_ROOT_PASSWORD=${D_PASSMONGO}
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${D_AUTHUSERMONGO}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${D_AUTHPASSMONGO}           
+    ports:
+      - ${D_PORTDB_C}:${D_PORTDB_L}
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: sofkabankrabbit
+    environment:
+      - RABBITMQ_DEFAULT_USER=${D_RABBITUSER}
+      - RABBITMQ_DEFAULT_PASS=${D_RABBITPASS}
+    ports:
+      - ${D_RABBITPORTS_C}:${D_RABBITPORTS_L}
+      - ${D_RABBITPORTS_PORTAL_C}:${D_RABBITPORTS_PORTAL_L}
+              

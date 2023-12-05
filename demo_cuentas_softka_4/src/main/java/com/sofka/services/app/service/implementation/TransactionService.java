@@ -5,14 +5,13 @@ import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.sofka.services.app.drivenAdapter.bus.RabbitMqSender;
-import com.sofka.services.app.drivenAdapter.repository.IAccountRepository;
-import com.sofka.services.app.drivenAdapter.repository.ITransactionRepository;
 import com.sofka.services.app.dto.AccountDto;
 import com.sofka.services.app.dto.CustomerDto;
 import com.sofka.services.app.dto.DepositDto;
 import com.sofka.services.app.dto.TransactionDto;
 import com.sofka.services.app.entity.Transaccion;
+import com.sofka.services.app.repository.IAccountRepository;
+import com.sofka.services.app.repository.ITransactionRepository;
 import com.sofka.services.app.service.ITransactionService;
 import com.sofka.services.app.service.utils.DepositType;
 
@@ -35,13 +34,9 @@ public class TransactionService implements ITransactionService {
 
 	private final IAccountRepository accountReporitory;
 
-	private final RabbitMqSender rabbitMqSender;
-
-	public TransactionService(ITransactionRepository transactionRepository, IAccountRepository accountReporitory,
-			RabbitMqSender rabbitMqSender) {
+	public TransactionService(ITransactionRepository transactionRepository, IAccountRepository accountReporitory) {
 		this.transactionRepository = transactionRepository;
 		this.accountReporitory = accountReporitory;
-		this.rabbitMqSender = rabbitMqSender;
 	}
 
 	@Override
@@ -62,22 +57,15 @@ public class TransactionService implements ITransactionService {
 
 		return accountReporitory.findByid(idAccount).flatMap(c -> {
 
-			Transaccion transaccion = new Transaccion(c, amount, c.getSaldo_global(),
+			return transactionRepository.save(new Transaccion(c, amount, c.getSaldo_global(),
 					c.getSaldo_global().add(amount.subtract(typeTransaction(type))), typeTransaction(type),
-					type.toString());
-
-			return transactionRepository.save(transaccion);
+					type.toString()));
 
 		}).flatMap(t -> {
 			t.getCuenta().setSaldo_global(t.getSaldo_final());
-			// return accountReporitory.save(t.getCuenta());
-			return accountReporitory.save(null);
+			return accountReporitory.save(t.getCuenta());
 		}).map(c -> {
-			return new DepositDto(c.getId(), amount);
-		}).onErrorResume(e -> {
-			System.out.println("Bommm! error: " + e.getMessage());
-			rabbitMqSender.senderData(new DepositDto(idAccount, amount.subtract(typeTransaction(type)).negate()));
-			return Mono.just(new DepositDto(idAccount, BigDecimal.ZERO));
+			return new DepositDto(c.getId(), amount, type.name());
 		});
 
 	}

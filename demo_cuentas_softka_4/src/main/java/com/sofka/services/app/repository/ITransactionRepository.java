@@ -1,4 +1,4 @@
-package com.sofka.services.app.drivenAdapter.repository;
+package com.sofka.services.app.repository;
 
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 

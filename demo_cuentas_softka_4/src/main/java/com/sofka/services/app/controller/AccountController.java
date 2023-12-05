@@ -1,4 +1,4 @@
-package com.sofka.services.app.handlers.controller;
+package com.sofka.services.app.controller;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;

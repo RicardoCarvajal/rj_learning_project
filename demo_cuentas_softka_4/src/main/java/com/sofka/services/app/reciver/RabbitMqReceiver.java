@@ -1,4 +1,4 @@
-package com.sofka.services.app.handlers.bus;
+package com.sofka.services.app.reciver;
 
 import java.math.BigDecimal;
 
@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 import com.google.gson.Gson;
 import com.sofka.services.app.configuration.RabbitConf;
-import com.sofka.services.app.drivenAdapter.repository.IAccountRepository;
-import com.sofka.services.app.drivenAdapter.repository.IRevertRepository;
-import com.sofka.services.app.drivenAdapter.repository.ITransactionRepository;
 import com.sofka.services.app.dto.DepositDto;
 import com.sofka.services.app.entity.Reverso;
 import com.sofka.services.app.entity.Transaccion;
+import com.sofka.services.app.repository.IAccountRepository;
+import com.sofka.services.app.repository.IRevertRepository;
+import com.sofka.services.app.repository.ITransactionRepository;
 
 import reactor.rabbitmq.Receiver;
 
@@ -32,7 +32,6 @@ public class RabbitMqReceiver implements CommandLineRunner {
 
 	public RabbitMqReceiver(ITransactionRepository transactionRepository, IAccountRepository accountReporitory,
 			IRevertRepository iRevertRepository) {
-
 		this.transactionRepository = transactionRepository;
 		this.accountReporitory = accountReporitory;
 		this.iRevertRepository = iRevertRepository;

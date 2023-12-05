@@ -1,4 +1,4 @@
-package com.sofka.services.app.drivenAdapter.bus;
+package com.sofka.services.app.sender;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
