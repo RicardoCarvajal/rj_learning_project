@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   sofkabankapp:
+    env_file:
+      - app.env
     build: .                                                                        
     image: sofkabankapp:1.0
     container_name: sofkabankapp
@@ -13,14 +15,11 @@ services:
   
   mongodb:
     image: mongo:latest
-    container_name: sofkabankmongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${D_USERMONGO}
-      - MONGO_INITDB_ROOT_PASSWORD=${D_PASSMONGO}
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${D_AUTHUSERMONGO}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${D_AUTHPASSMONGO}           
+    container_name: sofkabankmongo           
     ports:
       - ${D_PORTDB_C}:${D_PORTDB_L}
+    volumes:
+      - ./data:/data/db
 
   rabbitmq:
     image: rabbitmq:3.12-management

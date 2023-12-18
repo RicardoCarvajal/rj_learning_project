@@ -63,7 +63,7 @@ public class TransactionService implements ITransactionService {
 
 		}).flatMap(t -> {
 			t.getCuenta().setSaldo_global(t.getSaldo_final());
-			return accountReporitory.save(t.getCuenta());
+			return accountReporitory.save(null);
 		}).map(c -> {
 			return new DepositDto(c.getId(), amount, type.name());
 		});

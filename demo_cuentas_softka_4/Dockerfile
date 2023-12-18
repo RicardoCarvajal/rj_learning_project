@@ -1,38 +1,12 @@
+FROM maven:3-eclipse-temurin-21 AS build
+WORKDIR /app
+COPY . /app
+RUN mvn dependency:go-offline
+RUN mvn package
+
 FROM eclipse-temurin:17-jdk-jammy
 
-ENV D_PORTAPP_C 8080
-ENV D_PORTAPP_L 8080
-
-ENV D_FISICA 0.00
-ENV D_WEB 5.00
-ENV D_DEPOSITO 2.00
-ENV D_CUENTA 1.50
-ENV D_SUCURSAL 0.00
-
-ENV D_RABBITUSER admin
-ENV D_RABBITPASS admin
-ENV D_RABBITPORTS_C 5672
-ENV D_RABBITPORTS_L 5672
-ENV D_RABBITPORTS_PORTAL_C 15672
-ENV D_RABBITPORTS_PORTAL_L 15672
-ENV D_RABBITURL amqp://$D_RABBITUSER:$D_RABBITPASS@rabbitmq:$D_RABBITPORTS_L
-
-ENV D_HOSTDB mongodb
-ENV D_PORTDB_C 27017
-ENV D_PORTDB_L 27017
-ENV D_DBMONGO sofkaBank
-ENV D_PASSMONGO admin
-ENV D_USERMONGO admin
-ENV D_AUTHPASSMONGO admin
-ENV D_AUTHUSERMONGO admin
-
+COPY --from=build /app/target/Cuenta_Bancaria_Web-0.0.1-SNAPSHOT.jar /app/app.jar
 WORKDIR /app
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-
-RUN ./mvnw dependency:resolve
-
-COPY src ./src
-
-CMD ["./mvnw", "spring-boot:run"]
+CMD [ "java", "-jar", "/app/app.jar" ]

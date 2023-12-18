@@ -39,6 +39,7 @@ public class RabbitConf {
 
 	@Bean
 	public AmqpAdmin amqpAdmin() {
+		System.out.println(uri_name);
 		CachingConnectionFactory connectionFactory = new CachingConnectionFactory(URI.create(uri_name));
 		var amqpAdmin = new RabbitAdmin(connectionFactory);
 
@@ -57,6 +58,7 @@ public class RabbitConf {
 	@Bean
 	public Mono<Connection> connMono() throws KeyManagementException, NoSuchAlgorithmException, URISyntaxException {
 		ConnectionFactory connectionFactory = new ConnectionFactory();
+		System.out.println(uri_name);
 		connectionFactory.setUri(uri_name);
 		connectionFactory.useNio();
 		return Mono.fromCallable(() -> connectionFactory.newConnection());
