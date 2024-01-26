@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.rj.applications.service</groupId>
     <artifactId>unit_test_app</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>unit_test_app</name>
     <description>Demo project for Spring Boot</description>
     <properties>

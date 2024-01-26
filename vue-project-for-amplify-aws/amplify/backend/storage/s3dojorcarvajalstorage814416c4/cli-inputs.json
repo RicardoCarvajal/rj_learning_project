@@ -1,0 +1,10 @@
+{
+  "resourceName": "s3dojorcarvajalstorage814416c4",
+  "bucketName": "dojo-rcarvajal-storage-814416c4",
+  "policyUUID": "2e384b41",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ]
+}

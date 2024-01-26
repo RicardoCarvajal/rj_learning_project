@@ -1,0 +1,38 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dojorcarvajal-staging-150805-authRole",
+      "UnauthRoleArn": "arn:aws:iam::054670858840:role/amplify-dojorcarvajal-staging-150805-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::054670858840:role/amplify-dojorcarvajal-staging-150805-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-dojorcarvajal-staging-150805-deployment",
+      "UnauthRoleName": "amplify-dojorcarvajal-staging-150805-unauthRole",
+      "StackName": "amplify-dojorcarvajal-staging-150805",
+      "StackId": "arn:aws:cloudformation:us-west-2:054670858840:stack/amplify-dojorcarvajal-staging-150805/0b75f110-b938-11ee-813c-0a2fbdf4db8b",
+      "AmplifyAppId": "d1g4yy6kfvg5au"
+    },
+    "categories": {
+      "auth": {
+        "dojorcarvajal": {}
+      },
+      "hosting": {
+        "S3AndCloudFront": {}
+      },
+      "storage": {
+        "s3dojorcarvajalstorage814416c4": {}
+      },
+      "api": {
+        "dojorcarvajal": {}
+      },
+      "function": {
+        "dojoCarvajalGetTareas": {
+          "apiDojorcarvajalGraphqlapiendpointoutput": "https://qkcf42ylebfudeoqfjbrwozpci.appsync-api.us-west-2.amazonaws.com/graphql",
+          "apiGraphqlapiendpointoutput": "https://qkcf42ylebfudeoqfjbrwozpci.appsync-api.us-west-2.amazonaws.com/graphql",
+          "apiGraphqlapikeyoutput": "da2-l7h7ein2lraydbc6bc2cipgkie",
+          "deploymentBucketName": "amplify-dojorcarvajal-staging-150805-deployment",
+          "s3Key": "amplify-builds/dojoCarvajalGetTareas-6446386856483157496f-build.zip"
+        }
+      }
+    }
+  }
+}
