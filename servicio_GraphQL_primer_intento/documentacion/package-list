@@ -1,9 +1,0 @@
-com.intelix.service.GraphQLServices
-com.intelix.service.GraphQLServices.conf
-com.intelix.service.GraphQLServices.entitys
-com.intelix.service.GraphQLServices.models
-com.intelix.service.GraphQLServices.repository
-com.intelix.service.GraphQLServices.resolvers
-com.intelix.service.GraphQLServices.resolvers.query
-com.intelix.service.GraphQLServices.utils
-com.intelix.test.service.GraphQLServices
