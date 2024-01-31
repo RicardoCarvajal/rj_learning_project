@@ -13,16 +13,16 @@ Los proyectos de este repositorio, son proyectos para el aprendizaje de diversas
 
 **basic_projects**
 
-	__spring_boot_data_jpa__ Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot Data JPA
+	* spring_boot_data_jpa Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot Data JPA
 
-	__spring_boot_general__ Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot
+	* spring_boot_general Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot
 
-	__spring_boot_graphQL__ Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot GraphQL con Spring Boot Data JPA 
+	* spring_boot_graphQL Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot GraphQL con Spring Boot Data JPA 
 
-	__spring_boot_reactive_unit_test__ Este proyecto muestra cómo hacer pruebas unitarias en un servicio Spring Boot Reactivo, tanto para las rutas como para los casos de uso 
+	* spring_boot_reactive_unit_test Este proyecto muestra cómo hacer pruebas unitarias en un servicio Spring Boot Reactivo, tanto para las rutas como para los casos de uso 
 
-	__spring_boot_security__ Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot Security
+	* spring_boot_security Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot Security
 
-	__spring_boot_vaadin_jpa__ Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot con Vaadin y Spring Boot Data JPA 
+	* spring_boot_vaadin_jpa Este proyecto contiene las bases de cómo se implementa un servicio de Spring Boot con Vaadin y Spring Boot Data JPA 
 
 
