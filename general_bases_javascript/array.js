@@ -33,5 +33,3 @@ console.log(posicion);
 var frutasAcumuladas = [["manzana", "peras", "naranjas"],["manzana", "peras", "naranjas"],["manzana", "peras", "naranjas"]];
 
 console.log(frutasAcumuladas);
-
-
