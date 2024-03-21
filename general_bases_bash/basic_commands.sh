@@ -149,9 +149,32 @@ cat > mi_nota.txt &
 #Recorrer los aparatos de la red
 traceroute www.google.com
 
+#############################################################
+#############################################################
+###############Comandos personalizados#######################
+#############################################################
+#############################################################
+
+#Con el siguiente comando buscamos un texto dentro de todos
+#los archivos de un directrio y sus subdirectorios
+#con find . se buscan todox los archivos en el directorio
+#actual, el comando -exec sirve para ejecutar un comando 
+#por cada archivo, con grep se busca el texto en el archivo
+# el comando -l se usa para listar solo el nombr del archivo 
+
+find . -exec grep -l 'texto de ejemplo' {} +
 
 
+#Con este archivo se puede renombrar todos los 
+#archivos de un directorio, primero
+# se recorren todos los archivos de una
+#extencion determinada (for FILE in *.extencion)
+#luego se sustituye el nombre devuelto por el
+#nombre nuevo ( NEWFILE=`echo $FILE | sed 's/cadena_original/cadena_nueva/g')
+#y luego se usan las variables FILE y NEWFILE para renombrar 
+#el nombre de cada archivo que se va recorriendo, con el comando mv
 
+for FILE in *.extencion ; do NEWFILE=`echo $FILE | sed 's/cadena_original/cadena_nueva/g'` ; mv "$FILE" $NEWFILE ; done
 
 
 
