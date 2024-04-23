@@ -10,6 +10,8 @@ Los proyectos de este repositorio, son proyectos para el aprendizaje de diversas
 
 **general_bases_javascript:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación JavaScript
 
+**general_bases_python:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación python
+
 
 **basic_projects:**
 
