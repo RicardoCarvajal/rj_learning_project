@@ -10,6 +10,7 @@ print(var_age)
 var_name = "Maria"
 print(var_name)
 
-#tambien podemos manejar una entrada en consola facilmente
+#Tambien podemos manejar una entrada en consola facilmente
+#cabe destacar que la funcion input() retorna siempre un string aun que se le pase un numero o un booleano
 var_name = input("Ingrese su nombre: ")
 print(var_name)
