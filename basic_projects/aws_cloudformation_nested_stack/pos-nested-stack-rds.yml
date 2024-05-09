@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Parameters:
+  DBUsername:
+    Type: String
+  DBPassword:
+    Type: String
+
+Resources:
+  rdsDBSubnetGroupAte: 
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties: 
+      DBSubnetGroupDescription: pos-ate-stack-rds-subnetGroup
+      SubnetIds: 
+        - !ImportValue subnetVpcRdsOne
+        - !ImportValue subnetVpcRdsTwo
+        - !ImportValue subnetVpcRdsThree        
+      Tags: 
+        - Key: Name
+          Value: pos-ate-stack-rds-subnetGroup
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  rdsDataBaseAte:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: "rds-ate-pos-int"
+      DBName: "rdsatepos"
+      MultiAZ: false
+      DBInstanceClass: "db.t3.micro"
+      AllocatedStorage: "20"
+      Engine: MySQL
+      EngineVersion: "8.0.35"
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true
+      DBSubnetGroupName: !Ref rdsDBSubnetGroupAte
+      VPCSecurityGroups: 
+        - !ImportValue instanceSecurityGroup
+      Port: "3306"
+      Tags: 
+        - Key: Name
+          Value: pos-ate-stack-rds
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop

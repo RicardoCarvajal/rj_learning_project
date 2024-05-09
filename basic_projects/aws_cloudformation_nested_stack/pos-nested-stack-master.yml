@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: Clave y contraseña de la base de datos
+        Parameters:
+          - DBUsername
+          - DBPassword
+    ParameterLabels:
+      DBUsername:
+        default: Ingrese el usuario
+      DBPassword:
+        default: Ingrese la contraseña
+Parameters:
+  DBUsername:
+    NoEcho: 'true'
+    Description: Usuario de la base de datos
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: debe comenzar con una letra y contener sólo caracteres alfanuméricos.
+  DBPassword:
+    NoEcho: 'true'
+    Description: Clave de la base de datos
+    Type: String
+    MinLength: '8'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: debe contener sólo caracteres alfanuméricos.
+
+Resources:
+  rdsVpcStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://atestack-arjxxxz858.s3.amazonaws.com/pos-nested-stack-vpc.yml
+  rdsStack:
+    Type: AWS::CloudFormation::Stack
+    DependsOn: rdsVpcStack
+    Properties:
+      TemplateURL: https://atestack-arjxxxz858.s3.amazonaws.com/pos-nested-stack-rds.yml
+      Parameters:
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword     

@@ -1,0 +1,131 @@
+AWSTemplateFormatVersion: 2010-09-09
+
+Resources:
+  vpcRds:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: '10.23.0.0/16'
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  subnetVpcRdsOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref vpcRds
+      AvailabilityZone: us-east-1a
+      CidrBlock: '10.23.1.0/24'
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc-subnet-1
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  subnetVpcRdsTwo:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref vpcRds
+      AvailabilityZone: us-east-1b
+      CidrBlock: '10.23.2.0/24'
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc-subnet-2
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  subnetVpcRdsThree:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref vpcRds
+      AvailabilityZone: us-east-1c
+      CidrBlock: '10.23.3.0/24'
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc-subnet-3
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  routeTableVpcRds:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref vpcRds
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc-route
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  subnetRouteTableAssociation1:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref subnetVpcRdsOne
+      RouteTableId: !Ref routeTableVpcRds
+  subnetRouteTableAssociation2:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref subnetVpcRdsTwo
+      RouteTableId: !Ref routeTableVpcRds
+  subnetRouteTableAssociation3:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref subnetVpcRdsThree
+      RouteTableId: !Ref routeTableVpcRds
+  instanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: SecurityGroup para bases de datos MySql RDS
+      VpcId: !Ref vpcRds
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          CidrIp: 0.0.0.0/0
+          Description: Permite el acceso desde cualquier IP
+  internetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: pos-ate-stack-vpc-igw
+        - Key: stack
+          Value: pos-ate-stack
+        - Key: environment
+          Value: develop
+  attachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref vpcRds
+      InternetGatewayId: !Ref internetGateway
+  routeIg:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref routeTableVpcRds
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref internetGateway
+
+Outputs:
+  subnetVpcRdsOne:
+      Value: !Ref subnetVpcRdsOne
+      Export:
+        Name: subnetVpcRdsOne
+  subnetVpcRdsTwo:
+      Value: !Ref subnetVpcRdsTwo
+      Export:
+        Name: subnetVpcRdsTwo
+  subnetVpcRdsThree:
+      Value: !Ref subnetVpcRdsThree
+      Export:
+        Name: subnetVpcRdsThree
+  instanceSecurityGroup:
+      Value: !Ref instanceSecurityGroup
+      Export:
+        Name: instanceSecurityGroup        
