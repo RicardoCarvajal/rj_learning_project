@@ -40,3 +40,67 @@ print(type(setLista))
 lista = list(setLista)
 print(lista)
 print(type(lista))
+
+#Modificar un conjunto CRUD
+#Ver cuantos elementos hay dentro de un conjunto
+
+size = len(types)
+print(size)
+
+#Verificar si existe un elemento dentro de un conjunto
+print('col' in country)
+
+#Añadir un elemento a un conjunro
+country.add('pe')
+print(country)
+#Otra forna de añadir elementos es la siguiente
+country.update({'arg','ecu'})
+print(country)
+
+#Eliminar un elemento del conjunto
+country.remove('col')# Si el elemento no existe lanza un error ejemplo: country.remove('co') -> KeyError: 'co'
+print(country)
+
+#Hay otro metodo para eliminar que si no tiene el elemento no falla la aplicacion
+country.discard('co')
+print(country)
+
+#Para limpiar todo el conjunto podemos usar el siguiente comando
+country.clear()
+print(country)
+
+#Operaciones de conjuntos 
+
+#Union de dos conjuntos
+countrys_a = {'col', 'ven', 'ecu'}
+countrys_b = {'mex', 'per', 'col'}
+
+countrys_c = countrys_a.union(countrys_b)
+
+print(countrys_c)
+
+#Podemos hacer lo mismo con el operador |
+
+print(countrys_a | countrys_b)
+
+#Intersepcion de conjuntos
+#La intercepcion me trae solo los elementos comunes en los dos comunes
+countrys_d = countrys_a.intersection(countrys_b)
+print(countrys_d)
+
+#Podemos hacer lo mismo con el operador &
+print(countrys_a & countrys_b)
+
+#Conseguir diferencias, me dara los paises de (a) que no estan en (b)
+countrys_e = countrys_a.difference(countrys_b)
+print(countrys_e)
+
+#Tambien se puede hacer lo mismo con el operador (-)
+print(countrys_a - countrys_b)
+
+#Union sin los elementos comunes
+countrys_f = countrys_a.symmetric_difference(countrys_b)
+print(countrys_f)
+
+#Tambien se puede hacer lo mismo con el operador ^)
+print(countrys_a ^ countrys_b)
