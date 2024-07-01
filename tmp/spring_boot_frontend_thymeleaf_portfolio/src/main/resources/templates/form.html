@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+<h1 th:text="${titulo}"></h1>
+<div class="container">
+    <br>
+    <a th:href="@{/lista}">VOLVER +</a>
+    <br>
+    <br>
+    <form th:action="@{/form}" method="post" th:object="${project}">
+        <div class="mb-3">
+            <input th:if="${project.id != null}" type="hidden" th:field="*{id}">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput1" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="exampleInput1" aria-describedby="help1" th:field="*{name}">
+            <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput2" class="form-label">Descripcion</label>
+            <input type="text" class="form-control" id="exampleInput2" aria-describedby="help2" th:field="*{description}">
+            <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput3" class="form-label">Porcentaje</label>
+            <input type="number" class="form-control" id="exampleInput3" aria-describedby="help3" th:field="*{percentage}">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput4" class="form-label">Porcentaje de desvio</label>
+            <input type="number" class="form-control" id="exampleInput4" aria-describedby="help4" th:field="*{deviationPercentage}">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput5" class="form-label">Area</label>
+            <input type="text" class="form-control" id="exampleInput5" aria-describedby="help5" th:field="*{area}">
+            <small th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></small>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput6" class="form-label">Obcervacion</label>
+            <input type="text" class="form-control" id="exampleInput6" aria-describedby="help6" th:field="*{observations}">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInput8" class="form-label">Fecha final</label>
+            <input type="date" class="form-control" id="exampleInput8" aria-describedby="help8" th:field="*{requestDateFinalPlan}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <br>
+        <br>
+    </form>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
