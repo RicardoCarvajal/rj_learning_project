@@ -1,6 +1,6 @@
 #Trabajando con archivos
 
-file = open('32_files/text.txt')
+file = open('text.txt')
 
 #Leer todo el contenido del archivo
 #print(file.read())
@@ -18,6 +18,6 @@ file.close()
 #Una forma mas comun de leer los archivos en python es la siguiente
 #de la siguiente manera python cierra el archivo automaticamente
 
-with open('32_files/text.txt') as file:
+with open('text.txt') as file:
     for line in file:
         print(line)
