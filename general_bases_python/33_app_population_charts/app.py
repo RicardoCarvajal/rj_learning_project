@@ -2,8 +2,22 @@
 import csv
 import matplotlib.pyplot as ptl
 
-
 NAME_FILE = 'world_population.csv'
+
+def read_csv_population_percentage(path):
+    with open(path,'r') as file:
+        reader = csv.reader(file)
+        header = next(reader)
+        data = []
+        for row in reader:
+            iterable = zip(header,row)
+            country_dictionary_list = {key: value for key,value in iterable}
+            data.append(country_dictionary_list)
+        percentages = list(map(lambda dict: (
+            dict['Country/Territory'] , float(dict['World Population Percentage'])
+        ),data))
+        percentages_dictionary = {country: percentage for country, percentage in percentages if percentage>1}
+        return percentages_dictionary
 
 def read_csv_population(path):
     with open(path,'r') as file:
@@ -27,7 +41,9 @@ def read_csv_population(path):
         },data))                     
         return anios     
 
-list_anios_populations_countrys = read_csv_population(NAME_FILE)            
+list_anios_populations_countrys = read_csv_population(NAME_FILE)
+
+list_percentage = read_csv_population_percentage(NAME_FILE)
 
 def chart_country_population(country,list_anios_populations_countrys):
     country_population = list(filter(lambda item : item['Country']==country,list_anios_populations_countrys))
@@ -40,9 +56,19 @@ def chart_country_population(country,list_anios_populations_countrys):
     labels.reverse()
     values.reverse()
     fig,ax = ptl.subplots()
+    ax.set_title(f'Population of {country}')
     ax.bar(labels,values)
     ptl.show()
 
-chart_country_population('Venezuela',list_anios_populations_countrys)
+def chart_country_population_percentage(list_percentage):
+    labels = list(list_percentage.keys())
+    values = list(list_percentage.values())
+    fig,ax = ptl.subplots()
+    ax.set_title('Percentage Population')
+    ax.pie(values, labels=labels)
+    ax.axis('equal')
+    ptl.show()    
 
+#chart_country_population('Venezuela',list_anios_populations_countrys)
+chart_country_population_percentage(list_percentage)
 

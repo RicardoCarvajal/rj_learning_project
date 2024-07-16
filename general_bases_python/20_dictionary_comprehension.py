@@ -51,6 +51,8 @@ ages = [40, 23, 69]
 
 data_list = list(zip(names, ages))#Creamos una lista de tuplas
 
+print(data_list)
+
 data = {name: age for (name,age) in data_list if name != 'Ricardo'}#Creamos el diccionario a partir de la lista de tuplas
 
 print(data)
