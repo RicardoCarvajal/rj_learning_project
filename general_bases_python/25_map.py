@@ -11,15 +11,16 @@ for i in numbers_v1:
 numbers_v3 = list(map(lambda i: i * 3, numbers_v1))
 
 #Sumando los valores de dos listas
-numbers_v4 = [1,2,3,4] 
-numbers_v5 = [5,6,7,8] 
+numbers_v4 = [1,2,3,4,1] 
+numbers_v5 = [5,6,7,8,9]
+numbers_v5_v1 = [5,6,7,8,9] 
 
-numbers_v6 = list(map(lambda x,y: x + y, numbers_v4, numbers_v5))
+numbers_v6 = list(map(lambda x,y,z: x + y + z, numbers_v4, numbers_v5,numbers_v5_v1))
 
 print(numbers_v1)
 print(numbers_v2)
 print(numbers_v3)
-print(numbers_v6)
+print("Map con dos parametrso",numbers_v6)
 
 #Map con dicionarios de datos
 products_v1 = [
