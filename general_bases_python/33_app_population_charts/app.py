@@ -58,7 +58,8 @@ def chart_country_population(country,list_anios_populations_countrys):
     fig,ax = ptl.subplots()
     ax.set_title(f'Population of {country}')
     ax.bar(labels,values)
-    ptl.show()
+    ptl.savefig(f'1_{country.lower()}_graf.png')
+    ptl.close()
 
 def chart_country_population_percentage(list_percentage):
     labels = list(list_percentage.keys())
@@ -67,8 +68,9 @@ def chart_country_population_percentage(list_percentage):
     ax.set_title('Percentage Population')
     ax.pie(values, labels=labels)
     ax.axis('equal')
-    ptl.show()    
+    ptl.savefig('2_all_graf.png')
+    ptl.close()    
 
-#chart_country_population('Venezuela',list_anios_populations_countrys)
+chart_country_population('Venezuela',list_anios_populations_countrys)
 chart_country_population_percentage(list_percentage)
 
