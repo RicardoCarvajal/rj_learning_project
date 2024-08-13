@@ -24,7 +24,7 @@ def chart_country_population_percentage(countries, percentages):
     ax.set_title('Percentage Population')
     ax.pie(values, labels=labels)
     ax.axis('equal')
-    ptl.savefig('2_all_graf.png')
+    ptl.savefig('graf.png')
     ptl.close()    
 
 chart_country_population_percentage(countries, percentages)    
