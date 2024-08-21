@@ -3,13 +3,10 @@ from django.views import generic
 from .form import MovementsForm
 from .models import Movement
 
-class MovementsListView(generic.TemplateView):
+class MovementsListView(generic.ListView):
+    model=Movement
     template_name = 'list_movements.html'
-    def get_context_data(self):
-        list_movements = Movement.objects.all()
-        return {
-            'list_movements': list_movements
-        }
+    context_object_name = 'list_movements'
 
 class MovementsFormView(generic.FormView):
     template_name = 'add_movements.html'

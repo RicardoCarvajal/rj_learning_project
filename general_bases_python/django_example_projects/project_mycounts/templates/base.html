@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>Control de cuentas 💰</title>
+    </head>
+    <body>   
+       
+        {% if user.is_authenticated %}
+            Hola, {{user.username}}
+        {% else %}
+            <a href="{% url "app_login" %}">LOGIN</a>
+        {% endif %}   
+        <div>
+            <h1>APP de control de cuentas personales</h1>  
+        </div>
+        <div>
+            {% block content %}{% endblock  %}
+        </div>
+    </body>
+</html>

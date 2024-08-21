@@ -7,4 +7,4 @@ class Movement(models.Model):
     items = models.TextField(max_length=200)
 
     def __str__(self):
-        return self.local_amount    
+        return self.items    
