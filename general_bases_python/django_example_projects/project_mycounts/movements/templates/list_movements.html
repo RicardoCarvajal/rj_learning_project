@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Gastos e ingresos 💰</title>
+    </head>
+    <body>        
+        <table>
+            <tr>
+                <td>ITEM</td>
+                <td>MONTO</td>
+                <td>MONTO EN DIVISAS</td>                
+                <td>FECHA</td>                
+            </tr>
+            {% for movement in list_movements %}
+            <tr>
+                <td>{{movement.items}}</td>
+                <td>{{movement.local_amount}}</td>
+                <td>{{movement.foreign_exchange}}</td>                
+                <td>{{movement.date}}</td>                
+            </tr>
+            {% endfor %}            
+        </table>
+        <a href = "{% url "add_movements" %}">INGRESAR MOVIMIENTO</a>
+    </body>
+</html>
