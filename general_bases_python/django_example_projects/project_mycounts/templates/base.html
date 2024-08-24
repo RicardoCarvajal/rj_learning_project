@@ -7,12 +7,16 @@
         <title>Control de cuentas 💰</title>
     </head>
     <body>   
-       
         {% if user.is_authenticated %}
             Hola, {{user.username}}
+            <form action="{% url "app_logout" %}" method="post">
+                {% csrf_token %}
+                <button type="submit">LOGOUT</button>
+            </form>
         {% else %}
             <a href="{% url "app_login" %}">LOGIN</a>
         {% endif %}   
+
         <div>
             <h1>APP de control de cuentas personales</h1>  
         </div>

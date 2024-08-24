@@ -1,6 +1,7 @@
 from django import forms
 from .models import Movement
 
+
 class MovementsForm(forms.Form):
     amount = forms.DecimalField(max_digits=10,decimal_places=2,label='MONTO')
     choises_type_movements = (('1','INGRESO'),('2','EGRESO'))
