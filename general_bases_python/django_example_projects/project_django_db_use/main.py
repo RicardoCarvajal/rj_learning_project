@@ -1,8 +1,11 @@
-from query.query_quotation_imp import QueryObjectQuotationImp
+from container.container import Container
 
-query = QueryObjectQuotationImp()
+container = Container()
 
-queote = query.get_quote_by_id('0020001992')
+service = container.get_quotation_use_case()
+
+queote = service.get_quote_to_send('0020000271')
 
 print(type(queote))
-print(queote)
+print(queote.to_dict())
+

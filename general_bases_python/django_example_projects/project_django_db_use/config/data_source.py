@@ -1,20 +1,22 @@
 import django
-from django.conf import settings
 import os
+import boto3
+from django.conf import settings
+
+secret = boto3.client('secretsmanager', region_name='us-east-1')
+env = eval(secret.get_secret_value(SecretId='arn:aws:secretsmanager:us-east-1:960233350828:secret:ate/dev/common/postgres-MINKtj')['SecretString'])
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'autopricing.settings')
-
 settings.configure(
         DATABASES = {
             'default': {
                     'ENGINE': 'django.db.backends.postgresql',
-                    'HOST': 'devate-common-services-pgproxy.proxy-c74uyu8qee5o.us-east-1.rds.amazonaws.com',
-                    'USER': 'masteradmin',
-                    'PASSWORD': 'T%qS],.:9N=ehLz)',        
-                    'NAME': 'autopricing_cr',
-                    'PORT': '5432',
+                    'HOST': env['host'],
+                    'USER': env['username'],
+                    'PASSWORD': env['password'],        
+                    'NAME': env['dbname'],
+                    'PORT': env['port'],
                 },
             }
         )
-
 django.setup()
