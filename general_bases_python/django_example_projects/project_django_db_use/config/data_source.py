@@ -3,8 +3,11 @@ import os
 import boto3
 from django.conf import settings
 
+region = os.environ['AWS_REGION']
+seret_data_base = os.environ['SECRET_DB']
+
 secret = boto3.client('secretsmanager', region_name='us-east-1')
-env = eval(secret.get_secret_value(SecretId='arn:aws:secretsmanager:us-east-1:960233350828:secret:ate/dev/common/postgres-MINKtj')['SecretString'])
+env = eval(secret.get_secret_value(SecretId=seret_data_base)['SecretString'])
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'autopricing.settings')
 settings.configure(

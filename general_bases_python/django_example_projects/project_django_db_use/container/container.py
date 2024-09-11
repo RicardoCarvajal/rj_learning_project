@@ -1,7 +1,5 @@
 from repository.quotation.quotation_repository_django import QueryObjectQuotationDjango
-from repository.quotation_det.quotation_det_repository_django import (
-    QueryObjectQuotationDetDjango,
-)
+from repository.quotation_det.quotation_det_repository_django import QueryObjectQuotationDetDjango
 from use_case.qutation_get_use_case import QuotationGetUseCase
 
 
