@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% load static %}
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'general.css' %}">
         <title>Danzas Eimily 🩰</title>
     </head>
     <body>
         <div>
-            <h1>Bienvenido Academia de Danzas Eimily</h1>  
-        </div>
-        <div>
-            {% block content %}{% endblock  %}
+            <div>
+                <img src="{% static 'logo.png' %}" alt='DanzasEimily' width="120" height="100"/>
+                <h1 class='general_h1'>Academia de Danzas Eimily</h1>  
+                {% if user.is_authenticated %} 
+                <h1>Hola, {{user.first_name}}</h1>
+                <form action={% url "logout" %} method='post'>
+                    {% csrf_token %}
+                    <button type='submit'>Salir</button>
+                </form>
+                {% else %}
+                <a href={% url "login" %}>Ingresar</a>
+                {% endif %}            
+            </div>
+            <div class='general-container'>
+                {% block content %}{% endblock  %}
+            </div>
         </div>
     </body>
 </html>

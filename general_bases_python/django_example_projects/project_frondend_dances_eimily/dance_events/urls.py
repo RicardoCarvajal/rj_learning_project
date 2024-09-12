@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import DanceEventsView
+from .views import DanceEventsView, DanceEventsFormView
 
 urlpatterns = [
     path('list/', DanceEventsView.as_view(),name='list_events'),
-]
+    path('add/', DanceEventsFormView.as_view(),name='add_events'),
+] 

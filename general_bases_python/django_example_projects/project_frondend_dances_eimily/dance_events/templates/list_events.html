@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-{% for events in list_events %}
 <h1>Listado de movimientos</h1>
-{{events.image}}
+{% for events in list_events %}
+{% if events.image %}
+<img src={{events.image.url}} alt={{events.name}} />
+{% endif %}
 <ul>
   <li>{{events.name}}</li>
   <li>{{events.date}}</li>
