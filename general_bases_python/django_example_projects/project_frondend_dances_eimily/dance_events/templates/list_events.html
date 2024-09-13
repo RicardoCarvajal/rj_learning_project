@@ -12,15 +12,15 @@
           {% endif %}
           <div>
             <ul>
-              <li>Nombre:</br>{{events.name}}</li>
-              <li>Fecha:</br>{{events.date}}</li>
-              <li>Descripcion:</br>{{events.description}}</li>
-              <li>Ubicacion:</br>{{events.location}}</li>
+              <li><span>Nombre:</span></br>{{events.name}}</li>
+              <li><span>Fecha:</span></br>{{events.date}}</li>
+              <li><span>Descripcion:</span></br>{{events.description}}</li>
+              <li><span>Ubicacion:</span></br>{{events.location}}</li>
             </ul>
           </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}
 

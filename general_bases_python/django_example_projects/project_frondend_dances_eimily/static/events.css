@@ -20,7 +20,6 @@
     align-items: center;
     flex-direction: column;   
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
-    background-color: yellow;
     margin-bottom: 100px;
     width: 290px;
 }
@@ -37,3 +36,10 @@ li {
     margin-bottom: 20px;
 }
 
+span {
+    font-weight: bold;
+}
+
+body {
+    background-color: white
+}
