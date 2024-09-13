@@ -8,13 +8,13 @@
     </head>
     <header>
         <nav>
-            <div>
-                <div><img src="{% static 'logo.png' %}" alt='DanzasEimily' width="120" height="100"/></div>
+            <div class='nav-div-left'>
+                <div><img class='general-logo' src="{% static 'logo.png' %}" alt='DanzasEimily'/></div>
                 <div><h1 class='general_h1'>Academia de Danzas Eimily</h1></div>
             </div>
-            <div>
+            <div class='nav-div-right'>
                 {% if user.is_authenticated %}
-                <div><h1>Hola, {{user.first_name}}</h1></div>
+                <div class='nav-item-right'><h1>Hola, {{user.first_name}}</h1></div>
                 <div>
                     <form action={% url "logout" %} method='post'>
                         {% csrf_token %}
@@ -22,16 +22,16 @@
                     </form>
                 </div>
                 {% else %}
-                <div><button href={% url "login" %}>Login</button></div>
+                <div><a class='nav-a' href={% url "login" %}>Login</a></div>
                 {% endif %}   
             </div>
         </nav>
     </header>
     <body>
-        <div>
+
             <div class='general-container'>
                 {% block content %}{% endblock  %}
             </div>
-        </div>
+
     </body>
 </html>

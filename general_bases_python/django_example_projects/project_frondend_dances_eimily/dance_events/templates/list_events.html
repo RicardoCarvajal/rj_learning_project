@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Listado de movimientos</h1>
-{% for events in list_events %}
-{% if events.image %}
-<img src={{events.image.url}} alt={{events.name}} />
-{% endif %}
-<ul>
-  <li>{{events.name}}</li>
-  <li>{{events.date}}</li>
-  <li>{{events.description}}</li>
-  <li>{{events.location}}</li>
-</ul>
-{% endfor %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'events.css' %}">
+<div class='event-container'>
+    <div><h1>Eventos</h1></div>
+    <div class='event-container-img'>
+      {% for events in list_events %}
+      <div class='event-container-img-elements'>
+          {% if events.image %}
+          <div><img class='event-img' src={{events.image.url}} alt={{events.name}}/></div>
+          {% endif %}
+          <div>
+            <ul>
+              <li>Nombre:</br>{{events.name}}</li>
+              <li>Fecha:</br>{{events.date}}</li>
+              <li>Descripcion:</br>{{events.description}}</li>
+              <li>Ubicacion:</br>{{events.location}}</li>
+            </ul>
+          </div>
+      </div>
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
 
 
