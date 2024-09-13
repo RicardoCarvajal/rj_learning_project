@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 <div class='login-container '>
     <img class='login_logo' src="{% static 'logo.png' %}" alt='DanzasEimily'/>
     <h1 class='login_h1'>Login</h1>
@@ -9,7 +10,7 @@
     {{form.as_p}}
     <button type='submit' class='login-button'>Ingresar</button>
     </form>
-    <p>¿No tienes una cuenta? <a href="{% url "register" %}">Registrate</a></p>
+    <p class='login_p'>¿No tienes una cuenta? <a href="{% url "register" %}">Registrate</a></p>
 </div>
 {% endblock content %}
 

@@ -6,21 +6,29 @@
         <link rel="stylesheet" type="text/css" href="{% static 'general.css' %}">
         <title>Danzas Eimily 🩰</title>
     </head>
+    <header>
+        <nav>
+            <div>
+                <div><img src="{% static 'logo.png' %}" alt='DanzasEimily' width="120" height="100"/></div>
+                <div><h1 class='general_h1'>Academia de Danzas Eimily</h1></div>
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                <div><h1>Hola, {{user.first_name}}</h1></div>
+                <div>
+                    <form action={% url "logout" %} method='post'>
+                        {% csrf_token %}
+                        <button type='submit'>Logout</button>
+                    </form>
+                </div>
+                {% else %}
+                <div><button href={% url "login" %}>Login</button></div>
+                {% endif %}   
+            </div>
+        </nav>
+    </header>
     <body>
         <div>
-            <div>
-                <img src="{% static 'logo.png' %}" alt='DanzasEimily' width="120" height="100"/>
-                <h1 class='general_h1'>Academia de Danzas Eimily</h1>  
-                {% if user.is_authenticated %} 
-                <h1>Hola, {{user.first_name}}</h1>
-                <form action={% url "logout" %} method='post'>
-                    {% csrf_token %}
-                    <button type='submit'>Salir</button>
-                </form>
-                {% else %}
-                <a href={% url "login" %}>Ingresar</a>
-                {% endif %}            
-            </div>
             <div class='general-container'>
                 {% block content %}{% endblock  %}
             </div>
