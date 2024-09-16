@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'events.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/events.css' %}">
 <div class='event-container'>
-    <div><h1>Eventos</h1></div>
-    <div class='event-container-img'>
+    <h1 class='event-container__tittle'>Eventos</h1>
+    <div class='event-container-grid'>
       {% for events in list_events %}
-      <div class='event-container-img-elements'>
+      <div class='event-container-card'>
           {% if events.image %}
-          <div><img class='event-img' src={{events.image.url}} alt={{events.name}}/></div>
+          <img class='event-container-card__img' src={{events.image.url}} alt={{events.name}}/>
           {% endif %}
-          <div>
             <ul>
-              <li><span>Nombre:</span></br>{{events.name}}</li>
-              <li><span>Fecha:</span></br>{{events.date}}</li>
-              <li><span>Descripcion:</span></br>{{events.description}}</li>
-              <li><span>Ubicacion:</span></br>{{events.location}}</li>
+              <li class='event-container-card__li'>
+                <span class='event-container-card__span'>Nombre:</span></br>{{events.name}}
+              </li>
+              <li class='event-container-card__li'>
+                <span class='event-container-card__span'>Fecha:</span></br>{{events.date}}
+              </li>
+              <li class='event-container-card__li'>
+                <span class='event-container-card__span'>Descripcion:</span></br>{{events.description}}
+              </li>
+              <li class='event-container-card__li'>
+                <span class='event-container-card__span'>Ubicacion:</span></br>{{events.location}}
+              </li>
             </ul>
-          </div>
       </div>
       {% endfor %}
     </div>

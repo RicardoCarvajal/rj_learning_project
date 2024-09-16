@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
 <div class='register-container'>
-    <img class='register_logo' src="{% static 'logo.png' %}" alt='DanzasEimily'/>
-    <form action="" method="post">
+    <img class='register-container__logo' src="{% static 'img/logo.png' %}" alt='DanzasEimily'/>
+    <form class='register-container-form' action="" method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit">Registrarme</button>
+        <button class='register-container-form__button' type="submit">Registrarme</button>
     </form>    
-    <p>¿Ya tienes una cuenta? <a href="{% url "login" %}">Login</a></p>
+    <p class='register-container__text '>¿Ya tienes una cuenta? <a href="{% url "login" %}">Login</a></p>
 </div>
 {% endblock content %}

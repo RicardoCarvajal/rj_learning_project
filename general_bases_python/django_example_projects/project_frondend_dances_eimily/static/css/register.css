@@ -1,0 +1,106 @@
+.register-container {
+    position: relative;
+    display: flex;
+    background-color: #b18cfc;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 720px;
+    width: 500px;
+    border-radius: 15px;
+    box-shadow: 10px 5px 5px #f191f3;
+}
+
+.register-container__logo {
+    width: 180px;
+    height: 130px;
+    margin-bottom: 0px;
+    position: absolute;
+    top: -70px;
+    left: -40px;
+}
+
+.register-container__text {
+    display: block;
+    margin-top: 20px;
+}
+
+.register-container-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;    
+}
+
+.register-container-form__button {
+    background-color: #f191f3;
+    color: black;
+    border-radius: 13px;
+    padding: 10px 20px;
+    border-style: none;
+    font-size: large;   
+    text-decoration: none; 
+}
+
+.register-container-form__button:hover {
+    background-color: #b537b8;
+}
+
+/*Componentes de Django*/
+.register-container-form p {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;      
+}
+
+.register-container-form span {
+    margin-top: 10px;
+    width: 350px;        
+}
+
+.register-container-form input {
+    padding-inline-start: 30px;
+    padding-inline-end: 30px;
+    font-size: x-large;
+    border-radius: 20px;    
+    border: 1px solid #b537b8;
+    text-align: center;  
+}
+
+.register-container-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+.register-container-form input:focus {
+    outline: none;    
+}
+
+.register-container-form ul {
+    padding-left: 10px;
+    width: 350px;
+}
+
+.register-container-form li {
+    margin-bottom: 10px;
+}
+
+.register-container-form li::marker {
+    content: '';
+}
+
+.register-container-form .errorlist {
+    font-size: 12px;
+    margin-top: 3px;
+    color: blueviolet;
+    position: absolute;
+    left: 80px;
+    right: 30px;
+    bottom: 3px;
+    font-weight: bold;
+}
+/*Componentes de Django*/

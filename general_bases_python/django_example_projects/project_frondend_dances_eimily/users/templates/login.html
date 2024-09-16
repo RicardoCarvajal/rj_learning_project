@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <div class='login-container '>
-    <img class='login_logo' src="{% static 'logo.png' %}" alt='DanzasEimily'/>
-    <h1 class='login_h1'>Login</h1>
-    <form action='' method='post'>
+    <img class='login-container__logo' src="{% static 'img/logo.png' %}" alt='DanzasEimily'/>
+    <h1 class='login-container__tittle'>Login</h1>
+    <form class='login-container-form' action='' method='post'>
     {% csrf_token %}
     {{form.as_p}}
-    <button type='submit'>Ingresar</button>
+    <button class='login-container-form__button'type='submit'>Ingresar</button>
     </form>
-    <p class='login_p'>¿No tienes una cuenta? <a href="{% url "register" %}">Registrate</a></p>
+    <p class='login-container__text'>¿No tienes una cuenta? <a href="{% url "register" %}">Registrate</a></p>
 </div>
 {% endblock content %}
 

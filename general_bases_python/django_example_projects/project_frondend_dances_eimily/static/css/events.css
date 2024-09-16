@@ -7,40 +7,38 @@
     border-radius: 15px;
 }
 
-.event-container-img {
+.event-container__tittle {
+    color: #f191f3;
+}
+
+.event-container-grid {
     display: grid;
     justify-content: left;
     grid-template-columns: 1fr 1fr 1fr;
-    border-radius: 15px;
 }
 
-.event-container-img-elements {
+.event-container-card {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;   
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
     margin-bottom: 100px;
     width: 290px;
     border-radius: 15px;
     overflow: hidden;
 }
 
-.event-img {
-    width: 300px;
+.event-container-card__img {
+    width: 100%;
     height: 220px;
     box-shadow: 10px 5px 5px blueviolet;
 }
 
-li {
+.event-container-card__li {
     list-style: none;
     margin-bottom: 20px;
 }
 
-span {
+.event-container-card__span {
     font-weight: bold;
-}
-
-body {
-    background-color: white
 }
