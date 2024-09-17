@@ -5,25 +5,30 @@
 <div class='event-container'>
     <h1 class='event-container__tittle'>Eventos</h1>
     <div class='event-container-grid'>
-      {% for events in list_events %}
+      {% for event in list_events %}
       <div class='event-container-card'>
-          {% if events.image %}
-          <img class='event-container-card__img' src={{events.image.url}} alt={{events.name}}/>
+          {% if event.image %}
+          <img class='event-container-card__img' src={{event.image.url}} alt={{event.name}}/>
           {% endif %}
             <ul>
               <li class='event-container-card__li'>
-                <span class='event-container-card__span'>Nombre:</span></br>{{events.name}}
+                <span class='event-container-card__span'>Nombre:</span></br>{{event.name}}
               </li>
               <li class='event-container-card__li'>
-                <span class='event-container-card__span'>Fecha:</span></br>{{events.date}}
+                <span class='event-container-card__span'>Fecha:</span></br>{{event.date}}
               </li>
               <li class='event-container-card__li'>
-                <span class='event-container-card__span'>Descripcion:</span></br>{{events.description}}
+                <span class='event-container-card__span'>Descripcion:</span></br>{{event.description}}
               </li>
               <li class='event-container-card__li'>
-                <span class='event-container-card__span'>Ubicacion:</span></br>{{events.location}}
+                <span class='event-container-card__span'>Ubicacion:</span></br>{{event.location}}
               </li>
             </ul>
+            <form action={% url "add_tickets" %} method='post'>
+                {% csrf_token %}
+                <input type='hidden' name='event' value={{event.id}}></input>
+                <button class='event-container-card__button' type='submit'>Reservar</button>
+            </form>
       </div>
       {% endfor %}
     </div>

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dance_events',
-    'users'
+    'users',
+    'dance_tickets'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'list_events'
 LOGOUT_REDIRECT_URL = 'list_events'
+
+LOGIN_URL = 'login'

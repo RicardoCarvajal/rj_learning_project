@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<!--
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/events.css' %}">
+-->
+<div class='event-container'>
+    <h1 class='event-container__tittle'>Mis tickets</h1>
+    <p>{{ticket.user.username}}</p>
+    <p>{{ticket.ticket_buy_date}}</p>
+    {% for ticket_event in ticket.ticketevent_set.all %}
+    <p>{{ticket_event.event.name}}</p>
+    <p>{{ticket_event.quantity}}</p>
+    {% empty %}
+        No tienes entradas reservadas
+    {% endfor %}
+</div>
+{% endblock content %}

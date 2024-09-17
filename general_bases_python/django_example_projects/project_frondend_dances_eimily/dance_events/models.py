@@ -8,4 +8,4 @@ class DanceEnvent(models.Model):
     image = models.ImageField(upload_to="img", blank=True, null=True, verbose_name='imagen')
 
     def __str__(self):
-        return f'Nombre: {self.name} - Descripcion {self.description}'
+        return f'Nombre: {self.name}'

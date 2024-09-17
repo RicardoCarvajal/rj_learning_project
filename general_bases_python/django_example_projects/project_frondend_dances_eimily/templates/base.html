@@ -9,16 +9,18 @@
     <header>
         <nav class='nav-container'>
             <div class='nav-container-left'>
-                <img class='nav-container-left__logo' src="{% static 'img/logo.png' %}" alt='DanzasEimily'/>
+                <a href={% url "list_events" %}><img class='nav-container-left__logo' src="{% static 'img/logo.png' %}" alt='DanzasEimily'/></a>
                 <h1 class='nav-container-left__tittle'>Academia de Danzas Eimily</h1>
             </div>
             <div class='nav-container-right'>
                 {% if user.is_authenticated %}
-                <h1 class='nav-container-right__salute'>Hola, {{user.first_name}}</h1>
+                <h1 class='nav-container-right__salute'>Hola, @{{user.username}}</h1>
                 <form action={% url "logout" %} method='post'>
                     {% csrf_token %}
+                    <a class='nav-container-right__button' href={% url "list_tickets" %}>Mis tickets</a>
                     <button class='nav-container-right__button' type='submit'>Logout</button>
                 {% else %}                    
+                    <a class='nav-container-right__button' href={% url "list_tickets" %}>Mis tickets</a>
                     <a class='nav-container-right__button' href={% url "login" %}>Login</a>
                 {% endif %}                       
                 </form>
@@ -26,10 +28,8 @@
         </nav>
     </header>
     <body>
-
-            <div class='general-container'>
-                {% block content %}{% endblock  %}
-            </div>
-
+        <div class='general-container'>
+            {% block content %}{% endblock  %}
+        </div>
     </body>
 </html>
