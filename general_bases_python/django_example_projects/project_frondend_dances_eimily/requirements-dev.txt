@@ -2,3 +2,6 @@ Django
 ipython
 Pillow
 djangorestframework
+psycopg2-binary
+django-environ
+black

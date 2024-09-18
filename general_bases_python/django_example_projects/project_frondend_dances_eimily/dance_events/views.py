@@ -4,10 +4,12 @@ from rest_framework.response import Response
 from .models import DanceEnvent
 from .serializers import DanceEventSerializer
 
+
 class DanceEventsView(generic.ListView):
     model = DanceEnvent
-    template_name = 'list_events.html'
-    context_object_name = 'list_events'
+    template_name = "list_events.html"
+    context_object_name = "list_events"
+
 
 class DanceEventsAPI(APIView):
     authentication_classes = []
@@ -15,5 +17,5 @@ class DanceEventsAPI(APIView):
 
     def get(self, request):
         events = DanceEnvent.objects.all()
-        serializer = DanceEventSerializer(events,many=True)
+        serializer = DanceEventSerializer(events, many=True)
         return Response(serializer.data)

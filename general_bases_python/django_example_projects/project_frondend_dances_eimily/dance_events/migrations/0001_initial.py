@@ -7,19 +7,40 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='DanceEnvent',
+            name="DanceEnvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100, verbose_name='nombre')),
-                ('date', models.DateTimeField(blank=True, null=True, verbose_name='fecha')),
-                ('description', models.TextField(max_length=200, verbose_name='descripcion')),
-                ('location', models.CharField(max_length=100, verbose_name='ubicacion')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='img', verbose_name='imagen')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100, verbose_name="nombre")),
+                (
+                    "date",
+                    models.DateTimeField(blank=True, null=True, verbose_name="fecha"),
+                ),
+                (
+                    "description",
+                    models.TextField(max_length=200, verbose_name="descripcion"),
+                ),
+                (
+                    "location",
+                    models.CharField(max_length=100, verbose_name="ubicacion"),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True, null=True, upload_to="img", verbose_name="imagen"
+                    ),
+                ),
             ],
         ),
     ]

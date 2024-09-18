@@ -10,27 +10,61 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('dance_events', '0001_initial'),
+        ("dance_events", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Ticket',
+            name="Ticket",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('is_active', models.BooleanField(default=True)),
-                ('ticket_buy_date', models.DateTimeField(auto_now_add=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("is_active", models.BooleanField(default=True)),
+                ("ticket_buy_date", models.DateTimeField(auto_now_add=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='TicketEvent',
+            name="TicketEvent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('quantity', models.IntegerField()),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='dance_events.danceenvent')),
-                ('ticket', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dance_tickets.ticket')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("quantity", models.IntegerField()),
+                (
+                    "event",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="dance_events.danceenvent",
+                    ),
+                ),
+                (
+                    "ticket",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="dance_tickets.ticket",
+                    ),
+                ),
             ],
         ),
     ]
