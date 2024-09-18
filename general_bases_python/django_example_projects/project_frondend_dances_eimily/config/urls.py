@@ -25,5 +25,5 @@ urlpatterns = [
     path('', DanceEventsView.as_view()),
     path('events/', include('dance_events.urls')),
     path('tickets/', include('dance_tickets.urls')),
-    path('users/', include('users.urls')),
+    path('users/', include('dance_users.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'dance_events',
-    'users',
-    'dance_tickets'
+    'dance_users',
+    'dance_tickets',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,11 @@ LOGIN_REDIRECT_URL = 'list_events'
 LOGOUT_REDIRECT_URL = 'list_events'
 
 LOGIN_URL = 'login'
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
