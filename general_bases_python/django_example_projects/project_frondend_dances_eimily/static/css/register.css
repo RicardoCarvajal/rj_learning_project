@@ -1,27 +1,18 @@
 .register-container {
-    position: relative;
     display: flex;
-    background-color: var(--very-eimily-purple);
-    justify-content: center;
+    width: 290px;       
     align-items: center;
-    flex-direction: column;
-    height: 720px;
-    width: 500px;
-    border-radius: 15px;
-    box-shadow: 10px 5px 5px var(--shadow);
+    flex-direction: column;    
+    background-color: var(--very-eimily-purple);
 }
 
 .register-container__logo {
-    width: 180px;
-    height: 130px;
-    margin-bottom: 0px;
-    position: absolute;
-    top: -90px;
-    left: -60px;
+    width: 90px;
+    height: 65px;
+    margin-bottom: 5px;
 }
 
 .register-container__text {
-    display: block;
     margin-top: 20px;
 }
 
@@ -32,13 +23,15 @@
 }
 
 .register-container-form__button {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--button-field-padding);    
+    color: var(--black);    
     background-color: var(--very-eimily-pink);
-    color: var(--black);
     border-radius: var(--button-field-radius);
-    padding: 10px 20px;
     border-style: none;
-    font-size: large;   
     text-decoration: none; 
+    font-size: large;       
     font-family: var(--font-family-all);
     cursor: pointer;
 }
@@ -49,33 +42,38 @@
 
 /*Componentes de Django*/
 .register-container-form p {
-    margin-top: 0px;
-    margin-bottom: 10px;
     display: flex;
-    justify-content: center;
-    flex-direction: column;      
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .register-container-form span {
-    margin-top: 10px;
-    width: 350px;        
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: small;   
+}
+
+.register-container-form span#id_password1_helptext {
+    display: none;
 }
 
 .register-container-form input {
+    width: 100%;    
     padding-inline-start: 30px;
     padding-inline-end: 30px;
+    box-sizing: border-box;      
     padding: var(--text-input-field-padding);
-    font-size: x-large;
     background-color: var(--text-input-field-color);
     border-radius: var(--text-input-field-radius);    
+    font-size: large;    
     border: none;
-    text-align: center;  
 }
 
 .register-container-form label {
     margin-bottom: 2px;
-    font-weight: bold;
-    color: var(--black);
 }
 
 .register-container-form input:focus {
@@ -83,7 +81,19 @@
 }
 
 .register-container-form ul {
-    display: none; 
+    width: 100%;
+    padding: 0px 0px;
+    margin-top: 0px;
+    box-sizing: border-box;
+    font-size: small;    
+}
+
+.register-container-form li {
+    margin-bottom: 2px;
+}
+
+.register-container-form li::before {
+    content: '- ';
 }
 
 .register-container-form li::marker {
@@ -91,14 +101,10 @@
 }
 
 .register-container-form .errorlist {
-    font-size: 12px;
-    margin-top: 3px;
-    color: var(--very-eimily-pink);
-    position: absolute;
-    left: 80px;
-    right: 30px;
-    bottom: 3px;
-    font-weight: bold;
-    display: block;
+    width: 80%;
+    box-sizing: border-box;
+    padding: var(--message-error-list-padding);
+    color: var(--message-error-list-color);
+    font-size: small;    
 }
 /*Componentes de Django*/

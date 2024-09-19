@@ -37,7 +37,7 @@
     color: var(--black);
     font-family: var(--font-family-all);
     border-radius: 13px;
-    padding: 10px 20px;    
+    padding: var(--button-field-padding);    
     border-style: none;
     font-size: large;   
     text-decoration: none;

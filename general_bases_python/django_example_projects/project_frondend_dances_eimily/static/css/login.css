@@ -1,52 +1,45 @@
 .login-container {
     display: flex;
-    background-color: var(--very-eimily-purple);
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    height: 400px;
-    width: 400px;
-    border-radius: 15px;
-    box-shadow: 10px 5px 5px var(--shadow);
+    align-items: center;
+    height: 380px;
+    width: 290px;    
+    background-color: var(--background-login-color);
 }
 
 .login-container__logo {
-    width: 180px;
-    height: 130px;
-    margin-bottom: 0px;
-    position: absolute;
-    top: -60px;
+    width: 90px;
+    height: 65px;
+    margin-top: 15px;
 }
 
 .login-container__tittle {
-    margin-top: 20px;
+    margin-top: 5px;
     margin-bottom: 10px;
     color: var(--very-eimily-pink);
 }
 
 .login-container__text {
-    display: block;
     margin-top: 20px;
 }
 
 .login-container-form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;    
+    flex-direction: column;        
+    align-items: center;    
 }
 
 .login-container-form__button {
-    background-color: var(--very-eimily-pink);
-    color: var(--black);
-    border-radius: var(--button-field-radius);
-    padding: 10px 20px;
     width: 100%;
+    padding: var(--button-field-padding);    
+    border-radius: var(--button-field-radius);
+    color: var(--black);        
+    background-color: var(--very-eimily-pink);
     border-style: none;
     font-size: large;   
     text-decoration: none; 
-    font-family: var(--font-family-all);
     cursor: pointer;
+    font-family: var(--font-family-all);    
 }
 
 .login-container-form__button:hover {
@@ -56,27 +49,26 @@
 /*Componentes de Django*/
 
 .login-container-form p {
+    width: 100%;   
     margin-top: 0px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;      
+    margin-bottom: 20px;
+    flex-direction: column;          
 }
 
 .login-container-form input {
+    width: 100%;  
     padding-inline-start: 30px;
     padding-inline-end: 30px;
     padding: var(--text-input-field-padding);
+    box-sizing: border-box;
     background-color: var(--text-input-field-color);
-    font-size: x-large;
     border-radius: var(--text-input-field-radius);    
     border: none;
-    text-align: center;  
+    font-size: large;    
 }
 
 .login-container-form label {
     margin-bottom: 2px;
-    font-weight: bold;
     color: var(--black);
 }
 
@@ -85,14 +77,10 @@
 }
 
 .login-container-form .errorlist {
-    font-size: 10px;
-    width: 250px;
-    padding-left: 10px;
-    margin-top: 3px;
-    color: var(--very-eimily-pink);
-    position: absolute;
-    bottom: 5px;
-    font-weight: bold;
+    width: 80%;
+    padding: var(--message-error-list-padding);
+    color: var(--message-error-list-color);
+    font-size: small;    
 }
 
 .login-container-form .errorlist li::marker {
