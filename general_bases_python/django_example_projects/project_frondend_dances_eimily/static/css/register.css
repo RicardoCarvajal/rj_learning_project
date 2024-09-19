@@ -1,14 +1,14 @@
 .register-container {
     position: relative;
     display: flex;
-    background-color: #b18cfc;
+    background-color: var(--very-eimily-purple);
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 720px;
     width: 500px;
     border-radius: 15px;
-    box-shadow: 10px 5px 5px #f191f3;
+    box-shadow: 10px 5px 5px var(--shadow);
 }
 
 .register-container__logo {
@@ -16,8 +16,8 @@
     height: 130px;
     margin-bottom: 0px;
     position: absolute;
-    top: -70px;
-    left: -40px;
+    top: -90px;
+    left: -60px;
 }
 
 .register-container__text {
@@ -28,22 +28,23 @@
 .register-container-form {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;    
 }
 
 .register-container-form__button {
-    background-color: #f191f3;
-    color: black;
-    border-radius: 13px;
+    background-color: var(--very-eimily-pink);
+    color: var(--black);
+    border-radius: var(--button-field-radius);
     padding: 10px 20px;
     border-style: none;
     font-size: large;   
     text-decoration: none; 
+    font-family: var(--font-family-all);
+    cursor: pointer;
 }
 
 .register-container-form__button:hover {
-    background-color: #b537b8;
+    background-color: var(--very-eimily-pink-hover);
 }
 
 /*Componentes de Django*/
@@ -52,7 +53,6 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;      
 }
 
@@ -64,16 +64,18 @@
 .register-container-form input {
     padding-inline-start: 30px;
     padding-inline-end: 30px;
+    padding: var(--text-input-field-padding);
     font-size: x-large;
-    border-radius: 20px;    
-    border: 1px solid #b537b8;
+    background-color: var(--text-input-field-color);
+    border-radius: var(--text-input-field-radius);    
+    border: none;
     text-align: center;  
 }
 
 .register-container-form label {
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     font-weight: bold;
-    color: white;
+    color: var(--black);
 }
 
 .register-container-form input:focus {
@@ -81,12 +83,7 @@
 }
 
 .register-container-form ul {
-    padding-left: 10px;
-    width: 350px;
-}
-
-.register-container-form li {
-    margin-bottom: 10px;
+    display: none; 
 }
 
 .register-container-form li::marker {
@@ -96,11 +93,12 @@
 .register-container-form .errorlist {
     font-size: 12px;
     margin-top: 3px;
-    color: blueviolet;
+    color: var(--very-eimily-pink);
     position: absolute;
     left: 80px;
     right: 30px;
     bottom: 3px;
     font-weight: bold;
+    display: block;
 }
 /*Componentes de Django*/

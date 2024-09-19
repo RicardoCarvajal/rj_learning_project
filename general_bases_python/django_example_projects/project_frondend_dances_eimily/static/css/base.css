@@ -1,5 +1,22 @@
+:root{
+    --font-family-all: "Quicksand", sans-serif;
+    --very-eimily-pink: #f191f3;
+    --very-eimily-pink-hover: #b537b8;
+    --very-eimily-purple: #8e5abeec;
+    --text-input-field-color: #f7f7f7;
+    --text-input-field-radius: 8px;
+    --text-input-field-padding: 6px;
+    --button-field-radius: 8px;
+    --shadow: #837777c5;
+    --white: #FFFFFF;
+    --black: #000000;
+}
+
 html {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: var(--font-family-all);
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;;
 }
 
 body {
@@ -11,8 +28,8 @@ body {
     width: 100%;
     height: 85px;
     margin-bottom: 20px;
-    background-color: blueviolet;
-    box-shadow: 10px 5px 5px #f191f3;
+    background-color: var(--very-eimily-purple);
+    box-shadow: 10px 5px 5px var(--shadow);
     grid-template-columns: 1fr 1fr;
     position: fixed;
     top: 0;
@@ -34,7 +51,7 @@ body {
 }
 
 .nav-container-left__tittle {
-    color: #f191f3;
+    color: var(--very-eimily-pink);
 }
 
 .nav-container-right {
@@ -47,22 +64,23 @@ body {
 
 .nav-container-right__salute {
     margin-right: 10px;
-    color: #f191f3;
+    color: var(--very-eimily-pink);
 }
 
 .nav-container-right__button {
-    background-color: #f191f3;
-    color: black;
-    border-radius: 13px;
+    background-color: var(--very-eimily-pink);
+    color: var(--black);
+    border-radius: var(--button-field-radius);
     margin-left: 10px;
     padding: 10px 20px;
     border-style: none;
     font-size: large;   
     text-decoration: none; 
+    cursor: pointer;
 }
 
 .nav-container-right__button:hover {
-    background-color: #b537b8;
+    background-color: var(--very-eimily-pink-hover);
 }
 
 .general-container {

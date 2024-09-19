@@ -1,13 +1,13 @@
 .login-container {
     display: flex;
-    background-color: #b18cfc;
+    background-color: var(--very-eimily-purple);
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 400px;
     width: 400px;
     border-radius: 15px;
-    box-shadow: 10px 5px 5px #f191f3;
+    box-shadow: 10px 5px 5px var(--shadow);
 }
 
 .login-container__logo {
@@ -21,7 +21,7 @@
 .login-container__tittle {
     margin-top: 20px;
     margin-bottom: 10px;
-    color: white;
+    color: var(--very-eimily-pink);
 }
 
 .login-container__text {
@@ -37,17 +37,20 @@
 }
 
 .login-container-form__button {
-    background-color: #f191f3;
-    color: black;
-    border-radius: 13px;
+    background-color: var(--very-eimily-pink);
+    color: var(--black);
+    border-radius: var(--button-field-radius);
     padding: 10px 20px;
+    width: 100%;
     border-style: none;
     font-size: large;   
     text-decoration: none; 
+    font-family: var(--font-family-all);
+    cursor: pointer;
 }
 
 .login-container-form__button:hover {
-    background-color: #b537b8;
+    background-color: var(--very-eimily-pink-hover);
 }
 
 /*Componentes de Django*/
@@ -57,23 +60,24 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;      
 }
 
 .login-container-form input {
     padding-inline-start: 30px;
     padding-inline-end: 30px;
+    padding: var(--text-input-field-padding);
+    background-color: var(--text-input-field-color);
     font-size: x-large;
-    border-radius: 20px;    
-    border: 1px solid #b537b8;
+    border-radius: var(--text-input-field-radius);    
+    border: none;
     text-align: center;  
 }
 
 .login-container-form label {
-    margin-bottom: 10px;
+    margin-bottom: 2px;
     font-weight: bold;
-    color: white;
+    color: var(--black);
 }
 
 .login-container-form input:focus {
@@ -85,7 +89,7 @@
     width: 250px;
     padding-left: 10px;
     margin-top: 3px;
-    color: blueviolet;
+    color: var(--very-eimily-pink);
     position: absolute;
     bottom: 5px;
     font-weight: bold;

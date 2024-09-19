@@ -8,7 +8,7 @@
 }
 
 .event-container__tittle {
-    color: #f191f3;
+    color: var(--very-eimily-pink);
 }
 
 .event-container-grid {
@@ -30,12 +30,12 @@
     width: 100%;
     height: 220px;
     border-radius: 15px;
-    box-shadow: 10px 5px 5px blueviolet;
 }
 
 .event-container-card__button {
-    background-color: #f191f3;
-    color: black;
+    background-color: var(--very-eimily-pink);
+    color: var(--black);
+    font-family: var(--font-family-all);
     border-radius: 13px;
     padding: 10px 20px;    
     border-style: none;
@@ -46,7 +46,7 @@
 }
 
 .event-container-card__button:hover {
-    background-color: #b537b8;
+    background-color: var(--very-eimily-pink-hover);
 }
 
 .event-container-card__li {
