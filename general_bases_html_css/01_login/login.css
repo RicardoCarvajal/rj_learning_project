@@ -1,0 +1,91 @@
+:root {
+    --font-family-all: "Quicksand", sans-serif;
+    --very-eimily-pink: #f191f3;
+    --very-eimily-pink-hover: #b537b8;
+    --very-eimily-purple: #8e5abeec;
+    --text-input-field-color: #e7e4e4;
+    --background-login-color:#ffffff;
+    --text-input-field-radius: 8px;
+    --text-input-field-padding: 6px;
+    --button-field-radius: 8px;
+    --button-field-padding: 10px;
+    --message-error-color: #ff0000;
+    --shadow: #837777c5;
+    --white: #FFFFFF;
+    --black: #000000;    
+}
+
+html {
+    font-family: var(--font-family-all);
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;;
+}
+
+body {
+    margin: 0px;
+}
+
+.general-container {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    place-items: center;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 380px;
+    width: 290px;    
+    background-color: var(--background-login-color);
+}
+
+.login-container__logo {
+    width: 90px;
+    height: 65px;
+    margin-top: 15px;
+}
+
+.login-container__tittle {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: var(--very-eimily-pink);
+}
+
+.login-container__text {
+    margin-top: 20px;
+}
+
+.login-container-form {
+    display: flex;
+    flex-direction: column;        
+    align-items: left;    
+}
+
+.login-container-form__button {
+    width: 100%;
+    padding: var(--button-field-padding);    
+    border-radius: var(--button-field-radius);
+    color: var(--black);        
+    background-color: var(--very-eimily-pink);
+    border-style: none;
+    font-size: large;   
+    text-decoration: none; 
+    cursor: pointer;
+    font-family: var(--font-family-all);    
+}
+
+.login-container-form__input {
+    width: 100%;  
+    padding-inline-start: 30px;
+    padding-inline-end: 30px;
+    padding: var(--text-input-field-padding);
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    background-color: var(--text-input-field-color);
+    border-radius: var(--text-input-field-radius);    
+    border: none;
+    font-size: large;    
+}
