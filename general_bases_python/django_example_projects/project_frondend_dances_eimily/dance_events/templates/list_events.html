@@ -10,7 +10,7 @@
           {% if event.image %}
           <img class='event-container-card__img' src={{event.image.url}} alt={{event.name}}/>
           {% endif %}
-            <ul>
+            <ul class='event-container-card__ul'>
               <li class='event-container-card__li'>
                 <span class='event-container-card__span'>Nombre:</span></br>{{event.name}}
               </li>
@@ -24,7 +24,7 @@
                 <span class='event-container-card__span'>Ubicacion:</span></br>{{event.location}}
               </li>
             </ul>
-            <form action={% url "add_tickets" %} method='post'>
+            <form action={% url 'add_tickets' %} method='post'>
                 {% csrf_token %}
                 <input type='hidden' name='event' value={{event.id}}></input>
                 <button class='event-container-card__button' type='submit'>Reservar</button>

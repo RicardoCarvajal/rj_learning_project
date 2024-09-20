@@ -1,10 +1,8 @@
 .event-container {
     display: flex;
-    justify-content: left;
+    width: 1000px;
+    height: 700px;
     flex-direction: column;
-    height: 400px;
-    width: 1200px;
-    border-radius: 15px;
 }
 
 .event-container__tittle {
@@ -13,17 +11,15 @@
 
 .event-container-grid {
     display: grid;
-    justify-content: left;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
 .event-container-card {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 280px;
+    height: 650px;
     flex-direction: column;   
     margin-bottom: 100px;
-    width: 280px;
 }
 
 .event-container-card__img {
@@ -33,20 +29,25 @@
 }
 
 .event-container-card__button {
+    width: 100%;
     background-color: var(--very-eimily-pink);
     color: var(--black);
     font-family: var(--font-family-all);
-    border-radius: 13px;
+    border-radius: var(--button-field-radius);
     padding: var(--button-field-padding);    
     border-style: none;
     font-size: large;   
     text-decoration: none;
-    position: relative;
-    left: -50px;     
+    cursor: pointer;
 }
 
 .event-container-card__button:hover {
     background-color: var(--very-eimily-pink-hover);
+}
+
+.event-container-card__ul {
+    height: 360px;
+    padding: 10px 10px;
 }
 
 .event-container-card__li {

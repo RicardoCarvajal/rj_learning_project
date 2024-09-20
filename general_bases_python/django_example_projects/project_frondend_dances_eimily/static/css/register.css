@@ -3,7 +3,7 @@
     width: 290px;       
     align-items: center;
     flex-direction: column;    
-    background-color: var(--very-eimily-purple);
+    background-color: var(--background-login-color);
 }
 
 .register-container__logo {

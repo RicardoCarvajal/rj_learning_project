@@ -89,3 +89,8 @@ body {
     place-items: center;
 }
 
+@media (max-height : 700px){
+    .general-container {
+        height: 120vh;
+    }    
+}
