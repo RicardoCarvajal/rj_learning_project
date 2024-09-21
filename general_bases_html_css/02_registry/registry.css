@@ -4,7 +4,7 @@
     --very-eimily-pink-hover: #b537b8;
     --very-eimily-purple: #8e5abeec;
     --text-input-field-color: #e7e4e4;
-    --background-login-color:#ffffff;
+    --background-registry-color:#ffffff;
     --text-input-field-radius: 8px;
     --text-input-field-padding: 6px;
     --button-field-radius: 8px;
@@ -33,42 +33,41 @@ body {
     place-items: center;
 }
 
-.login-container {
+.registry-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 450px;
+    height: 380px;
     width: 290px;    
-    background-color: var(--background-login-color);
+    background-color: var(--background-registry-color);
 }
 
-.login-container__logo {
+.registry-container__logo {
     width: 90px;
     height: 65px;
     margin-top: 15px;
 }
 
-.login-container__tittle {
+.registry-container__tittle {
     margin-top: 5px;
     margin-bottom: 10px;
     color: var(--very-eimily-pink);
 }
 
-.login-container__text {
+.registry-container__text {
     margin-top: 20px;
 }
 
-.login-container-form {
+.registry-container-form {
     width: 100%;
     display: flex;
     flex-direction: column;        
     align-items: left;    
 }
 
-.login-container-form__button {
+.registry-container-form__button {
     width: 100%;
     padding: var(--button-field-padding);    
-    box-sizing: border-box;
     border-radius: var(--button-field-radius);
     color: var(--black);        
     background-color: var(--very-eimily-pink);
@@ -77,28 +76,18 @@ body {
     text-decoration: none; 
     cursor: pointer;
     font-family: var(--font-family-all);    
-    text-align: center;
 }
 
-.login-container-form--button-pink {
-    background-color: var(--very-eimily-pink);
-}
-
-.login-container-form--button-white {
-    background-color: var(--white);
-    border: 1px solid var(--very-eimily-pink);
-}
-
-.login-container-form__button:hover {
+.registry-container-form__button:hover {
     background-color: var(--very-eimily-pink-hover);
 }
 
-
-.login-container-form__label{
+.registry-container-form__label{
     font-weight: bold;
 }
 
-.login-container-form__input {
+
+.registry-container-form__input {
     width: 100%;  
     padding-inline-start: 30px;
     padding-inline-end: 30px;
@@ -111,12 +100,12 @@ body {
     font-size: large;    
 }
 
-.login-container-form__input:focus {
+.registry-container-form__input:focus {
     outline: none;
 }
 
 @media (min-width:301px) {
-    .login-container__logo {
+    .registry-container__logo {
         display: none;
     }
 }
