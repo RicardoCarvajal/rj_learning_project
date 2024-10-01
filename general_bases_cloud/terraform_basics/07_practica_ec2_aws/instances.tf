@@ -4,5 +4,6 @@ resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2" {
   subnet_id = aws_subnet.rjcarvajal-oregon-tf-test-subnet-public.id
   tags = {
     Name = "rjcarvajal-oregon-tf-test-ec2"
+    param = data.aws_ssm_parameter.dbdbcredential.value
   }
 }
