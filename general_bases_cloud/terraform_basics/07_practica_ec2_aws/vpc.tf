@@ -50,7 +50,7 @@ resource "aws_route_table_association" "rjcarvajal-oregon-tf-test-assoc-public" 
 resource "aws_security_group" "rjcarvajal-oregon-tf-test-sg" {
   name   = "rjcarvajal-oregon-tf-test-sg"
   vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
-  ingress = {
+  ingress {
     description = "SSH ingress rule"
     from_port   = 22
     to_port     = 22
