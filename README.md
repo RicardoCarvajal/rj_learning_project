@@ -4,7 +4,7 @@ Los proyectos de este repositorio, son proyectos para el aprendizaje de diversas
 
 ## Estructura del repositorio
 
-**general_bases_aws:** Proyectos de ejemplos, que muestran alguna funcionalidad o uso del lenguaje IaC de AWS
+**general_bases_cloud:** Proyectos de ejemplos, que muestran alguna funcionalidad o uso del lenguaje IaC de tecnologías de la nube
 
 **general_bases_python:** Códigos puntuales y proyectos de ejemplo, que muestran alguna funcionalidad o uso del lenguaje de programación Java
 
