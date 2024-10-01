@@ -16,18 +16,18 @@ resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2" {
     command = "echo intancia destruida con IP ${self.public_ip} >> datos.txt"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "echo 'hola mundo' > ~/saludo.txt"
-    ]
-
-    connection {
-      type        = "ssh"
-      host        = self.public_ip
-      user        = "ec2-user"
-      private_key = file("rjcarvajal-oregon-tf-test-key-per.pem")
-    }
-
-  }
+  #  provisioner "remote-exec" {
+  #    inline = [
+  #      "echo 'hola mundo' > ~/saludo.txt"
+  #    ]
+  #
+  #    connection {
+  #      type        = "ssh"
+  #      host        = self.public_ip
+  #      user        = "ec2-user"
+  #      private_key = file("rjcarvajal-oregon-tf-test-key-per.pem")
+  #    }
+  #
+  #  }
 
 }
