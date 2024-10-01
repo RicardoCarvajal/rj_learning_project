@@ -1,3 +1,3 @@
-data "aws_ssm_parameter" "dbdbcredential" {
-  name = "/dev/ate/cr/bopos/parameters/article/dbdbcredential"
+data "aws_key_pair" "key-pair" {
+  key_name = "rjcarvajal-oregon-tf-test-key-per"
 }
