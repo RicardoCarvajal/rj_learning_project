@@ -7,6 +7,7 @@ resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2" {
   tags = {
     Name = "rjcarvajal-oregon-tf-test-ec2"
   }
+
   provisioner "local-exec" {
     command = "echo intancia creada con IP ${aws_instance.rjcarvajal-oregon-tf-test-ec2.public_ip} >> datos.txt"
   }
