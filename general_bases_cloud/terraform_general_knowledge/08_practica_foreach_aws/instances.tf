@@ -1,7 +1,7 @@
 variable "instances" {
   description = "Nombres de las intancias"
   type = set(string)
-  default = ["apache","mysql","jumpsever"]  
+  default = ["mysql","jumpsever"]  
 }
 
 resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2" {
