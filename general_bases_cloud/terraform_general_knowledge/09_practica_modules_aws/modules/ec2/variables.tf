@@ -27,3 +27,8 @@ variable "name-sufix" {
     type = string
     description = "Nombre del para sufijo de la instancia"
 }
+
+variable "script-ec2" {
+    type = string
+    description = "SCRIPT para iniciar la instancia"
+}

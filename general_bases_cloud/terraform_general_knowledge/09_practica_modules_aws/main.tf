@@ -21,5 +21,5 @@ module "ec2-ate" {
   name-sufix = local.sufix
   sg-ec2 = [module.vpc-ate.sg-vpc-id]
   subnetid = module.vpc-ate.public_subnet_id
+  script-ec2 = file("script/userdata.sh")
 }
-

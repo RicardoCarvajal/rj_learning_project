@@ -12,7 +12,7 @@ resource "aws_instance" "ec2-primary" {
   key_name               = var.key_name
   vpc_security_group_ids = var.sg-ec2  
   availability_zone = "us-west-2a"
-  user_data = file("script/userdata.sh")
+  user_data = var.script-ec2
   tags = {
     Name = "${var.name-sufix}-ec2-${each.value}"
   }
