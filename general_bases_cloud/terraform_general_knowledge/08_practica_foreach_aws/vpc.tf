@@ -8,6 +8,7 @@ resource "aws_vpc" "vpc-ate" {
 resource "aws_subnet" "subnet-ate-public" {
   vpc_id     = aws_vpc.vpc-ate.id
   cidr_block = var.subnet_cidrs[0]
+  availability_zone = "us-west-2a"
   tags = {
     Name = "${local.sufix}-subnet-public"
   }
