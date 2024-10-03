@@ -1,7 +1,7 @@
 resource "aws_vpc" "rjcarvajal-oregon-tf-test-vpc" {
   cidr_block = var.vpc_cidr
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-vpc-1"
+    Name = "${local.sufix}-vpc"
   }
 }
 
@@ -9,7 +9,7 @@ resource "aws_subnet" "rjcarvajal-oregon-tf-test-subnet-public" {
   vpc_id     = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
   cidr_block = var.subnet_cidrs[0]
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-subnet-public"
+    Name = "${local.sufix}-subnet-public"
   }
   map_public_ip_on_launch = true
 }
@@ -18,14 +18,14 @@ resource "aws_subnet" "rjcarvajal-oregon-tf-test-subnet-private" {
   vpc_id     = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
   cidr_block = var.subnet_cidrs[1]
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-subnet-private"
+    Name = "${local.sufix}-subnet-private"
   }
 }
 
 resource "aws_internet_gateway" "rjcarvajal-oregon-tf-test-igw" {
   vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-igw"
+    Name = "${local.sufix}-igw"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_route_table" "rjcarvajal-oregon-tf-test-route" {
   }
 
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-route"
+    Name = "${local.sufix}-route"
   }
 }
 
@@ -48,7 +48,7 @@ resource "aws_route_table_association" "rjcarvajal-oregon-tf-test-assoc-public" 
 
 
 resource "aws_security_group" "rjcarvajal-oregon-tf-test-sg" {
-  name   = "rjcarvajal-oregon-tf-test-sg"
+  name   = "${local.sufix}-sg"
   vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
   ingress {
     description = "SSH ingress rule"
@@ -65,6 +65,6 @@ resource "aws_security_group" "rjcarvajal-oregon-tf-test-sg" {
     ipv6_cidr_blocks = ["::/0"]
   }
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-sg"
+    Name = "${local.sufix}-sg"
   }
 }

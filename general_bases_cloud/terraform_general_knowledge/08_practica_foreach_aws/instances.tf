@@ -12,7 +12,7 @@ resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2" {
   key_name        = data.aws_key_pair.key-pair.key_name
   vpc_security_group_ids = [aws_security_group.rjcarvajal-oregon-tf-test-sg.id]
   tags = {
-    Name = each.value
+    Name = "${local.sufix}-ec2-${each.value}"
   }
 }
 
@@ -24,6 +24,6 @@ resource "aws_instance" "rjcarvajal-oregon-tf-test-ec2-mon" {
   key_name        = data.aws_key_pair.key-pair.key_name
   vpc_security_group_ids = [aws_security_group.rjcarvajal-oregon-tf-test-sg.id]
   tags = {
-    Name = "rjcarvajal-oregon-tf-test-ec2-mon"
+    Name = "${local.sufix}-ec2-monitoring"
   }
 }
