@@ -6,3 +6,8 @@ commons_tags = {
   "int"     = "stellar"
 }
 enable_monitoring = false
+
+instance_features = {
+  "type" = "t2.micro"
+  "ami" = "ami-08d8ac128e0a1b91c"
+}

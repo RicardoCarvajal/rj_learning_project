@@ -15,6 +15,11 @@ variable "commons_tags" {
 }
 
 variable "enable_monitoring" {
-  type = bool
-  description = "Activacion de instancia de monitoreo"  
+  type        = bool
+  description = "Activacion de instancia de monitoreo"
+}
+
+variable "instance_features" {
+  type = map(string)
+  description = "Caracteristicas de la instancia"  
 }

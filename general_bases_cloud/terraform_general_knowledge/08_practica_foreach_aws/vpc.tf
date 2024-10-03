@@ -1,12 +1,12 @@
-resource "aws_vpc" "rjcarvajal-oregon-tf-test-vpc" {
+resource "aws_vpc" "vpc-ate" {
   cidr_block = var.vpc_cidr
   tags = {
     Name = "${local.sufix}-vpc"
   }
 }
 
-resource "aws_subnet" "rjcarvajal-oregon-tf-test-subnet-public" {
-  vpc_id     = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
+resource "aws_subnet" "subnet-ate-public" {
+  vpc_id     = aws_vpc.vpc-ate.id
   cidr_block = var.subnet_cidrs[0]
   tags = {
     Name = "${local.sufix}-subnet-public"
@@ -14,26 +14,26 @@ resource "aws_subnet" "rjcarvajal-oregon-tf-test-subnet-public" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_subnet" "rjcarvajal-oregon-tf-test-subnet-private" {
-  vpc_id     = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
+resource "aws_subnet" "subnet-ate-private" {
+  vpc_id     = aws_vpc.vpc-ate.id
   cidr_block = var.subnet_cidrs[1]
   tags = {
     Name = "${local.sufix}-subnet-private"
   }
 }
 
-resource "aws_internet_gateway" "rjcarvajal-oregon-tf-test-igw" {
-  vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
+resource "aws_internet_gateway" "igw-ate" {
+  vpc_id = aws_vpc.vpc-ate.id
   tags = {
     Name = "${local.sufix}-igw"
   }
 }
 
-resource "aws_route_table" "rjcarvajal-oregon-tf-test-route" {
-  vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
+resource "aws_route_table" "route-ate" {
+  vpc_id = aws_vpc.vpc-ate.id
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.rjcarvajal-oregon-tf-test-igw.id
+    gateway_id = aws_internet_gateway.igw-ate.id
   }
 
   tags = {
@@ -41,15 +41,15 @@ resource "aws_route_table" "rjcarvajal-oregon-tf-test-route" {
   }
 }
 
-resource "aws_route_table_association" "rjcarvajal-oregon-tf-test-assoc-public" {
-  subnet_id      = aws_subnet.rjcarvajal-oregon-tf-test-subnet-public.id
-  route_table_id = aws_route_table.rjcarvajal-oregon-tf-test-route.id
+resource "aws_route_table_association" "assoc-public-ate" {
+  subnet_id      = aws_subnet.subnet-ate-public.id
+  route_table_id = aws_route_table.route-ate.id
 }
 
 
-resource "aws_security_group" "rjcarvajal-oregon-tf-test-sg" {
+resource "aws_security_group" "sg-ate" {
   name   = "${local.sufix}-sg"
-  vpc_id = aws_vpc.rjcarvajal-oregon-tf-test-vpc.id
+  vpc_id = aws_vpc.vpc-ate.id
   ingress {
     description = "SSH ingress rule"
     from_port   = 22
