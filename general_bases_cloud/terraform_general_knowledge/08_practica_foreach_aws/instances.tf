@@ -1,7 +1,7 @@
 variable "instances" {
   description = "Nombres de las intancias"
   type        = list(string)
-  default     = ["apache", "mysql", "jumpsever"]
+  default     = ["apache"]
 }
 
 resource "aws_instance" "ec2-primary" {
