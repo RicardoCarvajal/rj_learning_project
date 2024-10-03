@@ -13,3 +13,8 @@ variable "commons_tags" {
   type        = map(string)
   description = "Mapa de tags comunes para los recursos"
 }
+
+variable "enable_monitoring" {
+  type = bool
+  description = "Activacion de instancia de monitoreo"  
+}

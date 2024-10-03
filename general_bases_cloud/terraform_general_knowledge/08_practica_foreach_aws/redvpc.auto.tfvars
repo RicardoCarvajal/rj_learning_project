@@ -5,3 +5,4 @@ commons_tags = {
   "country" = "ve"
   "int"     = "stellar"
 }
+enable_monitoring = false
