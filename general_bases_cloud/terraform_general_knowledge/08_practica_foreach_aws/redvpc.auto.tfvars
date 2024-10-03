@@ -11,3 +11,7 @@ instance_features = {
   "type" = "t2.micro"
   "ami" = "ami-08d8ac128e0a1b91c"
 }
+
+sg_ingress_cidr = "0.0.0.0/0"
+
+sg_ingress_ports = [22,80,443]

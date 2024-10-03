@@ -23,3 +23,13 @@ variable "instance_features" {
   type = map(string)
   description = "Caracteristicas de la instancia"  
 }
+
+variable "sg_ingress_cidr" {
+  type = string
+  description = "IP de reglas de ingreso"  
+}
+
+variable "sg_ingress_ports" {
+  type = list(number)
+  description = "Puertos de las reglas de ingreso"  
+}
