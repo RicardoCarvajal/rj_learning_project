@@ -83,7 +83,7 @@ body {
     background-color: var(--very-eimily-pink-hover);
 }
 
-@media (min-width:301px) {
+@media (min-width:330px) {
     .email-container__logo {
         display: none;
     }

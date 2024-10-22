@@ -115,7 +115,7 @@ body {
     outline: none;
 }
 
-@media (min-width:301px) {
+@media (min-width:330px) {
     .login-container__logo {
         display: none;
     }
