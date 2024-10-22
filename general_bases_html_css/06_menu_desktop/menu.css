@@ -1,0 +1,66 @@
+:root {
+    --font-family-all: "Quicksand", sans-serif;
+    --very-eimily-pink: #f9b5fa;
+    --very-eimily-pink-hover: #b537b8;
+    --very-eimily-purple: #8e5abeec;
+    --text-input-field-color: #e7e4e4;
+    --background-registry-color:#ffffff;
+    --text-input-field-radius: 8px;
+    --text-input-field-padding: 6px;
+    --button-field-radius: 8px;
+    --button-field-padding: 10px;
+    --message-error-color: #ff0000;
+    --transparent: #e7e4e4a2;
+    --shadow: #837777c5;
+    --white: #FFFFFF;
+    --black: #000000;    
+}
+
+html {
+    font-family: var(--font-family-all);
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;;
+}
+
+body {
+    margin: 0px;
+}
+
+.container-general{
+    width: 120px;
+    height: auto;
+    border: 1px solid var(--black);
+    border-radius: 6px;
+    box-shadow: 6px 20px 10px var(--shadow);
+    padding: 20px 20px 0 20px;
+}
+
+.container-general__ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container-general__ul li{
+    font-weight: bold;
+    text-align: end;
+}
+
+.container-general__ul li:last-child{
+    padding-top: 20px;
+    border-top: 1px solid var(--very-eimily-pink);
+}
+
+.container-general__ul li:last-child a{
+    color: var(--very-eimily-pink);
+    font-size: small;
+}
+
+.container-general__ul li a{
+    color: var(--black);
+    font-size: medium;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: inline-block;
+}
