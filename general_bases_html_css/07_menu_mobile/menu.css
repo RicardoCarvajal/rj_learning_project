@@ -1,0 +1,83 @@
+:root {
+    --font-family-all: "Quicksand", sans-serif;
+    --very-eimily-pink: #f9b5fa;
+    --very-eimily-pink-hover: #b537b8;
+    --very-eimily-purple: #8e5abeec;
+    --text-input-field-color: #e7e4e4;
+    --background-registry-color:#ffffff;
+    --text-input-field-radius: 8px;
+    --text-input-field-padding: 6px;
+    --button-field-radius: 8px;
+    --button-field-padding: 10px;
+    --message-error-color: #ff0000;
+    --transparent: #e7e4e4a2;
+    --shadow: #837777c5;
+    --white: #FFFFFF;
+    --black: #000000;    
+}
+
+html {
+    font-family: var(--font-family-all);
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;;
+}
+
+body {
+    margin: 0px;
+}
+
+.general-container{
+    padding: 24px;
+}
+
+.general-container ul:nth-child(1){
+    border-bottom: 1px solid var(--very-eimily-pink);
+}
+
+.list-container{
+    padding: 0;
+    margin: 34px 0 0;
+    font-weight: bold;
+    list-style: none;
+}
+
+.list-container-account{
+    padding: 0;
+    margin: 30px 0 0;
+    font-weight: bold;
+    list-style: none;
+}
+
+.list-container li{
+    margin-bottom: 24px;
+}
+
+.list-container-account li{
+    margin-bottom: 24px;
+}
+
+.list-container-account li:nth-child(3){
+    margin-top: 55px;
+    margin-bottom: 5px;
+}
+
+.list-container li a{
+    text-decoration: none;
+    color: var(--black);
+}
+
+.list-container-account li a{
+    color: var(--black);
+    text-decoration: none;
+}
+
+.email{
+    font-size: small;
+    font-weight: 450;
+}
+
+.singout{
+    color: var(--very-eimily-pink) !important;
+    font-size: small;
+}
