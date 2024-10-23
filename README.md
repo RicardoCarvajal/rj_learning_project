@@ -8,8 +8,6 @@ Los proyectos de este repositorio, son proyectos para el aprendizaje de diversas
 
 **general_bases_python:** Códigos puntuales y proyectos de ejemplo, que muestran alguna funcionalidad o uso del lenguaje de programación Java
 
-**general_bases_bash:**  Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación bash
-
 **general_bases_javascript:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación JavaScript
 
 **general_bases_python:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación python
