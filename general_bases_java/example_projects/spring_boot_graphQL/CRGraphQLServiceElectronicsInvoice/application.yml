@@ -1,10 +1,10 @@
 database:
    datasource:
       driver: com.ibm.as400.access.AS400JDBCDriver
-      url: jdbc:as400://10.48.11.14/
-      schema: CR400
-      username: userdb2
-      password: userdb2
+      url: jdbc:as400://servidor400/
+      schema: schema
+      username: username
+      password: password
 
 options:
    id:

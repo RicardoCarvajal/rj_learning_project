@@ -1,13 +1,14 @@
-# Proyectos de prácticas desarrollados durante un aprendizaje
+# Proyectos de Práctica para el Aprendizaje de Tecnologías de Software
 
-Los proyectos de este repositorio, son proyectos para el aprendizaje de diversas tecnologías de desarrollo de software, solamente han sido creados para probar o practicar un código o framework específico.
+Este repositorio contiene proyectos desarrollados con el propósito de facilitar el aprendizaje de diversas tecnologías de desarrollo de software. Cada proyecto ha sido creado específicamente para explorar, probar y practicar con un lenguaje o framework determinado.
+Estructura del Repositorio
 
-## Estructura del repositorio
+* **general_bases_cloud**: Ejemplos de proyectos que ilustran funcionalidades o el uso de lenguajes de Infraestructura como Código (IaC) en tecnologías de la nube.
 
-**general_bases_cloud:** Proyectos de ejemplos, que muestran alguna funcionalidad o uso del lenguaje IaC de tecnologías de la nube
+* **general_bases_python**: Proyectos de ejemplo y códigos específicos que demuestran funcionalidades o técnicas en el lenguaje de programación Python.
 
-**general_bases_python:** Códigos puntuales y proyectos de ejemplo, que muestran alguna funcionalidad o uso del lenguaje de programación Java
+* **general_bases_javascript**: Códigos puntuales que destacan funcionalidades o el uso del lenguaje de programación JavaScript.
 
-**general_bases_javascript:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación JavaScript
+* **general_bases_java**: Ejemplos de proyectos y códigos que ponen en práctica funcionalidades o el uso del lenguaje de programación Java.
 
-**general_bases_python:** Códigos puntuales, que muestran alguna funcionalidad o uso del lenguaje de programación python
+Cada directorio contiene proyectos y ejemplos relevantes dirigidos a mejorar las habilidades prácticas y el entendimiento de las tecnologías cubiertas. ¡Explora y aprende al máximo con estos recursos!
