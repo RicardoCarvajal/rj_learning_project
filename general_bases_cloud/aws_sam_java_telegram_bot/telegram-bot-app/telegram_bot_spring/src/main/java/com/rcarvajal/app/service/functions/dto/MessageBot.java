@@ -1,4 +1,4 @@
-package com.rcarvajal.app.service.app.function.dto;
+package com.rcarvajal.app.service.functions.dto;
 
 public class MessageBot {
     private String id;
@@ -28,17 +28,21 @@ public class MessageBot {
     public static MessageTelegramBuilder builder() {
         return new MessageTelegramBuilder();
     }
+
     public static class MessageTelegramBuilder {
         private String id;
         private String text;
+
         public MessageTelegramBuilder withId(String id) {
             this.id = id;
             return this;
         }
+
         public MessageTelegramBuilder withText(String text) {
             this.text = text;
             return this;
         }
+
         public MessageBot build() {
             MessageBot messageTelegram = new MessageBot();
             messageTelegram.setId(id);

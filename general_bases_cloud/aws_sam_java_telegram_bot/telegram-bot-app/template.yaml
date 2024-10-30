@@ -1,24 +1,34 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  telegram-bot-app
+Description: |
+  Stack principal de integraciones telegram stellar
 
-  Sample SAM Template for telegram-bot-app
 
-Globals:
-  Function:
-    Timeout: 20
-    MemorySize: 512
-    LoggingConfig:
-      LogFormat: JSON
+# ------------------ Parámetros de la aplicación ------------------ #
+
+Parameters:
+  environment:
+    Type: String
+    Default: dev  
+    Description: 'Ambientes de implementacion: dev, qa, prod.'
+    AllowedValues:
+      - dev
+      - qa
+      - prod
+
+  country:
+    Type: String
+    Description: 'Paises de implementacion: cr, gt, sv, ve.'
+    Default: ve
+    AllowedValues:
+      - gt
+      - sv
+      - ve
 
 Resources:
-  TelegramFunction:
-    Type: AWS::Serverless::Function
+ # --------- STACKS ------------------- #
+ # --------- telegram bot app --------- #        
+  clientoutputstack: 
+    Type: AWS::Serverless::Application
     Properties:
-      CodeUri: telegram_bot_spring
-      Handler: com.rcarvajal.app.service.app.function.config.AWSFunctionConfig::execute
-      Runtime: java17
-      Architectures:
-      - x86_64
-      MemorySize: 512
+      Location: ./telegram_bot_spring/template.yaml

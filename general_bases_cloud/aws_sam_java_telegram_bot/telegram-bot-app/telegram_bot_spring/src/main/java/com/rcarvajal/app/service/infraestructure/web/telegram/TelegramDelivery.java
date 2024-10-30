@@ -1,8 +1,7 @@
 package com.rcarvajal.app.service.infraestructure.web.telegram;
 
-import com.rcarvajal.app.service.app.function.dto.MessageBot;
+import com.rcarvajal.app.service.functions.dto.MessageBot;
 import com.rcarvajal.app.service.infraestructure.web.Delivery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -29,8 +28,8 @@ public class TelegramDelivery implements Delivery<MessageBot> {
                 .retrieve()
                 .bodyToMono(String.class).onErrorResume(e -> {
                     System.out.println("Pass error");
-                    System.out.println(""+e);
+                    System.out.println("" + e);
                     return Mono.just("Hello");
-                }).subscribe();
+                }).block();
     }
 }
