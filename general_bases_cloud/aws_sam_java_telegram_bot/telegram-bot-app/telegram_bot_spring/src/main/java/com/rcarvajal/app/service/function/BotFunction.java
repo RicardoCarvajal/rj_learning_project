@@ -1,7 +1,7 @@
-package com.rcarvajal.app.service.functions;
+package com.rcarvajal.app.service.function;
 
-import com.rcarvajal.app.service.functions.dto.FunctionRequest;
-import com.rcarvajal.app.service.functions.service.BotService;
+import com.rcarvajal.app.service.function.dto.FunctionRequest;
+import com.rcarvajal.app.service.function.service.BotService;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

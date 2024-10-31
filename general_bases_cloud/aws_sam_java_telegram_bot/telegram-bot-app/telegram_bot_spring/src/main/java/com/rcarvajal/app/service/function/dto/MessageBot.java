@@ -1,4 +1,4 @@
-package com.rcarvajal.app.service.functions.dto;
+package com.rcarvajal.app.service.function.dto;
 
 public class MessageBot {
     private String id;

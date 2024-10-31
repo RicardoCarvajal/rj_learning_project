@@ -1,4 +1,4 @@
-package com.rcarvajal.app.service.functions.dto;
+package com.rcarvajal.app.service.function.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
