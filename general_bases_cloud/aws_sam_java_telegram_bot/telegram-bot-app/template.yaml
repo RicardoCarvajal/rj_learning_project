@@ -53,4 +53,9 @@ Resources:
       Description: Contiene los usuarios autorizados para telegram bot
       SecretString: '{"TELEGRAM_USERS": "xxx"}'                  
 
+# ------------------ Outputs ------------------ #
+
+Outputs:
+  telegramstack:
+    Value: !GetAtt telegramstack.Outputs.telegramApi
       

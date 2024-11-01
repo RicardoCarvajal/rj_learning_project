@@ -20,8 +20,7 @@ public class From {
 
     public From() {
     }
-
-    // Getters and Setters
+    
     public int getId() {
         return id;
     }

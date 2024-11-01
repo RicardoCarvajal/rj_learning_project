@@ -1,14 +1,19 @@
 package com.rcarvajal.app.service.infraestructure.web.telegram;
 
 import com.rcarvajal.app.service.conf.ConfProperties;
-import com.rcarvajal.app.service.function.dto.MessageBot;
+import com.rcarvajal.app.service.function.dto.BodyRequest;
+import com.rcarvajal.app.service.infraestructure.entity.MessageBot;
 import com.rcarvajal.app.service.infraestructure.web.Delivery;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+@Slf4j
+@Primary
 @Component
-public class TelegramDelivery implements Delivery<MessageBot> {
+public class TelegramDelivery implements Delivery {
 
     private final RestTemplate restTemplate;
 
@@ -20,25 +25,31 @@ public class TelegramDelivery implements Delivery<MessageBot> {
     }
 
     @Override
-    public void send(MessageBot model) {
+    public void send(BodyRequest bodyRequest) {
 
-        if (this.confProperties.getUsers().contains(model.getId())) {
-            System.out.println("Pass here");
-            String baseUrl = "https://api.telegram.org/bot" + this.confProperties.getCredentialTelegram();
-            String uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                    .pathSegment("sendMessage")
-                    .queryParam("chat_id", model.getId())
-                    .queryParam("text", model.getText())
-                    .toUriString();
+        MessageBot messageBot = MessageBot.builder()
+                .withId(String.valueOf(bodyRequest.getMessage().getFrom().getId()))
+                .withText(bodyRequest.getMessageSystem()).build();
 
-            try {
-                String response = restTemplate.postForObject(uri, null, String.class);
-                System.out.println(response);
-            } catch (Exception e) {
-                System.out.println("Pass error");
-                System.err.println(e.getMessage());
-            }
+        log.info("Se envia texto: [{}] al usuario {}", messageBot.getText(), bodyRequest.getMessage().getFrom().getId());
+
+        String baseUrl = "https://api.telegram.org/bot" + this.confProperties.getCredentialTelegram();
+
+        String uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .pathSegment("sendMessage")
+                .queryParam("chat_id", messageBot.getId())
+                .queryParam("text", messageBot.getText())
+                .toUriString();
+
+        log.info(uri);
+
+        try {
+            String response = restTemplate.postForObject(uri, null, String.class);
+            log.info("Respuesta de telegram {}", response);
+        } catch (Exception e) {
+            log.error("Error en el envio a telegram {}", e.getMessage());
         }
+
 
     }
 }

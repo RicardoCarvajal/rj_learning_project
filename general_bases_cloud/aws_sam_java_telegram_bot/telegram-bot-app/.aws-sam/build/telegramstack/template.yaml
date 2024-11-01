@@ -230,3 +230,8 @@ Resources:
                 Fn::Sub: arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${telegramAPIRest}/*
       Queues:
       - Ref: telegramQueue
+Outputs:
+  telegramApi:
+    Description: API Gateway endpoint URL for Prod stage for telegram function
+    Value:
+      Fn::Sub: https://${telegramAPIRest}.execute-api.${AWS::Region}.amazonaws.com/${environment}/v1/telegramsend

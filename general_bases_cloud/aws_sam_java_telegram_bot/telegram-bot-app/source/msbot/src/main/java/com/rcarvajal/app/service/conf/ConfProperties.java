@@ -4,14 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.secretsmanager.SecretsManagerClient;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueRequest;
 import software.amazon.awssdk.services.secretsmanager.model.GetSecretValueResponse;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Configuration
 public class ConfProperties {
@@ -28,10 +27,9 @@ public class ConfProperties {
         this.objectMapper = objectMapper;
     }
 
-    public JsonNode getSecretValue(String secretID) {
+    public Optional<JsonNode> getSecretValue(String secretID) {
         try {
             SecretsManagerClient secretsClient = SecretsManagerClient.builder()
-                    .region(Region.US_WEST_2)
                     .build();
 
             GetSecretValueRequest getSecretValueRequest = GetSecretValueRequest.builder()
@@ -42,32 +40,21 @@ public class ConfProperties {
 
             secretsClient.close();
 
-            return objectMapper.readTree(getSecretValueResponse.secretString());
+            return Optional.of(objectMapper.readTree(getSecretValueResponse.secretString()));
+
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("Error al manejar secrets");
-            return objectMapper.nullNode();
+            return Optional.empty();
         }
     }
 
     public String getCredentialTelegram() {
-        try {
-            return getSecretValue(secretCredential).get("TELEGRAM_TOKEN").asText();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al extraer el token de TELEGRAM");
-            return "";
-        }
+        return getSecretValue(secretCredential).map(jsonNode -> jsonNode.get("TELEGRAM_TOKEN").asText()).orElse("");
     }
 
     public List<String> getUsers() {
-        try {
-            return Arrays.stream(getSecretValue(secretUser).get("TELEGRAM_USERS").asText().split(",")).toList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al extraer el usuarios de TELEGRAM");
-            return new ArrayList<>();
-        }
+        String value = getSecretValue(secretUser).map(jsonNode -> jsonNode.get("TELEGRAM_USERS").asText()).orElse("");
+        return Arrays.asList(value.split(","));
     }
 
 

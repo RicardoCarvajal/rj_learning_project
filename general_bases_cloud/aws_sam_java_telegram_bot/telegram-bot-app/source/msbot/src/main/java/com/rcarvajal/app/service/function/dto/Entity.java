@@ -7,8 +7,7 @@ public class Entity {
 
     public Entity() {
     }
-
-    // Getters and Setters
+    
     public int getOffset() {
         return offset;
     }

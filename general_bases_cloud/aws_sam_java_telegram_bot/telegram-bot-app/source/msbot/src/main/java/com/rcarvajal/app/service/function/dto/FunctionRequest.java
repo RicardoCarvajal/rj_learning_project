@@ -19,4 +19,10 @@ public class FunctionRequest {
         this.records = records;
     }
 
+    @Override
+    public String toString() {
+        return "FunctionRequest{" +
+                "records=" + records.getFirst().getBody() +
+                '}';
+    }
 }

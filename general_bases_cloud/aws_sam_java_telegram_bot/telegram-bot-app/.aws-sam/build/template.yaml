@@ -52,3 +52,9 @@ Resources:
         Fn::Sub: ate/${environment}/${country}/stellar/secret/telegramusers
       Description: Contiene los usuarios autorizados para telegram bot
       SecretString: '{"TELEGRAM_USERS": "xxx"}'
+Outputs:
+  telegramstack:
+    Value:
+      Fn::GetAtt:
+      - telegramstack
+      - Outputs.telegramApi

@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rcarvajal.app.service.function.dto.BodyRequest;
 import com.rcarvajal.app.service.function.dto.FunctionRequest;
 import com.rcarvajal.app.service.function.dto.RecordsItem;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
+@Slf4j
 @Component
 public class FunctionRequestMapper {
 
@@ -20,23 +22,16 @@ public class FunctionRequestMapper {
         this.objectMapper = objectMapper;
     }
 
-    public BodyRequest getBody(FunctionRequest functionRequest) {
+    public Optional<BodyRequest> getBody(FunctionRequest functionRequest) {
         try {
-
-            if (Objects.isNull(functionRequest)) {
-                System.out.println("La peticion no es valida");
-            }
-
             List<RecordsItem> records = functionRequest.getRecords();
-
             if (CollectionUtils.isEmpty(records)) {
-                return null;
+                return Optional.empty();
             }
-
             String body = functionRequest.getRecords().getFirst().getBody();
-            return this.objectMapper.readValue(body, BodyRequest.class);
+            return Optional.of(this.objectMapper.readValue(body, BodyRequest.class));
         } catch (JsonProcessingException e) {
-            return null;
+            return Optional.empty();
         }
     }
 
