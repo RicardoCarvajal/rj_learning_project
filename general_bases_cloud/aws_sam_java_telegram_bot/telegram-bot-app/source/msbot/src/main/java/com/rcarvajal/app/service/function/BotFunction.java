@@ -17,6 +17,6 @@ public class BotFunction implements Function<FunctionRequest, String> {
 
     @Override
     public String apply(FunctionRequest request) {
-        return botService.getString(request);
+        return botService.sendMessage(request);
     }
 }

@@ -1,26 +1,56 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  telegram-bot-app
+Description: |
+  Stack principal de integraciones telegram stellar
 
-  Sample SAM Template for telegram-bot-app
 
-Globals:
-  Function:
-    Timeout: 20
-    MemorySize: 512
-    LoggingConfig:
-      LogFormat: JSON
+# ------------------ Parámetros de la aplicación ------------------ #
+
+Parameters:
+  environment:
+    Type: String
+    Default: dev  
+    Description: 'Ambientes de implementacion: dev, qa, prod.'
+    AllowedValues:
+      - dev
+      - qa
+      - prod
+
+  country:
+    Type: String
+    Description: 'Paises de implementacion: gt, sv, ve.'
+    Default: ve
+    AllowedValues:
+      - gt
+      - sv
+      - ve
 
 Resources:
-  TelegramFunction:
-    Type: AWS::Serverless::Function
+ # --------- STACKS ------------------- #
+ # --------- telegram bot app --------- #        
+  telegramstack: 
+    Type: AWS::Serverless::Application
     Properties:
-      CodeUri: telegram_bot_spring/
-      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
-      Runtime: java21
-      Architectures:
-      - x86_64
-      MemorySize: 512
-    Metadata:
-      BuildMethod: makefile
+      Location: ./infraestructure/msbot/template.yaml
+      Parameters:
+        environment: !Ref environment
+        country: !Ref country
+        ParentStackName: !Ref AWS::StackName              
+        secrettelegramcredential: !Ref secrettelegramcredential
+        secrettelegramusers: !Ref secrettelegramusers
+
+ # --------- secrets --------- #
+  secrettelegramcredential:
+    Type: AWS::SecretsManager::Secret   
+    Properties:
+      Name: !Sub ate/${environment}/${country}/stellar/secret/telegramcredentials
+      Description: Contiene las gredenciales de telegram para api bot
+      SecretString: '{"TELEGRAM_TOKEN": "xxx"}'            
+  secrettelegramusers:
+    Type: AWS::SecretsManager::Secret   
+    Properties:
+      Name: !Sub ate/${environment}/${country}/stellar/secret/telegramusers
+      Description: Contiene los usuarios autorizados para telegram bot
+      SecretString: '{"TELEGRAM_USERS": "xxx"}'                  
+
+      

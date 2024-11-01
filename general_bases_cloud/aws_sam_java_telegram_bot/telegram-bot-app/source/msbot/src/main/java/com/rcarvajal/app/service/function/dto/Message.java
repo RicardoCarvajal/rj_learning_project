@@ -16,8 +16,7 @@ public class Message {
 
     public Message() {
     }
-
-    // Getters and Setters
+    
     public int getMessageId() {
         return messageId;
     }

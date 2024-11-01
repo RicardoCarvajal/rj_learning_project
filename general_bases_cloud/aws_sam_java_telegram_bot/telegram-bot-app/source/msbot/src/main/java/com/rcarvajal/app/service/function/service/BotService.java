@@ -1,7 +1,9 @@
 package com.rcarvajal.app.service.function.service;
 
+import com.rcarvajal.app.service.function.dto.BodyRequest;
 import com.rcarvajal.app.service.function.dto.FunctionRequest;
 import com.rcarvajal.app.service.function.dto.MessageBot;
+import com.rcarvajal.app.service.function.mapper.FunctionRequestMapper;
 import com.rcarvajal.app.service.infraestructure.web.Delivery;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +14,18 @@ public class BotService {
 
     private final Delivery<MessageBot> delivery;
 
-    public BotService(Delivery<MessageBot> delivery) {
+    private final FunctionRequestMapper requestMapper;
+
+    public BotService(Delivery<MessageBot> delivery, FunctionRequestMapper requestMapper) {
         this.delivery = delivery;
+        this.requestMapper = requestMapper;
     }
 
-    public String getString(FunctionRequest request) {
-        String id = String.valueOf(request.getMessage().getFrom().getId());
-        String message = request.getMessage().getText();
+    public String sendMessage(FunctionRequest request) {
+
+        BodyRequest body = requestMapper.getBody(request);
+        String id = String.valueOf(body.getMessage().getFrom().getId());
+        String message = body.getMessage().getText();
         if (message.equalsIgnoreCase("/start")) {
             System.out.println("Doing something");
             System.out.println("request.getId() " + id);

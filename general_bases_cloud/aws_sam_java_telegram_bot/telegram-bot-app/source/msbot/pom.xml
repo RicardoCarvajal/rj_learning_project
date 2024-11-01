@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.rcarvajal.app.service</groupId>
-    <artifactId>telegram_bot_spring</artifactId>
+    <artifactId>msbot</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>telegram_bot_spring</name>
+    <name>msbot</name>
     <description>Demo project for Spring Boot and telegram</description>
     <url/>
     <licenses>
@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -48,6 +48,16 @@
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>secretsmanager</artifactId>
+            <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.14.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

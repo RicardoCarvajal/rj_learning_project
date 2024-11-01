@@ -3,14 +3,14 @@ package com.rcarvajal.app.service.function.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class FunctionRequest {
+public class BodyRequest {
 
     @JsonProperty(value = "update_id")
     private int updateId;
 
     private Message message;
 
-    public FunctionRequest() {
+    public BodyRequest() {
 
     }
 
