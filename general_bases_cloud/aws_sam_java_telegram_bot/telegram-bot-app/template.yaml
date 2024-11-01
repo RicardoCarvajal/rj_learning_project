@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: |
-  Stack principal de integraciones telegram stellar
+  Stack principal de integraciones telegram 
 
 
 # ------------------ Parámetros de la aplicación ------------------ #
@@ -43,13 +43,13 @@ Resources:
   secrettelegramcredential:
     Type: AWS::SecretsManager::Secret   
     Properties:
-      Name: !Sub ate/${environment}/${country}/stellar/secret/telegramcredentials
+      Name: !Sub ate/${environment}/${country}/secret/telegramcredentials
       Description: Contiene las gredenciales de telegram para api bot
       SecretString: '{"TELEGRAM_TOKEN": "xxx"}'            
   secrettelegramusers:
     Type: AWS::SecretsManager::Secret   
     Properties:
-      Name: !Sub ate/${environment}/${country}/stellar/secret/telegramusers
+      Name: !Sub ate/${environment}/${country}/secret/telegramusers
       Description: Contiene los usuarios autorizados para telegram bot
       SecretString: '{"TELEGRAM_USERS": "xxx"}'                  
 
