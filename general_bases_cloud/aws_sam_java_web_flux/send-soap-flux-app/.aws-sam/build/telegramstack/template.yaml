@@ -1,0 +1,237 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'telegram-bot-app
+
+  Sample SAM Template for telegram-bot-app
+
+  '
+Globals:
+  Function:
+    MemorySize: 512
+    Timeout: 10
+    Runtime: java21
+    Architectures:
+    - x86_64
+    LoggingConfig:
+      LogFormat: Text
+Parameters:
+  environment:
+    Type: String
+  country:
+    Type: String
+  ParentStackName:
+    Type: String
+  secrettelegramcredential:
+    Type: String
+  secrettelegramusers:
+    Type: String
+Resources:
+  telegramQueueDlq:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName:
+        Fn::Sub: ${ParentStackName}-sqs-telegramqueuedlq
+  telegramQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 60
+      RedrivePolicy:
+        deadLetterTargetArn:
+          Fn::GetAtt:
+          - telegramQueueDlq
+          - Arn
+        maxReceiveCount: 5
+      QueueName:
+        Fn::Sub: ${ParentStackName}-sqs-telegramqueue
+  telegramFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName:
+        Fn::Sub: ${ParentStackName}-lbda-telegramfunction
+      Role:
+        Fn::GetAtt:
+        - telegramLambdaRole
+        - Arn
+      CodeUri: telegramFunction
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Environment:
+        Variables:
+          ENV_APP:
+            Ref: environment
+          COUNTRY:
+            Ref: country
+          SECRET_TELEGRAM_CREDENTIAL:
+            Ref: secrettelegramcredential
+          SECRET_TELEGRAM_USERS:
+            Ref: secrettelegramusers
+      Events:
+        telegramEventSQS:
+          Type: SQS
+          Properties:
+            Queue:
+              Fn::GetAtt:
+              - telegramQueue
+              - Arn
+            BatchSize: 1
+            Enabled: true
+    Metadata:
+      BuildMethod: makefile
+      SamResourceId: telegramFunction
+  telegramAPIRest:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name:
+        Fn::Sub: ${ParentStackName}-apigateway-telegramapirest
+      EndpointConfiguration:
+        Types:
+        - REGIONAL
+  v1telegramAPIRest:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId:
+        Ref: telegramAPIRest
+      ParentId:
+        Fn::GetAtt:
+        - telegramAPIRest
+        - RootResourceId
+      PathPart: v1
+  telegramResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      RestApiId:
+        Ref: telegramAPIRest
+      ParentId:
+        Ref: v1telegramAPIRest
+      PathPart: telegramsend
+    Metadata:
+      SamResourceId: telegramsend
+  telegramMethodSQS:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      RestApiId:
+        Ref: telegramAPIRest
+      ResourceId:
+        Ref: telegramResource
+      HttpMethod: POST
+      Integration:
+        IntegrationResponses:
+        - StatusCode: 200
+        IntegrationHttpMethod: POST
+        RequestTemplates:
+          application/json: Action=SendMessage&MessageBody=$util.urlEncode($input.body)
+        RequestParameters:
+          integration.request.header.Content-Type: '''application/x-www-form-urlencoded'''
+        Type: AWS
+        Uri:
+          Fn::Sub:
+          - arn:aws:apigateway:${AWS::Region}:sqs:path//${queueName}
+          - queueName:
+              Fn::GetAtt:
+              - telegramQueue
+              - QueueName
+        Credentials:
+          Fn::GetAtt:
+          - telegramApiRoleSqs
+          - Arn
+      MethodResponses:
+      - StatusCode: 200
+      AuthorizationType: NONE
+  telegramAPIRestDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: telegramMethodSQS
+    Properties:
+      RestApiId:
+        Ref: telegramAPIRest
+  telegramAPIRestStage:
+    Type: AWS::ApiGateway::Stage
+    Properties:
+      DeploymentId:
+        Ref: telegramAPIRestDeployment
+      RestApiId:
+        Ref: telegramAPIRest
+      StageName:
+        Ref: environment
+  telegramApiRoleSqs:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - apigateway.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyName:
+          Fn::Sub: ${ParentStackName}-telegramApiRoleSqs
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action: sqs:SendMessage
+            Resource:
+              Fn::GetAtt:
+              - telegramQueue
+              - Arn
+  telegramLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName:
+        Fn::Sub: ${ParentStackName}-telegramlambdarole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      - arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole
+      Policies:
+      - PolicyName:
+          Fn::Sub: ${ParentStackName}-telegramlambdapolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - secretsmanager:GetSecretValue
+            Resource:
+            - '*'
+          - Effect: Allow
+            Action:
+            - secretsmanager:GetSecretValue
+            Resource:
+            - Fn::Sub: arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:ate/${environment}/*
+  telegramSqsInputPolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: apigateway.amazonaws.com
+          Resource:
+            Fn::GetAtt:
+            - telegramQueue
+            - Arn
+          Action:
+          - sqs:SendMessage
+          - sqs:ReceiveMessage
+          Condition:
+            ArnEquals:
+              aws:SourceArn:
+                Fn::Sub: arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${telegramAPIRest}/*
+      Queues:
+      - Ref: telegramQueue
+Outputs:
+  telegramApi:
+    Description: API Gateway endpoint URL for Prod stage for telegram function
+    Value:
+      Fn::Sub: https://${telegramAPIRest}.execute-api.${AWS::Region}.amazonaws.com/${environment}/v1/telegramsend

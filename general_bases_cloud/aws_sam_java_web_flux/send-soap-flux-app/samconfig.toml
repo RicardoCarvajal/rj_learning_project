@@ -1,0 +1,44 @@
+version = 0.1
+
+[default.build.parameters]
+cached = true
+parallel = true 
+
+[default.validate.parameters]
+lint = true
+
+[default.package.parameters]
+resolve_s3 = true
+
+[default.sync.parameters]
+watch = true
+
+[default.local_start_api.parameters]
+warm_containers = "EAGER"
+
+[default.local_start_lambda.parameters]
+warm_containers = "EAGER"
+
+
+# ------------------------------ DESARROLLO-VE ------------------------------ #
+[dev.build.parameters]
+cached = true
+parallel = true
+
+[dev.deploy.parameters]
+stack_name = "dev-integration-sap-ve"
+resolve_s3 = true
+s3_prefix = "dev-integration-sap-ve"
+region = "us-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = "environment=\"dev\" country=\"ve\""
+image_repositories = []
+
+[dev.delete.parameters]
+stack_name = "dev-integration-sap-ve"
+s3_prefix = "dev-integration-sap-ve"
+region = "us-west-2"
+
+# ------------------------------------------------------------ #
+

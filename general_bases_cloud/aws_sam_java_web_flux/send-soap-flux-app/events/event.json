@@ -1,0 +1,22 @@
+{
+  "Records": [
+      {
+          "messageId": "dc1416d3-175f-4179-9c05-a35b84b4fcde",
+          "receiptHandle": "AQEBwn9OFXLyVUkTBQ+DztZZMwnhPDT0J+Mvy+j/5uHVV3NtXpJrq9v6kLhpL9Fcw9sTcBzQh3f3209YG3NBvfXYdDyKiPVJSzcMwLvVOTq9cntnDwNMf4qWLe/4yR4wubMINHBGH20JqTFGXKCue0n9w5aFRP4bHWxRzuUWMEx+xFPw3TqaR9G8v5xROvORm+oqAWjQkniyeMHaPrURO5nDBQrt0TWCJ//634C86kLAiGuN1lKC4D4IOf+lD4YLfludR4b71UzJR12PRdDCQY7eDQmbbXVNaiz60CgtX/M7mIzZirAq+zQNJvtIjvtmn16S/f54LgUfiI2WbNf9t7aKReMlo288n6aonwjM1+SRPsqX2kTDD1jk9pjk6COnEqqScEK2xD7uzRJjiImvRtDcYewaq9bMYLoPLREdzlR04MhOdzpotehbzmVqXIKSNSaN",
+          "body": "{\"update_id\":967341787,\n\"message\":{\"message_id\":93,\"from\":{\"id\":812438237,\"is_bot\":false,\"first_name\":\"Ricardo\",\"last_name\":\"Carvajal\",\"username\":\"ricardocarvajalfuentes\",\"language_code\":\"es\"},\"chat\":{\"id\":812438237,\"first_name\":\"Ricardo\",\"last_name\":\"Carvajal\",\"username\":\"ricardocarvajalfuentes\",\"type\":\"private\"},\"date\":1730419680,\"text\":\"/start\",\"entities\":[{\"offset\":0,\"length\":6,\"type\":\"bot_command\"}]}}",
+          "attributes": {
+              "ApproximateReceiveCount": "1",
+              "AWSTraceHeader": "Root=1-67241be0-0df93cb955a7cd1379a8b005",
+              "SentTimestamp": "1730419680482",
+              "SenderId": "AROAQZOVDDJMEBMV3Q6IN:BackplaneAssumeRoleSession",
+              "ApproximateFirstReceiveTimestamp": "1730419680484"
+          },
+          "messageAttributes": {},
+          "md5OfBody": "948847ee8328588edaa58a1085f68a99",
+          "eventSource": "aws:sqs",
+          "eventSourceARN": "arn:aws:sqs:us-west-2:054670858840:devate-integration-stellar-sap-ve-sqs-telegramqueue",
+          "awsRegion": "us-west-2"
+      }
+  ]
+}
+  
