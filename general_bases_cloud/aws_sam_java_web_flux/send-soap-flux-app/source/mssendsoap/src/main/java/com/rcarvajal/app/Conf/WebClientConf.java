@@ -1,5 +1,6 @@
 package com.rcarvajal.app.Conf;
 
+import io.netty.channel.ChannelOption;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 
 import javax.net.ssl.SSLException;
+import java.time.Duration;
 
 @Slf4j
 @Configuration
@@ -33,7 +35,7 @@ public class WebClientConf {
                     .forClient()
                     .trustManager(InsecureTrustManagerFactory.INSTANCE)
                     .build();
-            HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext));
+            HttpClient httpClient = HttpClient.create().secure(t -> t.sslContext(sslContext)).responseTimeout(Duration.ofSeconds(3)).option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 3000);
 
             log.info(URL);
             log.info(TOKEN);

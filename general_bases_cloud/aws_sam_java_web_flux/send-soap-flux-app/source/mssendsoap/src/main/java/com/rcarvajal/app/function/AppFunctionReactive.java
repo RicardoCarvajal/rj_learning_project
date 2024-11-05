@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 @Slf4j
 @Component
-public class AppFunctionReactive implements Function<Mono<RequestDto>, Mono<ResponseEntity<ResponseDto>>> {
+public class AppFunctionReactive implements Function<Flux<RequestDto>, Mono<ResponseEntity<ResponseDto>>> {
 
     private final WebClient webClient;
 
@@ -28,7 +28,16 @@ public class AppFunctionReactive implements Function<Mono<RequestDto>, Mono<Resp
 
     @Override
     public Mono<ResponseEntity<ResponseDto>> apply(Flux<RequestDto> request) {
-        //TODO: agregar codigo
+        return request.flatMap(dto -> {
+            log.info("Transaccion " + dto.getTr());
+            return sendSoap(dto.getTr());
+        }).collectList().map(list -> {
+            ResponseDto responseDto = new ResponseDto();
+            responseDto.setStatus("200");
+            responseDto.setMessage("Enviados");
+            responseDto.setData(list.toString());
+            return ResponseEntity.ok().body(responseDto);
+        });
     }
 
     public Mono<String> sendSoap(Integer count) {
