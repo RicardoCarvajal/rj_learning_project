@@ -1,0 +1,10 @@
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/Main.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/CustomerDetails.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/CustomerDetailsItem.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/PosBapiCreate.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/RetailLine.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/RetailLineItem.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/ReturnTransaction.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/ReturnTransactionItem.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/model/Transaction.java
+/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/java/org/intelix/app/sap/utils/Utils.java
