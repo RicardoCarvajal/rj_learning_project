@@ -14,7 +14,7 @@ public class XmlBody {
 
     private Transaction transaction;
 
-    private CustomerDetails customerDetails = new CustomerDetails();
+    private CustomerDetails customerDetails;
 
     private RetailLine retailLine = new RetailLine();
 
@@ -58,6 +58,11 @@ public class XmlBody {
 
     public void setCustomerDetails(CustomerDetails customerDetails) {
         this.customerDetails = customerDetails;
+    }
+
+    public void addCustomerDetailsItem(CustomerDetailsItem customerDetailsItem) {
+        this.setCustomerDetails(new CustomerDetails());
+        this.customerDetails.getItem().add(customerDetailsItem);
     }
 
     @XmlElement(name = "RETAILLINEITEM")

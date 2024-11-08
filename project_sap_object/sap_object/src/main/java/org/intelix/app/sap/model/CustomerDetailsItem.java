@@ -97,4 +97,6 @@ public class CustomerDetailsItem {
     public void setCustomerDetailsSequenceNumber(String customerDetailsSequenceNumber) {
         this.customerDetailsSequenceNumber = customerDetailsSequenceNumber;
     }
+
+
 }
