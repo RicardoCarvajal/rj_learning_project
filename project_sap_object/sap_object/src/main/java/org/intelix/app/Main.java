@@ -1,9 +1,6 @@
 package org.intelix.app;
 
-import org.intelix.app.sap.model.CustomerDetailsItem;
-import org.intelix.app.sap.model.RetailLineItem;
-import org.intelix.app.sap.model.Transaction;
-import org.intelix.app.sap.model.XmlBody;
+import org.intelix.app.sap.model.*;
 import org.intelix.app.sap.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,22 +32,21 @@ public class Main {
                 .customerIdPos("12456999")
                 .build();
 
-        CustomerDetailsItem customerDetailsItemOne = getCustomerDetailsItem("NOMBRE", "Gloria Estefan");
-        CustomerDetailsItem customerDetailsItemTwo = getCustomerDetailsItem("ID", "12456999");
-        CustomerDetailsItem customerDetailsItemThree = getCustomerDetailsItem("TIPOID", "CEDULA");
-        CustomerDetailsItem customerDetailsItemFour = getCustomerDetailsItem("TELEFONO", "+1 (305) 456-6546");
-        CustomerDetailsItem customerDetailsItemFive = getCustomerDetailsItem("DIRECCION", "Miami, FL");
-
-        RetailLineItem retailLineItemOne = getRetailLineItemOne();
-
-        RetailLineItem retailLineItemTwo = getRetailLineItemTwo();
+        CustomerDetails customerDetails = CustomerDetails.builder()
+                .transaction(transaction)
+                .addCustomerID("12456999")
+                .addCustomerName("Gloria Estefan")
+                .addCustomerTypeIdentification("CEDULA")
+                .addCustomerPhone("+1 (305) 456-6546")
+                .addCustomerAddress("Miami, FL")
+                .build();
 
         xmlBody.setTransaction(transaction);
-        xmlBody.getCustomerDetails().getItem().add(customerDetailsItemOne);
-        xmlBody.getCustomerDetails().getItem().add(customerDetailsItemTwo);
-        xmlBody.getCustomerDetails().getItem().add(customerDetailsItemThree);
-        xmlBody.getCustomerDetails().getItem().add(customerDetailsItemFour);
-        xmlBody.getCustomerDetails().getItem().add(customerDetailsItemFive);
+        xmlBody.setCustomerDetails(customerDetails);
+
+        RetailLineItem retailLineItemOne = getRetailLineItemOne();
+        RetailLineItem retailLineItemTwo = getRetailLineItemTwo();
+
         xmlBody.getRetailLine().getRetailLineItem().add(retailLineItemOne);
         xmlBody.getRetailLine().getRetailLineItem().add(retailLineItemTwo);
 

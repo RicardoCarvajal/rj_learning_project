@@ -16,7 +16,7 @@ public class Utils {
     public static String getRoot() {
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            File xmlTemplate = new File("/home/ricardo/workspace_learning/project_sap_object/sap_object/src/main/resources/request_part.xml");
+            File xmlTemplate = new File("src/main/resources/request_part.xml");
             SAXReader reader = new SAXReader();
             Document document = reader.read(xmlTemplate);
             stringBuilder.append(document.asXML());

@@ -1,8 +1,11 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.CustomerDetailsItemBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class CustomerDetailsItem {
+
 
     private String retailStoreId = "";
     private String businessDayDate = "";
@@ -96,6 +99,10 @@ public class CustomerDetailsItem {
 
     public void setCustomerDetailsSequenceNumber(String customerDetailsSequenceNumber) {
         this.customerDetailsSequenceNumber = customerDetailsSequenceNumber;
+    }
+
+    public static CustomerDetailsItemBuilder builder() {
+        return new CustomerDetailsItemBuilder();
     }
 
 

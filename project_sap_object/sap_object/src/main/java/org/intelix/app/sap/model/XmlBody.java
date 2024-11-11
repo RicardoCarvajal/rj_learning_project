@@ -60,11 +60,6 @@ public class XmlBody {
         this.customerDetails = customerDetails;
     }
 
-    public void addCustomerDetailsItem(CustomerDetailsItem customerDetailsItem) {
-        this.setCustomerDetails(new CustomerDetails());
-        this.customerDetails.getItem().add(customerDetailsItem);
-    }
-
     @XmlElement(name = "RETAILLINEITEM")
     public RetailLine getRetailLine() {
         return retailLine;
