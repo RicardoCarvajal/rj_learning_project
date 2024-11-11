@@ -17,10 +17,9 @@ public class Main {
     public static void main(String[] args) throws JAXBException {
         log.info("Test object");
 
-        XmlBody xmlBody = new XmlBody();
-
-        Transaction transaction = Transaction.builder().retailStoreId("CR02")
-                .businessDayDate("2024-06-21")
+        Transaction transaction = Transaction.builder()
+                .retailStoreId("CR02")
+                .businessDayDate("2024-06-22")
                 .transactionTypeCode("1001")
                 .workstationId("10")
                 .transactionSequenceNumber("301")
@@ -41,14 +40,84 @@ public class Main {
                 .addCustomerAddress("Miami, FL")
                 .build();
 
-        xmlBody.setTransaction(transaction);
-        xmlBody.setCustomerDetails(customerDetails);
+        RetailLine retailLine = RetailLine.builder()
+                .addRetailLineItem(
+                        RetailLineItem.builder()
+                                .transaction(transaction)
+                                .retailSequenceNumber("2")
+                                .retailTypeCode("1022")
+                                .itemIdQualifier("2")
+                                .itemId("100000002")
+                                .retailQuantity("3")
+                                .salesUnitOfMeasure("ST")
+                                .salesAmount("3000")
+                                .normalSalesAmount("3000")
+                                .itemIdEntryMethodCode("SCAN")
+                                .actualUnitPrice("1000")
+                                .units("3")
+                                .build()
+                ).addRetailLineItem(
+                        RetailLineItem.builder()
+                                .transaction(transaction)
+                                .retailSequenceNumber("1")
+                                .retailTypeCode("1021")
+                                .itemIdQualifier("2")
+                                .itemId("100000002")
+                                .retailQuantity("2")
+                                .salesUnitOfMeasure("ST")
+                                .salesAmount("5650")
+                                .normalSalesAmount("6000")
+                                .itemIdEntryMethodCode("SCAN")
+                                .actualUnitPrice("2500")
+                                .units("2")
+                                .priceTypeCode("05")
+                                .build()
+                )
+                .build();
 
-        RetailLineItem retailLineItemOne = getRetailLineItemOne();
-        RetailLineItem retailLineItemTwo = getRetailLineItemTwo();
 
-        xmlBody.getRetailLine().getRetailLineItem().add(retailLineItemOne);
-        xmlBody.getRetailLine().getRetailLineItem().add(retailLineItemTwo);
+        LineDiscount lineDiscount = LineDiscount.builder()
+                .addRetailLineItem(
+                        LineDiscountItem.builder()
+                                .transaction(transaction)
+                                .retailSequenceNumber("1")
+                                .discountSequenceNumber("1")
+                                .discountTypeCode("ZDPO")
+                                .reductionAmount("1000")
+                                .build()
+                )
+                .build();
+
+        LineTax lineTax = LineTax.builder()
+                .addLineTaxItem(
+                        LineTaxItem.builder()
+                                .transaction(transaction)
+                                .retailSequenceNumber("1")
+                                .taxSequenceNumber("1")
+                                .taxTypeCode("TXF1")
+                                .taxAmount("650")
+                                .taxClassification("6")
+                                .build()
+                ).addLineTaxItem(
+                        LineTaxItem.builder()
+                                .transaction(transaction)
+                                .retailSequenceNumber("2")
+                                .taxSequenceNumber("1")
+                                .taxTypeCode("TXF1")
+                                .taxAmount("0")
+                                .taxClassification("0")
+                                .build()
+                )
+                .build();
+
+        XmlBody xmlBody = XmlBody.builder()
+                .transaction(transaction)
+                .customerDetails(customerDetails)
+                .retailLine(retailLine)
+                .lineDiscount(lineDiscount)
+                .lineTax(lineTax)
+                .build();
+
 
         JAXBContext jaxbContext = JAXBContext.newInstance(XmlBody.class);
 
@@ -66,63 +135,5 @@ public class Main {
 
         log.info(result);
     }
-
-    private static RetailLineItem getRetailLineItemTwo() {
-        RetailLineItem retailLineItemTwo = new RetailLineItem();
-        retailLineItemTwo.setRetailStoreId("CR02");
-        retailLineItemTwo.setBusinessDayDate("2024-06-21");
-        retailLineItemTwo.setTransactionTypeCode("1001");
-        retailLineItemTwo.setWorkstationId("10");
-        retailLineItemTwo.setTransactionSequenceNumber("301");
-        retailLineItemTwo.setRetailSequenceNumber("2");
-        retailLineItemTwo.setRetailTypeCode("1022");
-        retailLineItemTwo.setItemIdQualifier("2");
-        retailLineItemTwo.setItemId("100000002");
-        retailLineItemTwo.setRetailQuantity("3");
-        retailLineItemTwo.setSalesUnitOfMeasure("ST");
-        retailLineItemTwo.setSalesAmount("3000");
-        retailLineItemTwo.setNormalSalesAmount("3000");
-        retailLineItemTwo.setItemIdEntryMethodCode("SCAN");
-        retailLineItemTwo.setActualUnitPrice("1000");
-        retailLineItemTwo.setUnits("3");
-        return retailLineItemTwo;
-    }
-
-    private static RetailLineItem getRetailLineItemOne() {
-        RetailLineItem retailLineItemOne = new RetailLineItem();
-        retailLineItemOne.setRetailStoreId("CR02");
-        retailLineItemOne.setBusinessDayDate("2024-06-21");
-        retailLineItemOne.setTransactionTypeCode("1001");
-        retailLineItemOne.setWorkstationId("10");
-        retailLineItemOne.setTransactionSequenceNumber("301");
-        retailLineItemOne.setRetailSequenceNumber("1");
-        retailLineItemOne.setRetailTypeCode("1021");
-        retailLineItemOne.setItemIdQualifier("2");
-        retailLineItemOne.setItemId("100000002");
-        retailLineItemOne.setRetailQuantity("2");
-        retailLineItemOne.setSalesUnitOfMeasure("ST");
-        retailLineItemOne.setSalesAmount("5650");
-        retailLineItemOne.setNormalSalesAmount("6000");
-        retailLineItemOne.setItemIdEntryMethodCode("SCAN");
-        retailLineItemOne.setActualUnitPrice("2500");
-        retailLineItemOne.setUnits("2");
-        retailLineItemOne.setPriceTypeCode("05");
-        return retailLineItemOne;
-    }
-
-    private static CustomerDetailsItem getCustomerDetailsItem(String NOMBRE, String Gloria_Estefan) {
-        CustomerDetailsItem customerDetailsItemOne = new CustomerDetailsItem();
-
-        customerDetailsItemOne.setRetailStoreId("CR02");
-        customerDetailsItemOne.setBusinessDayDate("2024-06-21");
-        customerDetailsItemOne.setTransactionTypeCode("1001");
-        customerDetailsItemOne.setWorkstationId("10");
-        customerDetailsItemOne.setTransactionSequenceNumber("301");
-        customerDetailsItemOne.setCustomerInformationTypeCode("BAS");
-        customerDetailsItemOne.setDataElementId(NOMBRE);
-        customerDetailsItemOne.setDataElementValue(Gloria_Estefan);
-        return customerDetailsItemOne;
-    }
-
 
 }

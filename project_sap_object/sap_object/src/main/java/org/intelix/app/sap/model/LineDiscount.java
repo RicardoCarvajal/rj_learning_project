@@ -1,5 +1,7 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.LineDiscountBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,5 +20,13 @@ public class LineDiscount {
 
     public void setLineDiscountItems(List<LineDiscountItem> lineDiscountItems) {
         this.lineDiscountItems = lineDiscountItems;
+    }
+
+    public void addLineDiscountItem(LineDiscountItem lineDiscountItem) {
+        this.lineDiscountItems.add(lineDiscountItem);
+    }
+
+    public static LineDiscountBuilder builder() {
+        return new LineDiscountBuilder();
     }
 }

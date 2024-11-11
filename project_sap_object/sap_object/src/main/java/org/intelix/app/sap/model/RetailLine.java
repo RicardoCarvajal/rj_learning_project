@@ -1,5 +1,7 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.RetailLineBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,4 +21,14 @@ public class RetailLine {
     public void setRetailLineItem(List<RetailLineItem> retailLineItem) {
         this.retailLineItem = retailLineItem;
     }
+
+    public void addRetailLineItem(RetailLineItem retailLineItem) {
+        this.retailLineItem.add(retailLineItem);
+    }
+
+    public static RetailLineBuilder builder() {
+        return new RetailLineBuilder();
+    }
+
+
 }

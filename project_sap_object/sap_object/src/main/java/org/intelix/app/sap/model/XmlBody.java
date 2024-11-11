@@ -1,24 +1,32 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.XmlBodyBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "urn:_-POSDW_-BAPI_POSTR_CREATE")
 public class XmlBody {
 
-    private String iCommit = "";
+    @XmlElement(name = "I_COMMIT")
+    private final String ICOMMIT = "X";
 
-    private String iLockWait = "";
-
-    private ReturnTransaction transactionReturn = new ReturnTransaction();
+    @XmlElement(name = "I_LOCKWAIT")
+    private final String ILOCKWAIT = "5";
 
     private Transaction transaction;
 
-    private CustomerDetails customerDetails;
+    private ReturnTransaction transactionReturn = new ReturnTransaction();
 
-    private RetailLine retailLine = new RetailLine();
+    private CustomerDetails customerDetails = new CustomerDetails();
 
-    private LineDiscount lineDiscount = new LineDiscount();
+    private RetailLine retailLine;
+
+    private LineDiscount lineDiscount;
+
+    private LineTax lineTax;
+
+    private LineTaxExt lineTaxExt;
 
 
     public XmlBody() {
@@ -33,23 +41,6 @@ public class XmlBody {
         this.transaction = transaction;
     }
 
-    @XmlElement(name = "I_COMMIT")
-    public String getICommit() {
-        return iCommit;
-    }
-
-    public void setICommit(String iCommit) {
-        this.iCommit = iCommit;
-    }
-
-    @XmlElement(name = "I_LOCKWAIT")
-    public String getILockWait() {
-        return iLockWait;
-    }
-
-    public void setILockWait(String iLockWait) {
-        this.iLockWait = iLockWait;
-    }
 
     @XmlElement(name = "CUSTOMERDETAILS")
     public CustomerDetails getCustomerDetails() {
@@ -86,4 +77,28 @@ public class XmlBody {
     public void setLineDiscount(LineDiscount lineDiscount) {
         this.lineDiscount = lineDiscount;
     }
+
+    @XmlElement(name = "LINEITEMTAX")
+    public LineTax getLineTax() {
+        return lineTax;
+    }
+
+    public void setLineTax(LineTax lineTax) {
+        this.lineTax = lineTax;
+    }
+
+    @XmlElement(name = "LINEITEMTAXEXT")
+    public LineTaxExt getLineTaxExt() {
+        return lineTaxExt;
+    }
+
+    public void setLineTaxExt(LineTaxExt lineTaxExt) {
+        this.lineTaxExt = lineTaxExt;
+    }
+
+    public static XmlBodyBuilder builder() {
+        return new XmlBodyBuilder();
+    }
+
+
 }

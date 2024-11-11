@@ -1,5 +1,7 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.RetailLineItemBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class RetailLineItem {
@@ -388,4 +390,9 @@ public class RetailLineItem {
     public void setOrderChannel(String orderChannel) {
         this.orderChannel = orderChannel;
     }
+
+    public static RetailLineItemBuilder builder() {
+        return new RetailLineItemBuilder();
+    }
+
 }

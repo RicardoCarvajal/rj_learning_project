@@ -1,5 +1,7 @@
 package org.intelix.app.sap.model;
 
+import org.intelix.app.sap.builder.LineDiscountItemBuilder;
+
 import javax.xml.bind.annotation.XmlElement;
 
 public class LineDiscountItem {
@@ -24,7 +26,6 @@ public class LineDiscountItem {
     public LineDiscountItem() {
 
     }
-
 
     @XmlElement(name = "RETAILSTOREID")
     public String getRetailStoreId() {
@@ -168,5 +169,9 @@ public class LineDiscountItem {
 
     public void setDiscountIdLong(String discountIdLong) {
         this.discountIdLong = discountIdLong;
+    }
+
+    public static LineDiscountItemBuilder builder() {
+        return new LineDiscountItemBuilder();
     }
 }
