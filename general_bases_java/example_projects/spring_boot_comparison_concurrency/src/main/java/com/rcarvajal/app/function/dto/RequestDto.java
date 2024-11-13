@@ -1,5 +1,6 @@
 package com.rcarvajal.app.function.dto;
 
+
 public class RequestDto {
     private Integer tr;
     private String pos;

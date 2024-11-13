@@ -44,7 +44,9 @@ public class AppFunctionReactive implements Function<Flux<RequestDto>, Mono<Resp
     }
 
     public Mono<String> sendSoap(Integer count) {
+
         String soapRequest = utils.convertXMLtoString();
+
         return webClient.post()
                 .body(Mono.just(soapRequest), String.class)
                 .retrieve()
