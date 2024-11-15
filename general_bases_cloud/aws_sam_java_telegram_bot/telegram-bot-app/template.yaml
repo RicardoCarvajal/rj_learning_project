@@ -38,6 +38,7 @@ Resources:
         ParentStackName: !Ref AWS::StackName              
         secrettelegramcredential: !Ref secrettelegramcredential
         secrettelegramusers: !Ref secrettelegramusers
+        secretwebhooktoken: !Ref secretwebhooktoken
 
  # --------- secrets --------- #
   secrettelegramcredential:
@@ -49,10 +50,15 @@ Resources:
   secrettelegramusers:
     Type: AWS::SecretsManager::Secret   
     Properties:
-      Name: !Sub ate/${environment}/${country}/secret/telegramusers
+      Name: !Sub ate/${environment}/${country}/secret/telegramuser
       Description: Contiene los usuarios autorizados para telegram bot
-      SecretString: '{"TELEGRAM_USERS": "xxx"}'                  
-
+      SecretString: '{"TELEGRAM_USER": "xxx"}'                  
+  secretwebhooktoken:
+    Type: AWS::SecretsManager::Secret   
+    Properties:
+      Name: !Sub ate/${environment}/${country}/secret/webhooktoken
+      Description: Contiene el token de webhook para telegram bot
+      SecretString: '{"WEBHOOK_TOKEN": "xxx"}'                  
 # ------------------ Outputs ------------------ #
 
 Outputs:

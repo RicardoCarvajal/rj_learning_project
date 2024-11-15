@@ -1,8 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: 'Stack principal de integraciones telegram stellar
-
-  '
+Description: "Stack principal de integraciones telegram \n"
 Parameters:
   environment:
     Type: String
@@ -36,22 +34,31 @@ Resources:
           Ref: secrettelegramcredential
         secrettelegramusers:
           Ref: secrettelegramusers
+        secretwebhooktoken:
+          Ref: secretwebhooktoken
     Metadata:
       SamResourceId: telegramstack
   secrettelegramcredential:
     Type: AWS::SecretsManager::Secret
     Properties:
       Name:
-        Fn::Sub: ate/${environment}/${country}/stellar/secret/telegramcredentials
+        Fn::Sub: ate/${environment}/${country}/secret/telegramcredentials
       Description: Contiene las gredenciales de telegram para api bot
       SecretString: '{"TELEGRAM_TOKEN": "xxx"}'
   secrettelegramusers:
     Type: AWS::SecretsManager::Secret
     Properties:
       Name:
-        Fn::Sub: ate/${environment}/${country}/stellar/secret/telegramusers
+        Fn::Sub: ate/${environment}/${country}/secret/telegramuser
       Description: Contiene los usuarios autorizados para telegram bot
-      SecretString: '{"TELEGRAM_USERS": "xxx"}'
+      SecretString: '{"TELEGRAM_USER": "xxx"}'
+  secretwebhooktoken:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name:
+        Fn::Sub: ate/${environment}/${country}/secret/webhooktoken
+      Description: Contiene el token de webhook para telegram bot
+      SecretString: '{"WEBHOOK_TOKEN": "xxx"}'
 Outputs:
   telegramstack:
     Value:

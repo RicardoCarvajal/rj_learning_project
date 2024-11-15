@@ -26,22 +26,15 @@ Parameters:
     Type: String
   secrettelegramusers:
     Type: String
+  secretwebhooktoken:
+    Type: String
 
 Resources:
 # --------- SQSs --------- #
-  telegramQueueDlq:
-    Type: AWS::SQS::Queue
-    Properties:
-      QueueName: !Sub ${ParentStackName}-sqs-telegramqueuedlq
-
-
   telegramQueue:
     Type: AWS::SQS::Queue
     Properties:
       VisibilityTimeout: 60
-      RedrivePolicy:
-        deadLetterTargetArn: !GetAtt telegramQueueDlq.Arn
-        maxReceiveCount: 5
       QueueName: !Sub ${ParentStackName}-sqs-telegramqueue
 
 # --------- lambda --------- #
@@ -50,7 +43,7 @@ Resources:
     Properties:
       FunctionName: !Sub ${ParentStackName}-lbda-telegramfunction
       Role: !GetAtt telegramLambdaRole.Arn
-      CodeUri: ../../source/msbot
+      CodeUri: ../../source/msbot/bot
       Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
       Environment:
         Variables:
@@ -67,6 +60,22 @@ Resources:
             Enabled: true
     Metadata:
       BuildMethod: makefile
+
+# --------- lambda --------- #
+  telegramAuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${ParentStackName}-lbda-telegramfunction-auth
+      Role: !GetAtt telegramLambdaRole.Arn
+      CodeUri: ../../source/msbot/auth
+      Handler: org.springframework.cloud.function.adapter.aws.FunctionInvoker::handleRequest
+      Environment:
+        Variables:
+          ENV_APP: !Ref environment
+          COUNTRY: !Ref country
+          SECRET_WEBHOOK_TOKEN: !Ref secretwebhooktoken
+    Metadata:
+      BuildMethod: makefile      
 
   # --------- API --------- #
   telegramAPIRest:
@@ -99,6 +108,8 @@ Resources:
       RestApiId: !Ref telegramAPIRest
       ResourceId: !Ref telegramResource
       HttpMethod: POST
+      AuthorizerId: !Ref telegramAuthorizer
+      AuthorizationType: CUSTOM
       Integration:
         IntegrationResponses:
           - StatusCode: 200
@@ -114,7 +125,16 @@ Resources:
         Credentials: !GetAtt telegramApiRoleSqs.Arn
       MethodResponses:
         - StatusCode: 200
-      AuthorizationType: NONE
+
+  telegramAuthorizer:
+    Type: AWS::ApiGateway::Authorizer
+    Properties:
+      AuthorizerUri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${telegramAuthFunction.Arn}/invocations
+      IdentitySource: "method.request.header.x-telegram-bot-api-secret-token"
+      AuthorizerResultTtlInSeconds: 1
+      Name: x-telegram-bot-api-secret-token
+      RestApiId: !Ref telegramAPIRest
+      Type: TOKEN
 
   telegramAPIRestDeployment:
     Type: AWS::ApiGateway::Deployment
@@ -200,8 +220,16 @@ Resources:
               ArnEquals:
                 aws:SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${telegramAPIRest}/*"
       Queues:
-        - !Ref telegramQueue
-          
+        - !Ref telegramQueue       
+
+
+  telegramFunctionAuthorizerPermition:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref telegramAuthFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${telegramAPIRest}/authorizers/${telegramAuthorizer}"
 
 Outputs:
   telegramApi:
