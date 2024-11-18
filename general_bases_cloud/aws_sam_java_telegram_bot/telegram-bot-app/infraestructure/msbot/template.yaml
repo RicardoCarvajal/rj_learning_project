@@ -194,7 +194,8 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:             
-                  - secretsmanager:GetSecretValue               
+                  - secretsmanager:GetSecretValue
+                  - bedrock:InvokeModel               
                 Resource:
                   - "*"
               - Effect: Allow

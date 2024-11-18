@@ -227,6 +227,7 @@ Resources:
           - Effect: Allow
             Action:
             - secretsmanager:GetSecretValue
+            - bedrock:InvokeModel
             Resource:
             - '*'
           - Effect: Allow

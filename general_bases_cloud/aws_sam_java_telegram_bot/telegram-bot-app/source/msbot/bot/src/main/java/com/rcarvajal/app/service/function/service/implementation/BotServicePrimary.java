@@ -1,6 +1,7 @@
 package com.rcarvajal.app.service.function.service.implementation;
 
 import com.rcarvajal.app.service.conf.ConfProperties;
+import com.rcarvajal.app.service.function.bedrock.InvokeModel;
 import com.rcarvajal.app.service.function.dto.BodyRequest;
 import com.rcarvajal.app.service.function.service.BotService;
 import com.rcarvajal.app.service.infraestructure.web.Delivery;
@@ -18,28 +19,29 @@ public class BotServicePrimary implements BotService {
 
     private final ConfProperties confProperties;
 
-    public BotServicePrimary(Delivery delivery, ConfProperties confProperties) {
+    private final InvokeModel converse;
+
+    public BotServicePrimary(Delivery delivery, ConfProperties confProperties, InvokeModel converse) {
         this.delivery = delivery;
         this.confProperties = confProperties;
+        this.converse = converse;
     }
 
 
     public Mono<String> sendMessage(BodyRequest body) {
         Long id = body.getMessage().getChat().getId();
         String message = body.getMessage().getText();
-        if (message.equalsIgnoreCase("/start")) {
-            log.info("Comando ingresado por usuario {}", message);
-            if (this.confProperties.getUsers().compareTo(id) == 0) {
-                log.info("Usuario {} autorizado", id);
-                //TODO Logica de servicio principal
-                log.info("TODO Logica de servicio principal");
-                body.setMessageSystem("Executed");
-                return delivery.send(body);
-            } else {
-                log.info("Usuario {} no autorizado", id);
-                return delivery.deleteWebhook();
+        log.info("Comando ingresado por usuario {}", message);
+        if (this.confProperties.getUsers().compareTo(id) == 0) {
+            if (message.compareTo("/start") == 0) {
+                body.setMessageSystem("Bienvenido al chatbot de prueba");
+            } else if (message.startsWith("/request")) {
+                body.setMessageSystem(converse.generateResponse(message + " - la respuesta no puede tener mas de 3000 caracteres"));
             }
+            return delivery.send(body);
+        } else {
+            log.info("Usuario {} no autorizado", id);
+            return delivery.deleteWebhook();
         }
-        return Mono.error(new Exception("Command not found"));
     }
 }
