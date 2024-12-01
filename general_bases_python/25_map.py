@@ -30,7 +30,7 @@ products_v1 = [
     {"name": "keyboard", "price": 80}
     ,
 ]
-
+print(type(products_v1))
 #Obteniendo el precio de los productos
 prices_list = list(map(lambda p: p['price'],products_v1))
 print(prices_list)

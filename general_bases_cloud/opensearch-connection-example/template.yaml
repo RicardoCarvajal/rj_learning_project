@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  rcarvajal-opensearch-example
+
+  Sample SAM Template for rcarvajal-opensearch-example
+
+Globals:
+  Function:
+    Timeout: 20
+
+Resources:
+  indexingFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      Role: !GetAtt openSearchLambdaRole.Arn
+      CodeUri: indexing_data/
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /indexing
+            Method: post
+
+  openSearchLambdaRole:
+    Type: AWS::IAM::Role
+    Properties: 
+      RoleName: !Sub ${AWS::StackName}-role
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+            - sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+      Policies:
+        - PolicyName: !Sub ${AWS::StackName}-policy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource:
+                  - "*"
+
+Outputs:
+  indexingApi:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/test/indexing/"
+  indexingFunction:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt indexingFunction.Arn
+  openSearchLambdaRole:
+    Description: "Implicit IAM Role created for function"
+    Value: !GetAtt openSearchLambdaRole.Arn
