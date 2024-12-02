@@ -1,4 +1,5 @@
 import requests
+import re
 
 def get_location(ip):
     url = f"https://freeipapi.com/api/json/{ip}"
