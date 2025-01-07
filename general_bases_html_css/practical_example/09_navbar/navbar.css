@@ -1,0 +1,111 @@
+:root {
+    --font-family-all: "Quicksand", sans-serif;
+    --very-eimily-pink: #f9b5fa;
+    --very-eimily-pink-hover: #b537b8;
+    --very-eimily-purple: #8e5abeec;
+    --text-input-field-color: #e7e4e4;
+    --background-registry-color:#ffffff;
+    --text-input-field-radius: 8px;
+    --text-input-field-padding: 6px;
+    --button-field-radius: 8px;
+    --button-field-padding: 10px;
+    --message-error-color: #ff0000;
+    --transparent: #e7e4e4a2;
+    --shadow: #837777c5;
+    --white: #FFFFFF;
+    --black: #000000;    
+}
+
+html {
+    font-family: var(--font-family-all);
+    font-optical-sizing: auto;
+    font-weight: 450;
+    font-style: normal;;
+}
+
+body {
+    margin: 0px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--black);
+    box-shadow: 2px 2px 3px var(--shadow);
+}
+
+.navbar-menu {
+    display: none;
+}
+
+.navbar-logo {
+    width: 80px;
+    object-fit: contain;
+}
+
+.navbar__email {
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.navbar__left ul,
+.navbar__right ul {
+    height: 77px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.navbar__left ul {
+    margin-left: 24px;
+}
+
+.navbar__left {
+    display: flex;
+}
+
+.navbar__left ul li a,
+.navbar__right ul li a{
+    text-decoration: none;
+    color: var(--black);
+    border: 1px solid var(--background-registry-color);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+
+.navbar__left ul li a:hover,
+.navbar__right ul li a:hover{
+    text-decoration: none;
+    color: var(--black);
+    border: 1px solid var(--very-eimily-pink);
+}
+
+.navbar__cart div{
+    width: 16px;
+    height: 16px;
+    background-color: var(--very-eimily-pink);
+    border-radius: 50%;
+    font-size: x-small;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 12px;
+    right: 25px;
+}
+
+@media (max-width: 640px) {
+    .navbar-menu{
+        display: block;
+    }
+    .navbar__left ul {
+        display: none;
+    }
+    .navbar__email{
+        display: none;
+    }
+}
