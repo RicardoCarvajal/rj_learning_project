@@ -34,3 +34,15 @@ class TestBankAccount(unittest.TestCase):
         self.assertEqual(self._count_lines(self.account.log_file), 1, "La cantidad de lineas es diferente")
         self.account.deposit(500)
         self.assertEqual(self._count_lines(self.account.log_file), 2, "La cantidad de lineas es diferente")        
+
+    def test_varius_transactios(self):
+        test_cases = [
+           {"amount":1000, "id_client":"P52445866" ,"expected":2000},
+           {"amount":3000, "id_client":"C15225554" ,"expected":4000},
+           {"amount":4500, "id_client":"4521-54875-55452" ,"expected":5500}
+        ]
+        for case in test_cases:
+            with self.subTest(case=case):
+                self.account = BankAccount(balance=1000, log_file="transaction.txt")
+                new_balance = self.account.deposit(case["amount"])
+                self.assertEqual(new_balance,case["expected"])

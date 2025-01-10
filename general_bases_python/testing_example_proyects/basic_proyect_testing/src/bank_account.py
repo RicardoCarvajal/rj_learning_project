@@ -4,6 +4,9 @@ class BankAccount:
         self.log_file = log_file
         self._log_transaction("Cuenta creada")
 
+    def __str__(self):
+        return f"Balance de cuenta {self.balance}"
+
     def _log_transaction(self, message):
         if self.log_file:
             with open(self.log_file, "a") as f:
