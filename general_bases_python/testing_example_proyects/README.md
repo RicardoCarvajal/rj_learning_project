@@ -2,8 +2,7 @@
 
 #### DOCTEST
 
-* python3 -m doctest test_doctest/test_simple_cal
-culator_arithmetic.py
+* python3 -m doctest test_doctest/test_simple_calculator_arithmetic.py
 
 #### UNITTEST
 
