@@ -1,4 +1,12 @@
-### Comandps de pruebas
+## Proyecto de test Python
+
+## Temas que se practican
+
+* Ejemplos de todos los casos de uso con sus versiones en DOCTEST, UNITTEST PYTEST
+* Mockeo de pruebas
+* Atajos de excepciones en pruebas unitarias
+
+### Comandos de pruebas
 
 #### DOCTEST
 
@@ -7,6 +15,7 @@
 #### UNITTEST
 
 * python3 -m unittest test_unnittest.test_simple_calculator_arithmetic
+* python3 -m unittest test_unnittest.test_get_information_ip
 
 #### PYTEST
 
