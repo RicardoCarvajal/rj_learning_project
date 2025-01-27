@@ -20,3 +20,4 @@
 #### PYTEST
 
 * python3 -m pytest test_pytest/test_simple_calculator_arithmetic.py
+* python3 -m pytest test_pytest/test_get_information_ip.py
