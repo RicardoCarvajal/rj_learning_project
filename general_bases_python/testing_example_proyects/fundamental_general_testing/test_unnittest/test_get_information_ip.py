@@ -1,6 +1,6 @@
 from unittest import TestCase, mock
 from src.get_information_ip import InformationIp as i
-from requests.exceptions import RequestException, ConnectTimeout
+from requests.exceptions import RequestException
 
 class TestInformationIp(TestCase):
 
@@ -36,7 +36,9 @@ class TestInformationIp(TestCase):
     def test_get_info_country_erros(self, mockMethod):
         mockMethod.side_effect = [
             RequestException("Error de conexion"),
-            ConnectTimeout("TimeOut")
+            Exception("Error al intentar extraer la informacion")
         ]
         self.assertEqual(i.get_info_country("a.a.a.a"), "Error en la conexion Error de conexion")
-        self.assertEqual(i.get_info_country("a.a.a.a"), "Error en la conexion TimeOut")
+        
+        with self.assertRaises(Exception):
+            i.get_info_continent("8.8.8.8")
