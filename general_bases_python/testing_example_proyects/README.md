@@ -11,6 +11,8 @@
 #### DOCTEST
 
 * python3 -m doctest test_doctest/test_simple_calculator_arithmetic.py
+* python3 -m doctest test_doctest/test_get_information_ip.py 
+  (Interesante resaltar que si un doctest como este no tenemos buena conexion la prueba fallara)
 
 #### UNITTEST
 
