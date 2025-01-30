@@ -2,7 +2,6 @@ import pytest
 import requests
 from src.get_information_ip import InformationIp as i
 
-
 class MockResponseInfoCountry:
     def __init__(self, *args, **kwargs):
         pass
@@ -41,6 +40,3 @@ def test_get_info_country_catch_exception(monkeypatch):
     monkeypatch.setattr(requests,"get", MockResponseRequestException)
     result = i.get_info_country("8.8.8.8")
     assert result == "Error en la conexion Error de conexion"
-
-
-
