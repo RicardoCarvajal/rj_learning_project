@@ -1,4 +1,4 @@
-pytest
-requests
-Faker
-coverage
+pytest==8.3.4
+requests==2.32.3
+Faker==33.3.0
+coverage==7.6.10
