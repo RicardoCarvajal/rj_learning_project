@@ -1,0 +1,5 @@
+com/intelix/mcp/server/config/WebClientConf.class
+com/intelix/mcp/server/tool/ToolService.class
+com/intelix/mcp/server/config/ConfProperties.class
+com/intelix/mcp/server/config/McpServerConfig.class
+com/intelix/mcp/server/AteIntMcpMasterApplication.class
