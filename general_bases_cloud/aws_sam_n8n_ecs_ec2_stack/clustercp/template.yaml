@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  Stack principal de creacion de providers para clusters de ECS
+
+
+# ------------------ Parámetros de los provider ------------------ #
+Parameters:
+  environment:
+    Type: String
+    Default: dev  
+    Description: 'Ambientes de implementación: dev, qa, prod.'
+    AllowedValues:
+      - dev
+      - qa
+      - prod   
+# --------------------------- Stack n8n provider ---------------- #
+Resources:  
+  n8nstack: 
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: ./n8ncp/template.yaml
+      Parameters:
+        ParentStackName: !Sub ${AWS::StackName}
+        SubnetIds: !Sub  /${environment}/parameters/network/subnet-ids
+        VpcId: !Sub  /${environment}/parameters/network/vpc-id
+        RDSProxySecurityGroup: !Sub  /${environment}/parameters/rds/rdsproxysg
+

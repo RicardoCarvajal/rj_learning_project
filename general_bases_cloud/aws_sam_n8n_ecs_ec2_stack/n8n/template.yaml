@@ -1,0 +1,225 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  Stack principal de integraciones de automatizacion
+
+
+# ------------------ Parámetros de la aplicación ------------------ #
+Parameters:
+  environment:
+    Type: String
+    Default: dev  
+    Description: 'Ambientes de implementacion: dev, qa, prod.'
+    AllowedValues:
+      - dev
+      - qa
+      - prod
+
+  ContainerPort:
+    Description: 'Puerto de escucha de la aplicacion'
+    Type: Number
+
+  ecsClusterName:
+    Type: AWS::SSM::Parameter::Value<String>
+  subnetIDs:
+    Type: AWS::SSM::Parameter::Value<String>
+  vpcId:
+    Type: AWS::SSM::Parameter::Value<String>  
+  certificateDNS:
+    Type: AWS::SSM::Parameter::Value<String>
+  dataBaseCredential:
+    Type: AWS::SSM::Parameter::Value<String>
+  RDSProxySecurityGroup:
+    Type: AWS::SSM::Parameter::Value<String>        
+# ------------------ Recursos de la aplicación ------------------ #
+
+Resources:     
+  ECSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref vpcId
+      GroupDescription: Security group para n8n ECS tasks
+      SecurityGroupIngress:
+        - IpProtocol: TCP
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: TCP
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: TCP
+          FromPort: 5432
+          ToPort: 5432
+          CidrIp: 10.0.0.0/8
+        - IpProtocol: TCP
+          FromPort: !Ref ContainerPort
+          ToPort: !Ref ContainerPort
+          CidrIp: 10.0.0.0/8     
+
+  ECSTaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${AWS::StackName}-recs
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: !Sub ${AWS::StackName}-pecs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - ecr:GetAuthorizationToken
+                  - ecr:BatchCheckLayerAvailability
+                  - ecr:GetDownloadUrlForLayer
+                  - ecr:BatchGetImage               
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: '*'     
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource:
+                  - !Sub "arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:ate/${environment}/*"            
+
+  N8nTaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub "${AWS::StackName}-n8n-task"
+      Cpu: 1024
+      Memory: 2048      
+      RequiresCompatibilities:
+        - FARGATE    
+      NetworkMode: awsvpc     
+      ExecutionRoleArn: !GetAtt ECSTaskRole.Arn
+      TaskRoleArn: !GetAtt ECSTaskRole.Arn     
+      RuntimePlatform:
+        CpuArchitecture: X86_64
+        OperatingSystemFamily: LINUX            
+      ContainerDefinitions:
+        - Name: n8n
+          Image: docker.n8n.io/n8nio/n8n
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+              HostPort: !Ref ContainerPort
+              Protocol: tcp
+              AppProtocol: http
+          Essential: true
+          Environment:
+            - Name: N8N_PORT
+              Value: !Ref ContainerPort
+            - Name: N8N_PROTOCOL
+              Value: http
+            - Name: NODE_ENV
+              Value: !Sub ${environment}
+            - Name: GENERIC_TIMEZONE
+              Value: America/Caracas
+            - Name: WEBHOOK_URL
+              Value: !Sub "https://${N8nLoadBalancer.DNSName}"
+            - Name: DB_POSTGRESDB_SSL_REJECT_UNAUTHORIZED
+              Value: "false"  
+            - Name: DB_TYPE
+              Value: postgresdb
+            - Name: DB_POSTGRESDB_SCHEMA
+              Value: n8n
+            - Name: DB_POSTGRESDB_CONNECTION_TIMEOUT
+              Value: 20000                                           
+          Secrets:
+            - Name: DB_POSTGRESDB_DATABASE
+              ValueFrom: !Sub "${dataBaseCredential}:dbname::"
+            - Name: DB_POSTGRESDB_USER
+              ValueFrom: !Sub "${dataBaseCredential}:username::"
+            - Name: DB_POSTGRESDB_PASSWORD
+              ValueFrom: !Sub "${dataBaseCredential}:password::"
+            - Name: DB_POSTGRESDB_PORT
+              ValueFrom: !Sub "${dataBaseCredential}:port::"
+            - Name: DB_POSTGRESDB_HOST
+              ValueFrom: !Sub "${dataBaseCredential}:host::"                       
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Sub "${AWS::StackName}-n8n-log-group"
+              awslogs-create-group: true
+              awslogs-region: !Ref AWS::Region
+              awslogs-stream-prefix: !Sub "${environment}-n8n"    
+              max-buffer-size: 200m   
+
+  N8nTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub ${AWS::StackName}-tg  
+      Port: !Ref ContainerPort
+      Protocol: HTTP
+      VpcId: !Ref vpcId
+      TargetType: ip
+      HealthCheckPath: /
+      Matcher:
+        HttpCode: 200-399
+      TargetGroupAttributes:
+        - Key: deregistration_delay.timeout_seconds
+          Value: "300"
+
+  HTTPSListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      DefaultActions:
+        - Type: 'forward'
+          TargetGroupArn: !Ref N8nTargetGroup
+      LoadBalancerArn: !Ref N8nLoadBalancer
+      Port: 443
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: !Ref certificateDNS
+
+  N8nLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Scheme: internal
+      Type: application      
+      Name: !Sub ${AWS::StackName }-lb      
+      Subnets: !Split [",", !Ref subnetIDs]
+      SecurityGroups:
+        - !Ref ECSecurityGroup
+
+  N8nService:
+    Type: AWS::ECS::Service
+    Properties:
+      LaunchType: FARGATE
+      Cluster: !Ref ecsClusterName
+      SchedulingStrategy: REPLICA      
+      TaskDefinition: !Ref N8nTaskDefinition
+      ServiceName: !Sub ${AWS::StackName}-n8n-service
+      LoadBalancers:
+        - TargetGroupArn: !Ref N8nTargetGroup
+          ContainerName: n8n
+          ContainerPort: !Ref ContainerPort
+          LoadBalancerName: !Ref AWS::NoValue    
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          SecurityGroups:
+            - !Ref ECSecurityGroup
+            - !Ref RDSProxySecurityGroup
+          Subnets: !Split [",", !Ref subnetIDs]
+      PlatformVersion: LATEST                    
+      DeploymentConfiguration:
+        DeploymentCircuitBreaker:
+          Enable: true
+          Rollback: true
+        MaximumPercent: 200
+        MinimumHealthyPercent: 100
+      DeploymentController:
+        Type: ECS
+      ServiceConnectConfiguration:
+        Enabled: false
+      EnableECSManagedTags: true 
+    DependsOn:
+      - HTTPSListener
+      - N8nLoadBalancer
+      - N8nTargetGroup    

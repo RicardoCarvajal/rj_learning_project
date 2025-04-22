@@ -1,0 +1,44 @@
+version = 0.1
+
+[default.build.parameters]
+cached = true
+parallel = true 
+
+[default.validate.parameters]
+lint = true
+
+[default.package.parameters]
+resolve_s3 = true
+
+[default.sync.parameters]
+watch = true
+
+[default.local_start_api.parameters]
+warm_containers = "EAGER"
+
+[default.local_start_lambda.parameters]
+warm_containers = "EAGER"
+
+
+# ------------------------------ DEV ------------------------------ #
+[devate.build.parameters]
+cached = false
+parallel = true
+
+[devate.deploy.parameters]
+stack_name = "capacityprovider-n8n"
+resolve_s3 = true
+s3_prefix = "capacityprovider-n8n"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = "environment=\"dev\""
+image_repositories = []
+
+[devate.delete.parameters]
+stack_name = "capacityprovider-n8n"
+s3_prefix = "capacityprovider-n8n"
+region = "us-east-1"
+
+# ------------------------------------------------------------------- #
+

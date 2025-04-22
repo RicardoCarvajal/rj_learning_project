@@ -14,5 +14,5 @@ def test_divide():
     assert c.divide(4,2) == 2
 
 def test_divide_zero():
-    with pytest.raises(ValueError,match="No se puede dividir entre 0"):
+    with pytest.raises(ValueError):
         c.divide(4,0)

@@ -1,0 +1,44 @@
+version = 0.1
+
+[default.build.parameters]
+cached = true
+parallel = true 
+
+[default.validate.parameters]
+lint = true
+
+[default.package.parameters]
+resolve_s3 = true
+
+[default.sync.parameters]
+watch = true
+
+[default.local_start_api.parameters]
+warm_containers = "EAGER"
+
+[default.local_start_lambda.parameters]
+warm_containers = "EAGER"
+
+
+# ------------------------------ N8N ------------------------------ #
+[devate.build.parameters]
+cached = false
+parallel = true
+
+[devate.deploy.parameters]
+stack_name = "n8n-ec2-server"
+resolve_s3 = true
+s3_prefix = "n8n-ec2-server"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+parameter_overrides = "environment=\"dev\" country=\"cr\" subnetIDs=\"/dev/parameters/network/subnet-ids\" vpcId=\"/dev/parameters/network/vpc-id\" ecsClusterName=\"/dev/parameters/ecs/cluster\" certificateDNS=\"/dev/parameters/network/certificate\" dataBaseCredential=\"/dev/parameters/common/postgres/app_datamaster\" RDSProxySecurityGroup=\"/dev/parameters/rds/rdsproxysg\" ContainerPort=5678"
+image_repositories = []
+
+[devate.delete.parameters]
+stack_name = "n8n-ec2-server"
+s3_prefix = "n8n-ec2-server"
+region = "us-east-1"
+
+# ------------------------------------------------------------------- #
+

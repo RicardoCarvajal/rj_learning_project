@@ -6,8 +6,13 @@ person = {
     'age': 25,
     'city': 'Bogota',
     'isMerried': True,
-    'skills': ['Python', 'Java', 'JavaScript']
+    'skills': ['Python', 'Java', 'JavaScript'],
+    'data': {"direction":"El Molino"}
 }
+
+print(person.get('data'))
+print(person.get('data').get('direction'))
+print(person['data'].get('phone'))
 
 print(person)
 print(type(person))
