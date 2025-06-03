@@ -1,0 +1,41 @@
+from django.db import models
+
+class Article(models.Model):
+    product_code = models.IntegerField(primary_key=True)
+    branch_office = models.CharField(max_length=255)
+    store = models.CharField(max_length=255)
+    discountable = models.CharField(max_length=1)
+    regular_price = models.DecimalField(max_digits=18, decimal_places=4)
+    opportunity_price = models.DecimalField(max_digits=18, decimal_places=4)
+    regular_price_with_tax = models.DecimalField(max_digits=18, decimal_places=4)
+    opportunity_price_with_tax = models.DecimalField(max_digits=18, decimal_places=4)
+    liquidation_opportunity_letter = models.CharField(max_length=1)
+    promotion_start_date = models.DateField()
+    promotion_end_date = models.DateField()
+    client_group = models.CharField(max_length=255)
+    distribution_channel = models.CharField(max_length=255)
+    branch_office_id = models.IntegerField()
+    createdat = models.DateTimeField()
+    tax_indicator = models.DecimalField(max_digits=5, decimal_places=2)
+    epa_code = models.CharField(max_length=255)
+    short_description = models.CharField(max_length=255)
+    long_description = models.TextField()
+    category_name = models.CharField(max_length=255)
+    category_code = models.CharField(max_length=255)
+    line_name = models.CharField(max_length=255)
+    external_code = models.TextField()
+    previous_code = models.CharField(max_length=255)
+    commodity_code = models.CharField(max_length=255)
+    category_type = models.CharField(max_length=255)
+    line_code = models.CharField(max_length=255)
+    tributary_code = models.CharField(max_length=255)
+    sales_unit = models.CharField(max_length=50)
+    sales_unit_id = models.IntegerField()
+    unit_price = models.CharField(max_length=50)
+    employee_discount = models.CharField(max_length=1)
+    unit_conversion_factor = models.DecimalField(max_digits=18, decimal_places=4)
+    unit_conversion = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        db_table = 'current_promo_price'

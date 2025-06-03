@@ -1,0 +1,4 @@
+Django==5.0.14
+djangorestframework==3.16.0
+mssql-django==1.5
+celery==5.5.3

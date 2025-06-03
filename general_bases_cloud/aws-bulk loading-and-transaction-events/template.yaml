@@ -1,0 +1,100 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  Stack principal 1
+
+# ------------------ Parámetros de la aplicación ------------------ #
+
+Parameters:
+  Environment:
+    Type: String
+    Default: dev  
+    Description: 'Ambientes de implementacion: dev, qa, prod.'
+    AllowedValues:
+      - dev
+      - qa
+      - prod
+
+  Country:
+    Type: String
+    Description: 'Paises de implementacion: ve.'
+    AllowedValues:
+      - ve
+
+  Supplier:
+    Type: String
+    Description: 'Proveedor de implementacion'
+    AllowedValues:
+      - rj
+
+  DBUsername:
+    Type: String
+
+  DBPassword:
+    Type: String
+
+  BucketDMSName:
+    Type: String
+
+  MQPassword:
+    Type: String
+
+Resources:
+ # --------- STACKS ------------------- #
+ # --------- vpcstack ----------------- #        
+  vpcstack: 
+    Type: AWS::Serverless::Application
+    Properties:
+      Location: ./infrastructure/vpc.yml
+      Parameters:
+        Environment: !Ref Environment  
+        ParentStackName: !Ref AWS::StackName  
+ # --------- rdsstackpostgresql ----------------- #        
+  rdsstackpostgresql: 
+    Type: AWS::Serverless::Application
+    DependsOn: vpcstack
+    Properties:
+      Location: ./infrastructure/rds_postgre_sql.yml
+      Parameters:
+        Environment: !Ref Environment  
+        ParentStackName: !Ref AWS::StackName     
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword     
+ # --------- rdsstacksqlserver ----------------- #        
+  rdsstacksqlserver: 
+    Type: AWS::Serverless::Application
+    DependsOn: vpcstack
+    Properties:
+      Location: ./infrastructure/rds_sql_server.yml
+      Parameters:
+        Environment: !Ref Environment  
+        ParentStackName: !Ref AWS::StackName    
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword           
+ # --------- dmsresourcesstack ----------------------- #        
+  dmsresourcesstack: 
+    Type: AWS::Serverless::Application
+    DependsOn: rdsstacksqlserver    
+    Properties:
+      Location: ./infrastructure/dms_resources.yml
+      Parameters:
+        Environment: !Ref Environment  
+        ParentStackName: !Ref AWS::StackName      
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword   
+        BucketDMSName: !Ref BucketDMSName 
+ # ------------------ AMAZONMQ ----------------------- #  
+  mqbroker:
+    Type: "AWS::AmazonMQ::Broker"
+    Properties: 
+      AutoMinorVersionUpgrade: "true"
+      BrokerName: !Sub ${AWS::StackName}-mqbroker
+      DeploymentMode: SINGLE_INSTANCE
+      EngineType: RabbitMQ
+      EngineVersion: "3.13"
+      HostInstanceType: mq.m5.large
+      PubliclyAccessible: "true"
+      Users: 
+        - 
+          Password: !Ref MQPassword
+          Username: !Ref DBUsername         

@@ -1,0 +1,26 @@
+version = 0.1
+
+# ------------------------------ DESARROLLO-CR ------------------------------ #
+
+[default.build.parameters]
+cached = true
+parallel = true 
+
+[devate-ve.build.parameters]
+cached = true
+parallel = true
+
+[devate-ve.delete.parameters]
+stack_name = "proof-concept-dlte"
+s3_prefix = "proof-concept-dlte"
+region = "us-west-2"
+
+[devate-ve.deploy.parameters]
+stack_name = "proof-concept-dlte"
+resolve_s3 = true
+s3_prefix = "proof-concept-dlte"
+region = "us-west-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND"
+image_repositories = []
+parameter_overrides = "Environment=\"dev\" Supplier=\"rj\" Country=\"cr\" DBUsername=\"app_poc\" DBPassword=\"<pass>\" MQPassword=\"<pass>\" BucketDMSName=\"dms-s3\""

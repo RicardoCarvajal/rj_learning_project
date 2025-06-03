@@ -1,0 +1,162 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Stack hijo que contiene la configuracion de lambda de replicacion
+
+Parameters:
+  Environment:
+    Type: String
+  ParentStackName:
+    Type: String
+  DBUsername:
+    Type: String
+  DBPassword:
+    Type: String
+  BucketDMSName:    
+    Type: String
+
+Resources:
+  dmsLambdaRole:
+   Type: AWS::IAM::Role
+   Properties: 
+     RoleName: !Sub ${AWS::StackName}-lbar
+     AssumeRolePolicyDocument:
+       Version: '2012-10-17'
+       Statement:
+         - Effect: Allow
+           Principal:
+             Service:
+               - lambda.amazonaws.com
+           Action:
+           - sts:AssumeRole
+     ManagedPolicyArns:
+       - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+       - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess   
+
+  DMSManagedPolicyForS3Target:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: !Sub '${ParentStackName}-s3p'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - s3:PutObject
+              - s3:DeleteObject
+              - s3:PutObjectTagging
+            Resource:
+              - !Sub 'arn:aws:s3:::${ParentStackName}-${BucketDMSName}/*'
+          - Effect: Allow
+            Action:
+              - s3:ListBucket
+            Resource:
+              - !Sub 'arn:aws:s3:::${ParentStackName}-${BucketDMSName}'
+
+  DMSS3TargetRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ParentStackName}-s3r'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: dms.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - !Ref DMSManagedPolicyForS3Target 
+
+  s3TargetSqlServer:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub ${ParentStackName}-${BucketDMSName}
+      LifecycleConfiguration: 
+        Rules:
+          - Id: Delete after 7 days
+            Status: Enabled
+            ExpirationInDays: 1        
+
+  dmsLambdaReplication:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub ${ParentStackName}-dms-lambda
+      CodeUri: ../src/mstransaction
+      MemorySize: 128
+      Timeout: 6
+      Handler: app.lambda_handler
+      Runtime: python3.12
+      Architectures:
+        - x86_64
+      Role: !GetAtt dmsLambdaRole.Arn
+      Events:
+        BucketEvent:
+          Type: S3
+          Properties:
+            Bucket: !Ref s3TargetSqlServer
+            Events:
+              - "s3:ObjectCreated:*"
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: prefix
+                    Value: "data/dbo/TICKET/"
+
+  dmsInstance:
+    Type: AWS::DMS::ReplicationInstance
+    Properties:
+      ReplicationInstanceClass: dms.t3.large
+      ReplicationInstanceIdentifier: !Sub '${ParentStackName}-dms-instance'
+      AllocatedStorage: 100
+      PubliclyAccessible: true
+      EngineVersion: '3.5.3'
+
+  dmsEndPointSourceSQLServere:
+    Type: AWS::DMS::Endpoint
+    Properties:
+      EndpointType: source
+      EndpointIdentifier: !Sub '${ParentStackName}-dms-endpoint-source'
+      EngineName: sqlserver
+      SslMode: require      
+      MicrosoftSqlServerSettings:
+        Password: !Ref DBPassword
+        Username: !Ref DBUsername 
+        DatabaseName: stellar
+        Port: 1433
+        ServerName: !ImportValue endpointDBAddress
+
+  dmsEndPointTargetS3:
+    Type: AWS::DMS::Endpoint
+    Properties:
+      EndpointType: target
+      EndpointIdentifier: !Sub '${ParentStackName}-dms-endpoint-target'
+      EngineName: s3
+      S3Settings:
+        BucketName: !Ref s3TargetSqlServer
+        BucketFolder: data/
+        ServiceAccessRoleArn: !GetAtt DMSS3TargetRole.Arn
+        AddColumnName: true
+
+  dmstask:
+    Type: AWS::DMS::ReplicationTask
+    Properties:
+      ReplicationTaskIdentifier: !Sub '${ParentStackName}-task'
+      ReplicationInstanceArn: !Ref dmsInstance
+      MigrationType: cdc
+      SourceEndpointArn: !Ref dmsEndPointSourceSQLServere
+      TargetEndpointArn: !Ref dmsEndPointTargetS3
+      TableMappings: |
+        {
+          "rules": [
+            {
+              "rule-type": "selection",
+              "rule-id": "1",
+              "rule-name": "selection",
+              "object-locator": {
+                "schema-name": "%",
+                "table-name": "%"
+              },
+              "rule-action": "include",
+              "filters": []
+            }
+          ]
+        }

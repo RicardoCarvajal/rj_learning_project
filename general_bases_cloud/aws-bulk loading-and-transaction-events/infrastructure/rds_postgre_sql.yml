@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  Stack hijo que contiene la configuracion de rds
+
+Parameters:
+  Environment:
+    Type: String
+  ParentStackName:
+    Type: String
+  DBUsername:
+    Type: String
+  DBPassword:
+    Type: String
+    
+Resources:
+  rdsDBSubnetGroupSP: 
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties: 
+      DBSubnetGroupDescription: devapercarvajaldbsubnetgroupsp
+      SubnetIds: 
+        - !ImportValue subnetVpcRdsOne
+        - !ImportValue subnetVpcRdsTwo
+        - !ImportValue subnetVpcRdsThree        
+      Tags: 
+        - Key: Name
+          Value: !Sub devapercarvajaldbsubnetgroupsp
+        - Key: stack
+          Value: devapercarvajal
+        - Key: environment
+          Value: !Ref Environment
+  rdsDataBaseAte:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: devapercarvajaldbrdspostgre
+      DBName: "autopricing_ve"
+      MultiAZ: false
+      DBInstanceClass: "db.m5.large"
+      AllocatedStorage: "20"
+      Engine: postgres
+      EngineVersion: "17.4"
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true
+      DBSubnetGroupName: !Ref rdsDBSubnetGroupSP
+      VPCSecurityGroups: 
+        - !ImportValue instanceSecurityGroup
+      Port: "5432"
+      Tags: 
+        - Key: Name
+          Value: !Sub devapercarvajaldbrdspostgre
+        - Key: stack
+          Value: devapercarvajal
+        - Key: environment
+          Value: !Ref Environment

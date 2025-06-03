@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: |
+  Stack hijo que contiene la configuracion de rds
+
+Parameters:
+  Environment:
+    Type: String
+  ParentStackName:
+    Type: String
+  DBUsername:
+    Type: String
+  DBPassword:
+    Type: String
+
+Resources:
+  rdsDBSubnetGroupSS: 
+    Type: "AWS::RDS::DBSubnetGroup"
+    Properties: 
+      DBSubnetGroupDescription: devapercarvajaldbsubnetgroupss
+      SubnetIds: 
+        - !ImportValue subnetVpcRdsOne
+        - !ImportValue subnetVpcRdsTwo
+        - !ImportValue subnetVpcRdsThree        
+      Tags: 
+        - Key: Name
+          Value: !Sub devapercarvajaldbsubnetgroupss
+        - Key: stack
+          Value: devapercarvajal
+        - Key: environment
+          Value: !Ref Environment
+  rdsDataBaseAte:
+    Type: 'AWS::RDS::DBInstance'
+    Properties:
+      DBInstanceIdentifier: devapercarvajaldbrdssqlserver
+      MultiAZ: false
+      DBInstanceClass: "db.m5.large"
+      AllocatedStorage: "20"
+      Engine: sqlserver-se
+      EngineVersion: "15.00.4430.1.v1"
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      PubliclyAccessible: true
+      LicenseModel: license-included
+      DBSubnetGroupName: !Ref rdsDBSubnetGroupSS
+      VPCSecurityGroups: 
+        - !ImportValue instanceSecurityGroup
+      Port: "1433"
+      Tags: 
+        - Key: Name
+          Value: !Sub devapercarvajaldbrdssqlserver
+        - Key: stack
+          Value: devapercarvajal
+        - Key: environment
+          Value: !Ref Environment
+
+Outputs:
+  endpointDBAddress:
+    Value: !GetAtt rdsDataBaseAte.Endpoint.Address
+    Export:
+      Name: endpointDBAddress  
