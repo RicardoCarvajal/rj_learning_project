@@ -37,7 +37,11 @@ export function ItemCounter({ nameProduct, quantity = 1 }: Props) {
 
     return (
         <section className="item-select">
-            <span className="text-item"> {nameProduct} </span>
+            <span className="text-item" style={
+                {
+                    color: count === 1 ? 'red' : 'black'
+                }
+            }> {nameProduct} </span>
             <button onClick={hadlerAdd}>+1</button>
             <span> {count} </span>
             <button onClick={hadlerSubtract}>-1</button>

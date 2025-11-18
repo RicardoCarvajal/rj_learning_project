@@ -1,0 +1,41 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AwesomeApp > should match snapshot 1`] = `
+<div>
+  <div>
+    <h1
+      data-testid="fullname"
+    >
+       
+      Ricardo
+       
+      José
+       
+    </h1>
+    <h3
+      class="superClass"
+    >
+       
+      Carvajal
+       
+    </h3>
+    <p>
+       
+      Emily, Emma, Mama
+       
+    </p>
+    <h2>
+       
+      Activo
+       
+    </h2>
+    <p
+      style="background-color: rgb(242, 239, 255); border-radius: 20px; padding: 10px;"
+    >
+       
+      {"country":"Venezuela","zipCode":2001}
+       
+    </p>
+  </div>
+</div>
+`;

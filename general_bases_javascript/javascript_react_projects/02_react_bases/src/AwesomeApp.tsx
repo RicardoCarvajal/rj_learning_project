@@ -23,12 +23,12 @@ const style_app: CSSProperties = {
 export function AwesomeApp() {
 
     return (
-        <>
-            <h1> {firstName} {secondName} </h1>
-            <h3> {lastName} </h3>
+        <div>
+            <h1 data-testid='fullname'> {firstName} {secondName} </h1>
+            <h3 className='superClass'> {lastName} </h3>
             <p> {favoritePersons.join(', ')} </p>
             <h2> {isActive ? 'Activo' : 'No activo'} </h2>
             <p style={style_app}> {JSON.stringify(address)} </p>
-        </>
+        </div >
     )
 }
