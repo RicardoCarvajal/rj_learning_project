@@ -7,9 +7,9 @@ interface ItemIncart {
 
 const itemsIncart: ItemIncart[] = [
     { name: 'Caraotas negras P/U', qty: 1 },
-    { name: 'Frijoles P/U', qty: 1 },
-    { name: 'Queso duro por Kg', qty: 2 },
-    { name: 'Atun enlatado 100g', qty: 2 },
+    { name: 'Frijoles P/U', qty: 2 },
+    { name: 'Queso duro por Kg', qty: 3 },
+    { name: 'Atun enlatado 100g', qty: 4 },
 ]
 
 export function BasicApp() {

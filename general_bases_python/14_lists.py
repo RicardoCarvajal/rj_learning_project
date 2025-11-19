@@ -78,3 +78,10 @@ new_numbers_list.sort()
 
 print(new_numbers_list)
 
+items = [{"code": "0202001"}, {"code": "0202002"}, {"code": "0202003"}, {"code": "0202004"}]
+item = {"code": "0202001"}
+new_list = []
+
+new_list.append(item)
+
+print(new_list)

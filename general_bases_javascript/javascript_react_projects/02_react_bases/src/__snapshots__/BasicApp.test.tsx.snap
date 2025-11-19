@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BasicApp > Should match snapshot 1`] = `
+<div>
+  <h1>
+    Aplicacion Basica
+  </h1>
+  <p>
+    Bienvenidos a las bases de React !!
+  </p>
+  <div
+    data-testid="ItemCounter"
+    name="Caraotas negras P/U"
+    qty="1"
+  />
+  <div
+    data-testid="ItemCounter"
+    name="Frijoles P/U"
+    qty="2"
+  />
+  <div
+    data-testid="ItemCounter"
+    name="Queso duro por Kg"
+    qty="3"
+  />
+  <div
+    data-testid="ItemCounter"
+    name="Atun enlatado 100g"
+    qty="4"
+  />
+</div>
+`;
