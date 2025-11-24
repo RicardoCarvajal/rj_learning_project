@@ -1,36 +1,24 @@
+import { useState } from "react"
+import { GifList } from "./gifs/GifList"
+import { PreviousSearches } from "./gifs/PreviousSearches"
 import { mockGifs } from "./mock-data/gifs.mock"
+import { CustomHeader } from "./share/components/CustomHeader"
+import { SearchBar } from "./share/components/SearchBar"
 
 export const GifsApp = () => {
+    const [previousTerms, setPreviousTerms] = useState(["Superman"])
+    const handleTermClicked = (term:string)=>{
+        console.log(`Click in ${term}`)
+    }
+    const handleSearch = (query:string) => {
+        console.log(query)
+    }
     return (
         <>
-            <div className="content-center">
-                <h1>Buscardor de gifs</h1>
-                <p>Descubre y comparte el gif perfecto</p>
-            </div>
-            <div className="search-container">
-                <input type="text" placeholder="Buscar gifs" />
-                <button>Buscar</button>
-            </div>
-            <div className="previous-searches">
-                <h2>Búsquedas previas</h2>
-                <ul className="previous-searches-list">
-                    <li>Ricardo</li>
-                    <li>Ricardo</li>
-                    <li>Ricardo</li>
-                    <li>Ricardo</li>
-                </ul>
-            </div>
-            <div className="gifs-container">
-                {mockGifs.map((gif) => (
-                    <div key={gif.id} className="gif-card">
-                        <img src={gif.url} alt={gif.title} />
-                        <h3>{gif.title}</h3>
-                        <p>
-                            {gif.width}x{gif.height} (1.5mb)
-                        </p>
-                    </div>
-                ))}
-            </div>
+            <CustomHeader title="Mis Gifs" description="Los mejores gifs del mundo mundial"/>
+            <SearchBar placeholder_search="Busca los mejores gifs" onQuery={handleSearch}/>
+            <PreviousSearches searches={previousTerms} onLabelClicked={handleTermClicked}/>
+            <GifList gifs={mockGifs}/>
         </>
     )
 }
