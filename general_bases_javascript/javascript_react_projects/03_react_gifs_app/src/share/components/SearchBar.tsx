@@ -1,16 +1,24 @@
-import { useState, type KeyboardEvent } from "react"
+import { useEffect, useState, type KeyboardEvent } from "react"
 
 interface Props {
-    placeholder_search:string
-    onQuery: (query:string) => void
+    placeholder_search:string;
+    onQuery: (query:string) => void;
 }
 
 export const SearchBar = ({placeholder_search = "Buscar", onQuery}:Props) => {
   const [query, setQuery] = useState('');
 
+  useEffect(() => {// el useEffect se usa cuando se monta el componente
+    const timeoutId = setTimeout(() => {
+      onQuery(query)
+    },700)
+  return  () => { //El return se ejecuta cuando el componente se desmonta
+      clearTimeout(timeoutId)
+    }
+  },[query,onQuery])
+
   const handleSearch = () => {
-    onQuery(query);
-    setQuery('')
+      onQuery(query);    
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
