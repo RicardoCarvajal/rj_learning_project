@@ -1,0 +1,27 @@
+{
+    "name": "microfrontend-example",
+    "private": true,
+    "workspaces": [
+        "host",
+        "remote"
+    ],
+    "scripts": {
+        "dev:host": "cd host && npm run dev",
+        "dev:remote": "cd remote && npm run dev",
+        "preview:remote": "cd remote && npm run preview -- --host localhost --port 4173",
+        "build:host": "cd host && npm run build",
+        "build:remote": "cd remote && npm run build"
+    },
+    "devDependencies": {
+        "@originjs/vite-plugin-federation": "^1.4.1",
+        "@types/react": "^18.3.0",
+        "@types/react-dom": "^18.3.0",
+        "@vitejs/plugin-react": "^4.3.1",
+        "typescript": "^5.5.0",
+        "vite": "^5.4.1"
+    },
+    "dependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    }
+}
